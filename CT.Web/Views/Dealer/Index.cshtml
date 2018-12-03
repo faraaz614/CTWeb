@@ -1,0 +1,174 @@
+﻿@{
+    ViewBag.Title = "Dealers";
+}
+<div>
+    <div>
+        <div class="mr-auto pl-2">
+            <span class="d-none d-md-inline-block">
+
+                <!-- Dynamic content wrapper -->
+                <span id="dynamicContentWrapper-mainNavbar" class="dynamic-content">
+                    <a alt="Dynamic: Subscribe" id="navbar-jquery-dynamic-newsletter" class="btn btn-dark-green btn-sm my-0" href="#" role="button">
+                        <span class="d-none d-lg-inline-block mr-1">Add dealer</span><i class="fa fa-envelope"></i>
+                    </a>
+                </span>
+
+                <!--Angular-->
+                <a id="navbar-category-gettingstarted-jquery" class="btn btn-info btn-sm my-0 waves-effect waves-light" href="#" role="button">
+                    <span class="d-none d-lg-inline-block mr-1">Activate dealer</span>
+                    <i class="fa fa-download"></i>
+                </a>
+                <a id="navbar-category-tutorial-jquery" class="btn btn-info btn-sm my-0 waves-effect waves-light" href="#" role="button">
+                    <span class="d-none d-lg-inline-block mr-1">CLose deal</span>
+                    <i class="fa fa-graduation-cap"></i>
+                </a>
+                <span id="dynamicContentWrapper-mainNavbar3" class="dynamic-content"><a id="navbar-jquery-category-pro" class="btn btn-unique btn-sm my-0" href="#" role="button"><span class="d-none d-lg-inline-block mr-1">Go Pro</span><i class="fa fa-diamond"></i></a></span>
+                <a id="navbar-category-bundle-jquery" class="btn btn-indigo btn-sm my-0 waves-effect waves-light" href="@Url.Action("AddDeal","Dealer")" role="button">
+                    <span class="badge red">New</span>
+                    <span class="d-none d-lg-inline-block mr-1">Open New deal</span>
+                    <i class="fa fa-gift"></i>
+                </a>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title ">Manage Dealers</h4>
+                <p class="card-category">Activate/Deactivate</p>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class=" text-primary">
+                            <tr>
+                                <th>
+                                    ID
+                                </th>
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Area
+                                </th>
+                                <th>
+                                    City
+                                </th>
+                                <th>
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    1
+                                </td>
+                                <td>
+                                    Dakota Rice
+                                </td>
+                                <td>
+                                    Niger
+                                </td>
+                                <td>
+                                    Oud-Turnhout
+                                </td>
+                                <td class="text-primary">
+                                    <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Deactivate</button></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    2
+                                </td>
+                                <td>
+                                    Minerva Hooper
+                                </td>
+                                <td>
+                                    Curaçao
+                                </td>
+                                <td>
+                                    Sinaai-Waas
+                                </td>
+                                <td class="text-primary">
+                                    <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Deactivate</button></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    3
+                                </td>
+                                <td>
+                                    Sage Rodriguez
+                                </td>
+                                <td>
+                                    Netherlands
+                                </td>
+                                <td>
+                                    Baileux
+                                </td>
+                                <td class="text-primary">
+                                    <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Deactivate</button></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    4
+                                </td>
+                                <td>
+                                    Philip Chaney
+                                </td>
+                                <td>
+                                    Korea, South
+                                </td>
+                                <td>
+                                    Overland Park
+                                </td>
+                                <td class="text-primary">
+                                    <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Deactivate</button></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    5
+                                </td>
+                                <td>
+                                    Doris Greene
+                                </td>
+                                <td>
+                                    Malawi
+                                </td>
+                                <td>
+                                    Feldkirchen in Kärnten
+                                </td>
+                                <td class="text-primary">
+                                    <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Deactivate</button></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    6
+                                </td>
+                                <td>
+                                    Mason Porter
+                                </td>
+                                <td>
+                                    Chile
+                                </td>
+                                <td>
+                                    Gloucester
+                                </td>
+                                <td class="text-primary">
+                                    <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Deactivate</button></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

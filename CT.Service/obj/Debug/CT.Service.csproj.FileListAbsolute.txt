@@ -1,0 +1,11 @@
+D:\CT_Admin\dayya\CT\CT.Service\bin\Debug\CT.Service.dll.config
+D:\CT_Admin\dayya\CT\CT.Service\bin\Debug\CT.Service.dll
+D:\CT_Admin\dayya\CT\CT.Service\bin\Debug\CT.Service.pdb
+D:\CT_Admin\dayya\CT\CT.Service\obj\Debug\CT.Service.csproj.CoreCompileInputs.cache
+D:\CT_Admin\dayya\CT\CT.Service\obj\Debug\CT.Service.csproj.CopyComplete
+D:\CT_Admin\dayya\CT\CT.Service\obj\Debug\CT.Service.dll
+D:\CT_Admin\dayya\CT\CT.Service\obj\Debug\CT.Service.pdb
+D:\CT_Admin\dayya\CT\CT.Service\bin\Debug\log4net.dll
+D:\CT_Admin\dayya\CT\CT.Service\bin\Debug\log4net.xml
+D:\CT_Admin\dayya\CT\CT.Service\bin\Debug\Dapper.dll
+D:\CT_Admin\dayya\CT\CT.Service\bin\Debug\Dapper.xml
