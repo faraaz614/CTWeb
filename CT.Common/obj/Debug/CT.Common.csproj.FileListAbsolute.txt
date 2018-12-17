@@ -1,0 +1,6 @@
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Common\bin\Debug\CT.Common.dll
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Common\bin\Debug\CT.Common.pdb
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Common\obj\Debug\CT.Common.csproj.CoreCompileInputs.cache
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Common\obj\Debug\CT.Common.dll
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Common\obj\Debug\CT.Common.pdb
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Common\obj\Debug\CT.Common.csprojResolveAssemblyReference.cache

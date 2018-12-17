@@ -75,5 +75,14 @@
     <Build Include="dbo\Functions\UDF_CT_SuccessMessage.sql" />
     <Build Include="dbo\Stored Procedures\USP_CT_SaveUser.sql" />
     <Build Include="dbo\Stored Procedures\USP_CT_GetErrorInfo.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_UpdateUser.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_GetUsers.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_GetUserByID.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_DeleteUserByID.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_UpdateVehicle.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_SaveVehicle.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_GetVehicles.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_GetVehicleByID.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_DeleteVehicleByID.sql" />
   </ItemGroup>
 </Project>

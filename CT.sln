@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.28010.2050
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CT.Web", "CT.Web\CT.Web.csproj", "{FD60C8EB-CF3F-467D-B440-1E6B5A62D526}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CT.APIService", "CT.APIService\CT.APIService.csproj", "{F62D6F00-10E5-4E52-9E31-BA111962F41D}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CT.DB", "CT.DB\CT.DB.sqlproj", "{F30E793D-128C-4AD0-9EED-11CEF727CD9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CT.Common", "CT.Common\CT.Common.csproj", "{0434B0DB-C1BB-4293-B61A-E9A6A8DD7EA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{F30E793D-128C-4AD0-9EED-11CEF727CD9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F30E793D-128C-4AD0-9EED-11CEF727CD9F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F30E793D-128C-4AD0-9EED-11CEF727CD9F}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{0434B0DB-C1BB-4293-B61A-E9A6A8DD7EA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0434B0DB-C1BB-4293-B61A-E9A6A8DD7EA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0434B0DB-C1BB-4293-B61A-E9A6A8DD7EA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0434B0DB-C1BB-4293-B61A-E9A6A8DD7EA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

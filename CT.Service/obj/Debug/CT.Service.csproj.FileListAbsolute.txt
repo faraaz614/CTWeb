@@ -9,3 +9,28 @@ D:\CT_Admin\dayya\CT\CT.Service\bin\Debug\log4net.dll
 D:\CT_Admin\dayya\CT\CT.Service\bin\Debug\log4net.xml
 D:\CT_Admin\dayya\CT\CT.Service\bin\Debug\Dapper.dll
 D:\CT_Admin\dayya\CT\CT.Service\bin\Debug\Dapper.xml
+D:\CT_Admin\CTWeb-master\CTWeb-master\CT.Service\bin\Debug\CT.Service.dll.config
+D:\CT_Admin\CTWeb-master\CTWeb-master\CT.Service\bin\Debug\CT.Service.dll
+D:\CT_Admin\CTWeb-master\CTWeb-master\CT.Service\bin\Debug\CT.Service.pdb
+D:\CT_Admin\CTWeb-master\CTWeb-master\CT.Service\bin\Debug\Dapper.dll
+D:\CT_Admin\CTWeb-master\CTWeb-master\CT.Service\bin\Debug\log4net.dll
+D:\CT_Admin\CTWeb-master\CTWeb-master\CT.Service\bin\Debug\Dapper.xml
+D:\CT_Admin\CTWeb-master\CTWeb-master\CT.Service\bin\Debug\log4net.xml
+D:\CT_Admin\CTWeb-master\CTWeb-master\CT.Service\obj\Debug\CT.Service.csprojAssemblyReference.cache
+D:\CT_Admin\CTWeb-master\CTWeb-master\CT.Service\obj\Debug\CT.Service.csproj.CoreCompileInputs.cache
+D:\CT_Admin\CTWeb-master\CTWeb-master\CT.Service\obj\Debug\CT.Service.csproj.CopyComplete
+D:\CT_Admin\CTWeb-master\CTWeb-master\CT.Service\obj\Debug\CT.Service.dll
+D:\CT_Admin\CTWeb-master\CTWeb-master\CT.Service\obj\Debug\CT.Service.pdb
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\obj\Debug\CT.Service.csprojResolveAssemblyReference.cache
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\obj\Debug\CT.Service.csproj.CoreCompileInputs.cache
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\bin\Debug\CT.Service.dll.config
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\bin\Debug\CT.Service.dll
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\bin\Debug\CT.Service.pdb
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\bin\Debug\CT.Common.dll
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\bin\Debug\Dapper.dll
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\bin\Debug\log4net.dll
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\bin\Debug\CT.Common.pdb
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\bin\Debug\Dapper.xml
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\bin\Debug\log4net.xml
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\obj\Debug\CT.Service.dll
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\obj\Debug\CT.Service.pdb

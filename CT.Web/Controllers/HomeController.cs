@@ -1,14 +1,27 @@
-﻿using CT.Service.UserService;
+﻿using CT.Common.Common;
+using CT.Web.Common;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace CT.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            UserService userService = new UserService();
-            //Service.Entities.BaseEntity info = userService.SaveDealer(new Service.Entities.UserEntity { FirstName = "Shaik", LastName = "Mohammad", UserName = "rafeeq786@gmail.com", Password = "123456", ProfilePic = "rafeeq.jpg" });
+            bool status = true;//db data
+            string message = "";//db data
+            if (status)
+            {
+                TempData[CommonUtility.Success.ToString()] = message;
+            }
+            else
+            {
+                TempData[CommonUtility.Error.ToString()] = message;
+            }
             return View();
         }
 

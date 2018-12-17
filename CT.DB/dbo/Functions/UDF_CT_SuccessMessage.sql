@@ -1,4 +1,4 @@
-﻿CREATE FUNCTION UDF_CT_SuccessMessage
+﻿CREATE FUNCTION [dbo].[UDF_CT_SuccessMessage]
 (
     @ReturnType nvarchar(50)--like insert,update,delete
 )
@@ -18,6 +18,14 @@ else if (@ReturnType = 'update')
 else if (@ReturnType = 'exists')
 	begin
 	SET @Message='User name already exists';
+	end
+else if (@ReturnType = 'delete')
+	begin
+	SET @Message='Record Deleted Successfully';
+	end
+else if (@ReturnType = 'denied')
+	begin
+SET @Message='Permission Denied';
 	end
 else
     begin

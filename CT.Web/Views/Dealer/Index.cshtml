@@ -1,4 +1,6 @@
-﻿@{
+﻿@model CT.Common.Common.BaseUserEntity
+@{
+    var dealers = Model.ListUsers;
     ViewBag.Title = "Dealers";
 }
 <div>
@@ -8,13 +10,13 @@
 
                 <!-- Dynamic content wrapper -->
                 <span id="dynamicContentWrapper-mainNavbar" class="dynamic-content">
-                    <a alt="Dynamic: Subscribe" id="navbar-jquery-dynamic-newsletter" class="btn btn-dark-green btn-sm my-0" href="#" role="button">
-                        <span class="d-none d-lg-inline-block mr-1">Add dealer</span><i class="fa fa-envelope"></i>
+                    <a alt="Dynamic: Subscribe" id="navbar-jquery-dynamic-newsletter" class="btn btn-primary btn-sm my-0" href="@Url.Action("AddDealer","Dealer")" role="button">
+                        <span class="d-none d-lg-inline-block mr-1">Add dealer</span>
                     </a>
                 </span>
 
                 <!--Angular-->
-                <a id="navbar-category-gettingstarted-jquery" class="btn btn-info btn-sm my-0 waves-effect waves-light" href="#" role="button">
+                @*<a id="navbar-category-gettingstarted-jquery" class="btn btn-info btn-sm my-0 waves-effect waves-light" href="#" role="button">
                     <span class="d-none d-lg-inline-block mr-1">Activate dealer</span>
                     <i class="fa fa-download"></i>
                 </a>
@@ -23,11 +25,11 @@
                     <i class="fa fa-graduation-cap"></i>
                 </a>
                 <span id="dynamicContentWrapper-mainNavbar3" class="dynamic-content"><a id="navbar-jquery-category-pro" class="btn btn-unique btn-sm my-0" href="#" role="button"><span class="d-none d-lg-inline-block mr-1">Go Pro</span><i class="fa fa-diamond"></i></a></span>
-                <a id="navbar-category-bundle-jquery" class="btn btn-indigo btn-sm my-0 waves-effect waves-light" href="@Url.Action("AddDeal","Dealer")" role="button">
+                <a id="navbar-category-bundle-jquery" class="btn btn-indigo btn-sm my-0 waves-effect waves-light" href="#" role="button">
                     <span class="badge red">New</span>
                     <span class="d-none d-lg-inline-block mr-1">Open New deal</span>
                     <i class="fa fa-gift"></i>
-                </a>
+                </a>*@
             </span>
         </div>
     </div>
@@ -48,13 +50,13 @@
                                     ID
                                 </th>
                                 <th>
-                                    Name
+                                    First Name
                                 </th>
                                 <th>
-                                    Area
+                                    Last Name
                                 </th>
                                 <th>
-                                    City
+                                    Username
                                 </th>
                                 <th>
                                     Action
@@ -62,108 +64,27 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    1
-                                </td>
-                                <td>
-                                    Dakota Rice
-                                </td>
-                                <td>
-                                    Niger
-                                </td>
-                                <td>
-                                    Oud-Turnhout
-                                </td>
-                                <td class="text-primary">
-                                    <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Deactivate</button></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    2
-                                </td>
-                                <td>
-                                    Minerva Hooper
-                                </td>
-                                <td>
-                                    Curaçao
-                                </td>
-                                <td>
-                                    Sinaai-Waas
-                                </td>
-                                <td class="text-primary">
-                                    <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Deactivate</button></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    3
-                                </td>
-                                <td>
-                                    Sage Rodriguez
-                                </td>
-                                <td>
-                                    Netherlands
-                                </td>
-                                <td>
-                                    Baileux
-                                </td>
-                                <td class="text-primary">
-                                    <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Deactivate</button></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    4
-                                </td>
-                                <td>
-                                    Philip Chaney
-                                </td>
-                                <td>
-                                    Korea, South
-                                </td>
-                                <td>
-                                    Overland Park
-                                </td>
-                                <td class="text-primary">
-                                    <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Deactivate</button></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    5
-                                </td>
-                                <td>
-                                    Doris Greene
-                                </td>
-                                <td>
-                                    Malawi
-                                </td>
-                                <td>
-                                    Feldkirchen in Kärnten
-                                </td>
-                                <td class="text-primary">
-                                    <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Deactivate</button></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    6
-                                </td>
-                                <td>
-                                    Mason Porter
-                                </td>
-                                <td>
-                                    Chile
-                                </td>
-                                <td>
-                                    Gloucester
-                                </td>
-                                <td class="text-primary">
-                                    <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Deactivate</button></span>
-                                </td>
-                            </tr>
+                            @foreach (var dealer in dealers)
+                            {
+                                <tr>
+                                    <td>
+                                        @dealer.ID
+                                    </td>
+                                    <td>
+                                        @dealer.FirstName
+                                    </td>
+                                    <td>
+                                        @dealer.LastName
+                                    </td>
+                                    <td>
+                                        @dealer.UserName
+                                    </td>
+                                    <td class="text-primary">
+                                        <a href="@Url.Action("AddDealer", "Dealer",new { dealerID = dealer.ID })" class="btn btn-unique btn-rounded btn-sm my-0">Edit</a>
+                                        <a href="@Url.Action("DeleteDealer", "Dealer",new { dealerID = dealer.ID })" class="btn btn-danger btn-rounded btn-sm my-0">Delete</a>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>

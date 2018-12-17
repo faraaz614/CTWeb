@@ -21,7 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>7.2</LangVersion>
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -54,17 +54,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseService.cs" />
-    <Compile Include="Entities\BaseEntity.cs" />
-    <Compile Include="Entities\GenericErrorInfo.cs" />
-    <Compile Include="Entities\ResponseStatus.cs" />
-    <Compile Include="Entities\UserEntity.cs" />
-    <Compile Include="Literals\UserLiterals.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ConnectionFactory.cs" />
     <Compile Include="Repository\GenericRepository.cs" />
     <Compile Include="Repository\IConnectionFactory.cs" />
     <Compile Include="Repository\IGenericRepository.cs" />
     <Compile Include="UserService\UserService.cs" />
+    <Compile Include="VechileService\VechileService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -72,6 +68,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Logs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ConnectionFactory.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CT.Common\CT.Common.csproj">
+      <Project>{0434B0DB-C1BB-4293-B61A-E9A6A8DD7EA6}</Project>
+      <Name>CT.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

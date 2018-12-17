@@ -30,6 +30,14 @@
 
                 Tip 2: you can also add an image using data-image tag
             -->
+            @if (TempData[CT.Web.Common.CommonUtility.Success.ToString()]!=null)
+            {
+                <div class="alert alert-success">@Convert.ToString(TempData[CT.Web.Common.CommonUtility.Success.ToString()])</div>
+            }
+            else
+            {
+                <div class="alert alert-warning">@Convert.ToString(TempData[CT.Web.Common.CommonUtility.Error.ToString()])</div>
+            }
             <div class="logo">
                 <a href="http://cartimez.in/" class="simple-text logo-normal">
                     <img src="http://cartimez.in/wp-content/uploads/2018/07/cartimez-logo-new.png" style="width: 235px;" title="Home" alt="Logo">

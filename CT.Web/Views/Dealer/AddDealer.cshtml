@@ -1,0 +1,72 @@
+﻿@model CT.Common.Common.UserEntity
+@{
+    ViewBag.Title = "Add/Update Dealer";
+}
+
+<h3>Add/Update Dealer</h3>
+<div class="row ui-widget-content">
+    <div class="card-body">
+        @using (Html.BeginForm("AddDealer", "Dealer"))
+        {
+            @Html.HiddenFor(x=>x.ID)
+            <div class="form-group">
+                <label for="Engine">First Name</label>
+                @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control mb-2" })
+            </div>
+            <div class="form-group">
+                <label for="Body">Last Name</label>
+                @Html.TextBoxFor(x => x.LastName, new { @class = "form-control mb-2" })
+            </div>
+            <div class="form-group">
+                <label for="Steering">Username</label>
+                @Html.TextBoxFor(x => x.UserName, new { @class = "form-control mb-2" })
+                @Html.ValidationMessageFor(x => x.UserName)
+            </div>
+            <div class="form-group">
+                <label for="Transmission">Password</label>
+                @Html.TextBoxFor(x => x.Password, new { @class = "form-control mb-2" })
+            </div>
+            <div class="form-group">
+                <label for="form1">Upload Picture</label>
+                <div class="row fileupload-buttonbar">
+                    <div class="col-lg-7">
+                        <!-- The fileinput-button span is used to style the file input field as button -->
+                        <span class="btn btn-success fileinput-button">
+                            <i class="material-icons">add</i>
+                            <span>Add files...</span>
+                            @Html.TextBoxFor(x => x.ProfilePic, new { @type = "file" })
+                        </span>
+                        <button type="submit" class="btn btn-primary start">
+                            <i class="material-icons">file_upload</i>
+                            <span>Start upload</span>
+                        </button>
+                        <button type="reset" class="btn btn-warning cancel">
+                            <i class="material-icons">cancel</i>
+                            <span>Cancel upload</span>
+                        </button>
+                        <button type="button" class="btn btn-danger delete">
+                            <i class="material-icons">delete</i>
+                            <span>Delete</span>
+                        </button>
+                        <input type="checkbox" class="toggle">
+                        <!-- The global file processing state -->
+                        <span class="fileupload-process"></span>
+                    </div>
+                    <!-- The global progress state -->
+                    <div class="col-lg-5 fileupload-progress fade">
+                        <!-- The global progress bar -->
+                        <div class="progress progress-sm progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                        </div>
+                        <!-- The extended global progress state -->
+                        <div class="progress-extended">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-success fileinput-button" value="Save">
+                <a href="@Url.Action("Index", "Dealer")" class="btn btn-warning btn-rounded">Cancel</a>
+            </div>
+        }
+    </div>
+</div>

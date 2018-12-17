@@ -5,6 +5,6 @@
         /// <summary>
         /// Store proc name : USP_CT_SaveUser
         /// </summary>
-        internal const string SaveUser = "EXEC USP_CT_SaveUser";
+        internal const string SaveUser = "USP_CT_SaveUser";
     }
 }
