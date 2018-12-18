@@ -21,8 +21,6 @@ D:\CT_Admin\CTWeb-master\CTWeb-master\CT.Service\obj\Debug\CT.Service.csproj.Cor
 D:\CT_Admin\CTWeb-master\CTWeb-master\CT.Service\obj\Debug\CT.Service.csproj.CopyComplete
 D:\CT_Admin\CTWeb-master\CTWeb-master\CT.Service\obj\Debug\CT.Service.dll
 D:\CT_Admin\CTWeb-master\CTWeb-master\CT.Service\obj\Debug\CT.Service.pdb
-C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\obj\Debug\CT.Service.csprojResolveAssemblyReference.cache
-C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\obj\Debug\CT.Service.csproj.CoreCompileInputs.cache
 C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\bin\Debug\CT.Service.dll.config
 C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\bin\Debug\CT.Service.dll
 C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\bin\Debug\CT.Service.pdb
@@ -32,5 +30,7 @@ C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\bin\Debu
 C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\bin\Debug\CT.Common.pdb
 C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\bin\Debug\Dapper.xml
 C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\bin\Debug\log4net.xml
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\obj\Debug\CT.Service.csprojResolveAssemblyReference.cache
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\obj\Debug\CT.Service.csproj.CoreCompileInputs.cache
 C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\obj\Debug\CT.Service.dll
 C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\obj\Debug\CT.Service.pdb

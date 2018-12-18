@@ -13,5 +13,6 @@ namespace CT.Common.Literals
         public const string DeleteVehicleByID = "USP_CT_DeleteVehicleByID";
         public const string GetVehicleByID = "USP_CT_GetVehicleByID";
         public const string GetVehicles = "USP_CT_GetVehicles";
+        public const string AddVehicleDetails = "USP_CT_AddVehicleDetails";
     }
 }

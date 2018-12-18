@@ -98,18 +98,12 @@ namespace CT.Service.VehicleService
             {
                 Log.Info("----Info DeleteVehicleByID method start----");
                 Log.Info("@VehicleID" + VehicleEntity.ID);
-                Log.Info("@VehicleName" + VehicleEntity.VehicleName);
-                Log.Info("@Description" + VehicleEntity.Description);
-                Log.Info("@IsDealClosed" + VehicleEntity.IsDealClosed);
                 Log.Info("Store Proc Name : USP_CT_DeleteVehicleByID");
                 Log.Info("----Info DeleteVehicleByID method end----");
                 DynamicParameters param = new DynamicParameters();
                 param.Add("@UserID", VehicleEntity.UserID);
                 param.Add("@RoleID", VehicleEntity.RoleID);
                 param.Add("@VehicleID", VehicleEntity.ID);
-                param.Add("@VehicleName", VehicleEntity.VehicleName);
-                param.Add("@Description", VehicleEntity.Description);
-                param.Add("@IsDealClosed", VehicleEntity.IsDealClosed);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
                 entity.GenericErrorInfo = GetSingleItem<GenericErrorInfo>(CommandType.StoredProcedure, VehicleLiterals.DeleteVehicleByID, param);
@@ -135,20 +129,45 @@ namespace CT.Service.VehicleService
             BaseVehicleEntity entity = new BaseVehicleEntity();
             try
             {
-                Log.Info("----Info GetVehicleByID method start----");
-                Log.Info("@VehicleID" + VehicleEntity.ID);
-                Log.Info("Store Proc Name : USP_CT_GetVehicleByID");
-                Log.Info("----Info GetVehicleByID method end----");
-                DynamicParameters param = new DynamicParameters();
-                param.Add("@UserID", VehicleEntity.UserID);
-                param.Add("@RoleID", VehicleEntity.RoleID);
-                param.Add("@VehicleID", VehicleEntity.ID);
-                param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
-                param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
-                entity.VehicleEntity = GetSingleItem<VehicleEntity>(CommandType.StoredProcedure, VehicleLiterals.GetVehicleByID, param);
-                entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
-                entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
-                Log.Info("----Info GetVehicleByID method Exit----");
+                if (VehicleEntity.ID > 0)
+                {
+                    Log.Info("----Info GetVehicleByID method start----");
+                    Log.Info("@VehicleID" + VehicleEntity.ID);
+                    Log.Info("Store Proc Name : USP_CT_GetVehicleByID");
+                    Log.Info("----Info GetVehicleByID method end----");
+                    DynamicParameters param = new DynamicParameters();
+                    param.Add("@UserID", VehicleEntity.UserID);
+                    param.Add("@RoleID", VehicleEntity.RoleID);
+                    param.Add("@VehicleID", VehicleEntity.ID);
+                    param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                    param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
+                    var vehcile = GetMultipleList(CommandType.StoredProcedure, VehicleLiterals.GetVehicleByID, param,
+                        x => x.Read<VehicleEntity>().FirstOrDefault(),
+                        x => x.Read<VehicleDetailEntity>().FirstOrDefault(),
+                        x => x.Read<VehicleImageEntity>().FirstOrDefault(),
+                        x => x.Read<DocumentDetailEntity>().FirstOrDefault(),
+                        x => x.Read<TechnicalDetailEntity>().FirstOrDefault());
+                    entity.VehicleEntity = (VehicleEntity)vehcile[0];
+                    if (entity.VehicleEntity != null)
+                    {
+                        entity.VehicleEntity.VehicleDetail = (VehicleDetailEntity)vehcile[1];
+                        entity.VehicleEntity.VehicleImage = (VehicleImageEntity)vehcile[2];
+                        entity.VehicleEntity.DocumentDetail = (DocumentDetailEntity)vehcile[3];
+                        entity.VehicleEntity.TechnicalDetail = (TechnicalDetailEntity)vehcile[4];
+                    }
+                    entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
+                    entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
+                    Log.Info("----Info GetVehicleByID method Exit----");
+                }
+                DynamicParameters param1 = new DynamicParameters();
+                param1.Add("@UserID", VehicleEntity.UserID);
+                param1.Add("@RoleID", VehicleEntity.RoleID);
+                param1.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                param1.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
+                var list = GetItems<FuelTypeEntity>(CommandType.StoredProcedure, CommonLiterals.GetFuelType, param1).Select(x => new Combo { ID = x.ID, Value = x.Type }).ToList();
+                entity.VehicleEntity.VehicleDetail.FuelTypeList = list;
+                entity.ResponseStatus.Status = param1.Get<dynamic>("@Status");
+                entity.ResponseStatus.Message = param1.Get<dynamic>("@Message");
                 return entity;
             }
             catch (Exception ex)
@@ -187,6 +206,57 @@ namespace CT.Service.VehicleService
                 entity.ResponseStatus.Status = 0;
                 entity.ResponseStatus.Message = ex.Message;
                 Log.Error("Error in GetVehicles Method");
+                Log.Error("Error occured time : " + DateTime.UtcNow);
+                Log.Error("Error message : " + ex.Message);
+                Log.Error("Error StackTrace : " + ex.StackTrace);
+                return entity;
+            }
+        }
+
+        public BaseEntity AddVehicleDetails(VehicleEntity VehicleEntity)
+        {
+            BaseEntity entity = new BaseEntity();
+            try
+            {
+                Log.Info("----Info AddVehicleDetails method start----");
+                Log.Info("@UserID" + VehicleEntity.UserID);
+                Log.Info("@RoleID" + VehicleEntity.RoleID);
+                Log.Info("@VehicleID" + VehicleEntity.ID);
+                Log.Info("@Make" + VehicleEntity.VehicleDetail.Make);
+                Log.Info("@Model" + VehicleEntity.VehicleDetail.Model);
+                Log.Info("@Variant" + VehicleEntity.VehicleDetail.Variant);
+                Log.Info("@YearOfManufacturing" + VehicleEntity.VehicleDetail.YearOfManufacturing);
+                Log.Info("@FuelTypeID" + VehicleEntity.VehicleDetail.FuelTypeID);
+                Log.Info("@Kilometers" + VehicleEntity.VehicleDetail.Kilometers);
+                Log.Info("@Transmission" + VehicleEntity.VehicleDetail.Transmission);
+                Log.Info("@RegistrationNo" + VehicleEntity.VehicleDetail.RegistrationNo);
+                Log.Info("Store Proc Name : USP_CT_SaveVehicle");
+                Log.Info("----Info AddVehicleDetails method end----");
+                DynamicParameters param = new DynamicParameters();
+                param.Add("@UserID", VehicleEntity.UserID);
+                param.Add("@RoleID", VehicleEntity.RoleID);
+                param.Add("@VehicleID", VehicleEntity.ID);
+                param.Add("@Make", VehicleEntity.VehicleDetail.Make);
+                param.Add("@Model", VehicleEntity.VehicleDetail.Model);
+                param.Add("@Variant", VehicleEntity.VehicleDetail.Variant);
+                param.Add("@YearOfManufacturing", VehicleEntity.VehicleDetail.YearOfManufacturing);
+                param.Add("@FuelTypeID", VehicleEntity.VehicleDetail.FuelTypeID);
+                param.Add("@Kilometers", VehicleEntity.VehicleDetail.Kilometers);
+                param.Add("@Transmission", VehicleEntity.VehicleDetail.Transmission);
+                param.Add("@RegistrationNo", VehicleEntity.VehicleDetail.RegistrationNo);
+                param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
+                entity.GenericErrorInfo = GetSingleItem<GenericErrorInfo>(CommandType.StoredProcedure, VehicleLiterals.AddVehicleDetails, param);
+                entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
+                entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
+                Log.Info("----Info AddVehicleDetails method Exit----");
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                entity.ResponseStatus.Status = 0;
+                entity.ResponseStatus.Message = ex.Message;
+                Log.Error("Error in AddVehicleDetails Method");
                 Log.Error("Error occured time : " + DateTime.UtcNow);
                 Log.Error("Error message : " + ex.Message);
                 Log.Error("Error StackTrace : " + ex.StackTrace);

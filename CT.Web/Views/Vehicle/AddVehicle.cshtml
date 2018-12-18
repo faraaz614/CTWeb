@@ -1,114 +1,124 @@
 ﻿@model CT.Common.Entities.VehicleEntity
-    @{
-        ViewBag.Title = "AddVehicle";
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
+@{
+    ViewBag.Title = "AddVehicle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var fuellist = Model.VehicleDetail.FuelTypeList.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Value }).ToList();
+}
 
-    <div id="accordion">
-        <h3>Add Car</h3>
-        @using (Html.BeginForm("AddVehicle", "Vehicle", FormMethod.Post))
-        {
-            @Html.HiddenFor(x=>x.ID)
-            <div class="row">
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="form1">Car Name</label>
-                        @Html.TextBoxFor(x => x.VehicleName, new { @class = "form-control" })
-                    </div>
-                    <div class="form-group">
-                        <label for="form1">Description</label>
-                        @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
-                    </div>
-                    <div class="form-group">
-                        <label for="form1">Is Deal Closed</label>
-                        <div class="form-check form-check-inline">
-                            @Html.RadioButtonFor(x=>x.IsDealClosed,true,new { @class = "form-check-input", @checked = true })
-                            <label class="form-check-label">Yes</label>
-                        </div>
-                        /
-                        <div class="form-check form-check-inline">
-                            @Html.RadioButtonFor(x => x.IsDealClosed, false, new { @class = "form-check-input" })
-                            <label class="form-check-label">No</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="form1">Is Active</label>
-                        <div class="form-check form-check-inline">
-                            @Html.RadioButtonFor(x => x.IsActive, true, new { @class = "form-check-input", @checked = true })
-                            <label class="form-check-label" for="materialInline1">Yes</label>
-                        </div>
-                        /
-                        <div class="form-check form-check-inline">
-                            @Html.RadioButtonFor(x => x.IsActive, false, new { @class = "form-check-input" })
-                            <label class="form-check-label" for="materialInline1">No</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="form1">Upload Pictures</label>
-                        <div class="row fileupload-buttonbar">
-                            <div class="col-lg-7">
-                                <!-- The fileinput-button span is used to style the file input field as button -->
-                                <span class="btn btn-success fileinput-button">
-                                    <i class="material-icons">add</i>
-                                    <span>Add files...</span>
-                                    <input type="file" name="files[]" multiple="">
-                                </span>
-                                <button type="submit" class="btn btn-primary start">
-                                    <i class="material-icons">file_upload</i>
-                                    <span>Start upload</span>
-                                </button>
-                                <button type="reset" class="btn btn-warning cancel">
-                                    <i class="material-icons">cancel</i>
-                                    <span>Cancel upload</span>
-                                </button>
-                                <button type="button" class="btn btn-danger delete">
-                                    <i class="material-icons">delete</i>
-                                    <span>Delete</span>
-                                </button>
-                                <input type="checkbox" class="toggle">
-                                <!-- The global file processing state -->
-                                <span class="fileupload-process"></span>
-                            </div>
-                            <!-- The global progress state -->
-                            <div class="col-lg-5 fileupload-progress fade">
-                                <!-- The global progress bar -->
-                                <div class="progress progress-sm progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                                    <div class="progress-bar progress-bar-success" style="width:0%;"></div>
-                                </div>
-                                <!-- The extended global progress state -->
-                                <div class="progress-extended">&nbsp;</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="fileupload-wrapper">
-                        <input type="file" id="input-file-now" class="mdb_upload" />
-                    </div>
-                </div>
-            </div>
-            <input type="submit" value="Save" class="btn btn-success cancel" />
-            <a href="@Url.Action("Index", "Vehicle")" class="btn btn-warning btn-rounded">Cancel</a>
-        }
-        <h3>Vehicle Details</h3>
+<div id="accordion">
+    <h3>Add Car</h3>
+    @using (Html.BeginForm("AddVehicle", "Vehicle", FormMethod.Post))
+    {
+        @Html.HiddenFor(x => x.ID)
         <div class="row">
             <div class="card-body">
-                <form>
+                <div class="form-group">
+                    <label for="form1">Car Name</label>
+                    @Html.TextBoxFor(x => x.VehicleName, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label for="form1">Description</label>
+                    @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label for="form1">Is Deal Closed</label>
+                    <div class="form-check form-check-inline">
+                        @Html.RadioButtonFor(x => x.IsDealClosed, true, new { @class = "form-check-input", @checked = true })
+                        <label class="form-check-label">Yes</label>
+                    </div>
+                    /
+                    <div class="form-check form-check-inline">
+                        @Html.RadioButtonFor(x => x.IsDealClosed, false, new { @class = "form-check-input" })
+                        <label class="form-check-label">No</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="form1">Is Active</label>
+                    <div class="form-check form-check-inline">
+                        @Html.RadioButtonFor(x => x.IsActive, true, new { @class = "form-check-input", @checked = true })
+                        <label class="form-check-label" for="materialInline1">Yes</label>
+                    </div>
+                    /
+                    <div class="form-check form-check-inline">
+                        @Html.RadioButtonFor(x => x.IsActive, false, new { @class = "form-check-input" })
+                        <label class="form-check-label" for="materialInline1">No</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="form1">Upload Pictures</label>
+                    <div class="row fileupload-buttonbar">
+                        <div class="col-lg-7">
+                            <!-- The fileinput-button span is used to style the file input field as button -->
+                            <span class="btn btn-success fileinput-button">
+                                <i class="material-icons">add</i>
+                                <span>Add files...</span>
+                                <input type="file" name="files[]" multiple="">
+                            </span>
+                            <button type="submit" class="btn btn-primary start">
+                                <i class="material-icons">file_upload</i>
+                                <span>Start upload</span>
+                            </button>
+                            <button type="reset" class="btn btn-warning cancel">
+                                <i class="material-icons">cancel</i>
+                                <span>Cancel upload</span>
+                            </button>
+                            <button type="button" class="btn btn-danger delete">
+                                <i class="material-icons">delete</i>
+                                <span>Delete</span>
+                            </button>
+                            <input type="checkbox" class="toggle">
+                            <!-- The global file processing state -->
+                            <span class="fileupload-process"></span>
+                        </div>
+                        <!-- The global progress state -->
+                        <div class="col-lg-5 fileupload-progress fade">
+                            <!-- The global progress bar -->
+                            <div class="progress progress-sm progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                            </div>
+                            <!-- The extended global progress state -->
+                            <div class="progress-extended">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fileupload-wrapper">
+                    <input type="file" id="input-file-now" class="mdb_upload" />
+                </div>
+            </div>
+        </div>
+        <input type="submit" value="Save" class="btn btn-success cancel" />
+        if (Model.ID > 0)
+        {
+            <a href="@Url.Action("DeleteVehicleByID", "Vehicle",new { vechileID = Model.ID })" class="btn btn-warning btn-rounded">Delete Car</a>
+        }
+        <a href="@Url.Action("Index", "Vehicle")" class="btn btn-warning btn-rounded">Cancel</a>
+    }
+
+    @if (Model.ID > 0)
+    {
+        <h3>Vehicle Details</h3>
+        using (Html.BeginForm("AddVehicleDetails", "Vehicle", FormMethod.Post))
+        {
+            @Html.HiddenFor(x => x.ID)
+            <div class="row">
+                <div class="card-body">
                     <div class="form-row align-items-center">
                         <div class="col-4">
                             <div class="form-group">
                                 <label class="control-label" for="inlineFormMake">1.Make</label>
-                                <input type="text" class="form-control" id="inlineFormMake">
+                                @Html.TextBoxFor(x => x.VehicleDetail.Make, new { @class = "form-control" })
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="inlineFormModel">2.Model</label>
-                                <input type="text" class="form-control mb-2" id="inlineFormModel">
+                                @Html.TextBoxFor(x => x.VehicleDetail.Model, new { @class = "form-control" })
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="inlineFormVariant">3.Variant</label>
-                                <input type="text" class="form-control mb-2" id="inlineFormVariant">
+                                @Html.TextBoxFor(x => x.VehicleDetail.Variant, new { @class = "form-control" })
                             </div>
                         </div>
                     </div>
@@ -116,19 +126,19 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="inlineFormManufacturing">4. Year of Manufacturing</label>
-                                <input type="text" class="form-control mb-2" id="inlineFormManufacturing">
+                                @Html.TextBoxFor(x => x.VehicleDetail.YearOfManufacturing, new { @class = "form-control" })
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="inlineFormFuel">5.Fuel Type</label>
-                                <input type="text" class="form-control mb-2" id="inlineFormFuel">
+                                @Html.DropDownListFor(x => x.VehicleDetail.FuelTypeID, fuellist, new { @class = "form-control" })
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="inlineFormKilometers">6.Kilometers</label>
-                                <input type="text" class="form-control mb-2" id="inlineFormKilometers">
+                                @Html.TextBoxFor(x => x.VehicleDetail.Kilometers, new { @class = "form-control" })
                             </div>
                         </div>
                     </div>
@@ -136,19 +146,21 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="inlineFormTransmission">7. Transmission</label>
-                                <input type="text" class="form-control mb-2" id="inlineFormTransmission">
+                                @Html.TextBoxFor(x => x.VehicleDetail.Transmission, new { @class = "form-control" })
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="inlineFormRegistration">8.Registration No.</label>
-                                <input type="text" class="form-control mb-2" id="inlineFormRegistration">
+                                @Html.TextBoxFor(x => x.VehicleDetail.RegistrationNo, new { @class = "form-control" })
                             </div>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
+            <input type="submit" value="Save" class="btn btn-success cancel" />
+        }
+
         <h3>Document Details</h3>
         <div class="row">
             <div class="card-body">
@@ -296,4 +308,6 @@
                 </form>
             </div>
         </div>
-    </div>
+    }
+    
+</div>

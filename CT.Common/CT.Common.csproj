@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Combo.cs" />
     <Compile Include="Common\CTApiResponse.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\DocumentDetailEntity.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="Entities\VehicleDetailEntity.cs" />
     <Compile Include="Entities\VehicleEntity.cs" />
     <Compile Include="Entities\VehicleImageEntity.cs" />
+    <Compile Include="Literals\CommonLiterals.cs" />
     <Compile Include="Literals\UserLiterals.cs" />
     <Compile Include="Literals\VehicleLiterals.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

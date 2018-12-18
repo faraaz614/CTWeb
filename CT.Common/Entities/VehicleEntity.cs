@@ -12,6 +12,7 @@ namespace CT.Common.Entities
     {
         public BaseVehicleEntity()
         {
+            VehicleEntity = new VehicleEntity();
             ListVehicles = new List<VehicleEntity>();
         }
 

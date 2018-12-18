@@ -1,6 +1,7 @@
 ﻿using CT.Service.Repository;
 using Dapper;
 using log4net;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -132,6 +133,20 @@ namespace CT.Service.Repository
             }
         }
 
+        public List<object> GetMultipleList(CommandType commandType, string sql, object parameters = null, params Func<GridReader, object>[] funcs)
+        {
+            var returnResults = new List<object>();
+            using (IDbConnection connection = GetOpenConnection())
+            {
+                GridReader gridResult = connection.QueryMultiple(sql, parameters, commandType: commandType);
+                foreach (var fun in funcs)
+                {
+                    var obj = fun(gridResult);
+                    returnResults.Add(obj);
+                }
+                return returnResults;
+            }
+        }
     }
 
     public class GenericEntity

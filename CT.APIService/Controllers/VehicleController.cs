@@ -68,5 +68,18 @@ namespace CT.APIService.Controllers
                 return Ok(tebResponse);
             });
         }
+
+        [HttpPost]
+        public IHttpActionResult AddVehicleDetails(VehicleEntity model)
+        {
+            return RunInSafe(() =>
+            {
+                BaseEntity data = new BaseEntity();
+                data = _VehicleService.AddVehicleDetails(model);
+                tebResponse.Data = data;
+                tebResponse.IsSuccess = true;
+                return Ok(tebResponse);
+            });
+        }
     }
 }

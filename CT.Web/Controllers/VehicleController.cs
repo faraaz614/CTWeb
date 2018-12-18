@@ -16,7 +16,7 @@ namespace CT.Web.Controllers
         public async Task<ActionResult> Index()
         {
             BaseVehicleEntity Vehicleslist = new BaseVehicleEntity();
-            VehicleEntity vehicleEntity = new VehicleEntity { RoleID = 1, UserID = 1};
+            VehicleEntity vehicleEntity = new VehicleEntity { RoleID = 1, UserID = 1 };
             CTApiResponse cTApiResponse = await Post("/Vehicle/GetVehicles", vehicleEntity);
             if (cTApiResponse.IsSuccess)
             {
@@ -28,15 +28,12 @@ namespace CT.Web.Controllers
         public async Task<ActionResult> AddVehicle(long vechileID = 0)
         {
             VehicleEntity model = new VehicleEntity();
-            if (vechileID > 0)
+            model = new VehicleEntity { RoleID = 1, UserID = 1, ID = vechileID };
+            CTApiResponse cTApiResponse = await Post("/Vehicle/GetVehicleByID", model);
+            if (cTApiResponse.IsSuccess)
             {
-                model = new VehicleEntity { RoleID = 1, UserID = 1, ID = vechileID };
-                CTApiResponse cTApiResponse = await Post("/Vehicle/GetVehicleByID", model);
-                if (cTApiResponse.IsSuccess)
-                {
-                    BaseVehicleEntity baseVehicleEntity = JsonConvert.DeserializeObject<BaseVehicleEntity>(Convert.ToString(cTApiResponse.Data));
-                    model = baseVehicleEntity.VehicleEntity;
-                }
+                BaseVehicleEntity baseVehicleEntity = JsonConvert.DeserializeObject<BaseVehicleEntity>(Convert.ToString(cTApiResponse.Data));
+                model = baseVehicleEntity.VehicleEntity;
             }
             return View(model);
         }
@@ -57,7 +54,7 @@ namespace CT.Web.Controllers
             }
             return View(model);
         }
-        
+
         public async Task<ActionResult> DeleteVehicleByID(long vechileID = 0)
         {
             ViewData["VehicleDeleted"] = "";
@@ -75,6 +72,23 @@ namespace CT.Web.Controllers
                 }
             }
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddVehicleDetails(VehicleEntity model)
+        {
+            if (ModelState.ContainsKey("ID"))
+                ModelState["ID"].Errors.Clear();
+
+            if (model.ID > 0)
+            {
+                CTApiResponse cTApiResponse = await Post("/Vehicle/AddVehicleDetails", model);
+                if (cTApiResponse.IsSuccess)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+            return View(model);
         }
     }
 }
