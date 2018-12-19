@@ -84,5 +84,9 @@
     <Build Include="dbo\Stored Procedures\USP_CT_GetVehicles.sql" />
     <Build Include="dbo\Stored Procedures\USP_CT_GetVehicleByID.sql" />
     <Build Include="dbo\Stored Procedures\USP_CT_DeleteVehicleByID.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_GetFuelType.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_AddVehicleTechnical.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_AddVehicleDocument.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_AddVehicleDetails.sql" />
   </ItemGroup>
 </Project>
