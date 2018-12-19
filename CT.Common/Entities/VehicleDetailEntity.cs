@@ -18,7 +18,7 @@ namespace CT.Common.Entities
         public string Make { get; set; }
         public string Model { get; set; }
         public string Variant { get; set; }
-        public DateTime? YearOfManufacturing { get; set; }
+        public DateTime YearOfManufacturing { get; set; }
         public int FuelTypeID { get; set; }
         public long VehicleID { get; set; }
         public int? Kilometers { get; set; }

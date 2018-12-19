@@ -230,7 +230,7 @@ namespace CT.Service.VehicleService
                 Log.Info("@Kilometers" + VehicleEntity.VehicleDetail.Kilometers);
                 Log.Info("@Transmission" + VehicleEntity.VehicleDetail.Transmission);
                 Log.Info("@RegistrationNo" + VehicleEntity.VehicleDetail.RegistrationNo);
-                Log.Info("Store Proc Name : USP_CT_SaveVehicle");
+                Log.Info("Store Proc Name : USP_CT_AddVehicleDetails");
                 Log.Info("----Info AddVehicleDetails method end----");
                 DynamicParameters param = new DynamicParameters();
                 param.Add("@UserID", VehicleEntity.UserID);
@@ -257,6 +257,112 @@ namespace CT.Service.VehicleService
                 entity.ResponseStatus.Status = 0;
                 entity.ResponseStatus.Message = ex.Message;
                 Log.Error("Error in AddVehicleDetails Method");
+                Log.Error("Error occured time : " + DateTime.UtcNow);
+                Log.Error("Error message : " + ex.Message);
+                Log.Error("Error StackTrace : " + ex.StackTrace);
+                return entity;
+            }
+        }
+
+        public BaseEntity AddVehicleDocument(VehicleEntity VehicleEntity)
+        {
+            BaseEntity entity = new BaseEntity();
+            try
+            {
+                Log.Info("----Info AddVehicleDocument method start----");
+                Log.Info("@UserID" + VehicleEntity.UserID);
+                Log.Info("@RoleID" + VehicleEntity.RoleID);
+                Log.Info("@VehicleID" + VehicleEntity.ID);
+                Log.Info("@IsRCavailable" + VehicleEntity.DocumentDetail.IsRCavailable);
+                Log.Info("@Hypothication" + VehicleEntity.DocumentDetail.Hypothication);
+                Log.Info("@IsNOCavailable" + VehicleEntity.DocumentDetail.IsNOCavailable);
+                Log.Info("@NoOfOwners" + VehicleEntity.DocumentDetail.NoOfOwners);
+                Log.Info("@NoOfKeys" + VehicleEntity.DocumentDetail.NoOfKeys);
+                Log.Info("@IsInsuranceAvailable" + VehicleEntity.DocumentDetail.IsInsuranceAvailable);
+                Log.Info("@IsComprehensive" + VehicleEntity.DocumentDetail.IsComprehensive);
+                Log.Info("@IsThirdParty" + VehicleEntity.DocumentDetail.IsThirdParty);
+                Log.Info("@InsuranceExpiryDate" + VehicleEntity.DocumentDetail.InsuranceExpiryDate);
+                Log.Info("Store Proc Name : USP_CT_AddVehicleDocument");
+                Log.Info("----Info AddVehicleDocument method end----");
+                DynamicParameters param = new DynamicParameters();
+                param.Add("@UserID", VehicleEntity.UserID);
+                param.Add("@RoleID", VehicleEntity.RoleID);
+                param.Add("@VehicleID", VehicleEntity.ID);
+                param.Add("@IsRCavailable" , VehicleEntity.DocumentDetail.IsRCavailable);
+                param.Add("@Hypothication" , VehicleEntity.DocumentDetail.Hypothication);
+                param.Add("@IsNOCavailable" , VehicleEntity.DocumentDetail.IsNOCavailable);
+                param.Add("@NoOfOwners" , VehicleEntity.DocumentDetail.NoOfOwners);
+                param.Add("@NoOfKeys" , VehicleEntity.DocumentDetail.NoOfKeys);
+                param.Add("@IsInsuranceAvailable" , VehicleEntity.DocumentDetail.IsInsuranceAvailable);
+                param.Add("@IsComprehensive" , VehicleEntity.DocumentDetail.IsComprehensive);
+                param.Add("@IsThirdParty" , VehicleEntity.DocumentDetail.IsThirdParty);
+                param.Add("@InsuranceExpiryDate" , VehicleEntity.DocumentDetail.InsuranceExpiryDate);
+                param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
+                entity.GenericErrorInfo = GetSingleItem<GenericErrorInfo>(CommandType.StoredProcedure, VehicleLiterals.AddVehicleDocument, param);
+                entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
+                entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
+                Log.Info("----Info AddVehicleDocument method Exit----");
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                entity.ResponseStatus.Status = 0;
+                entity.ResponseStatus.Message = ex.Message;
+                Log.Error("Error in AddVehicleDocument Method");
+                Log.Error("Error occured time : " + DateTime.UtcNow);
+                Log.Error("Error message : " + ex.Message);
+                Log.Error("Error StackTrace : " + ex.StackTrace);
+                return entity;
+            }
+        }
+
+        public BaseEntity AddVehicleTechnical(VehicleEntity VehicleEntity)
+        {
+            BaseEntity entity = new BaseEntity();
+            try
+            {
+                Log.Info("----Info AddVehicleTechnical method start----");
+                Log.Info("@UserID" + VehicleEntity.UserID);
+                Log.Info("@RoleID" + VehicleEntity.RoleID);
+                Log.Info("@VehicleID" + VehicleEntity.ID);
+                Log.Info("@Engine" + VehicleEntity.VehicleDetail.Make);
+                Log.Info("@Body" + VehicleEntity.VehicleDetail.Model);
+                Log.Info("@SuspensionSteeringSystem" + VehicleEntity.VehicleDetail.Variant);
+                Log.Info("@Transmission" + VehicleEntity.VehicleDetail.YearOfManufacturing);
+                Log.Info("@Electrical" + VehicleEntity.VehicleDetail.FuelTypeID);
+                Log.Info("@AirCondition" + VehicleEntity.VehicleDetail.Kilometers);
+                Log.Info("@Brakes" + VehicleEntity.VehicleDetail.Transmission);
+                Log.Info("@TyresCondition" + VehicleEntity.VehicleDetail.RegistrationNo);
+                Log.Info("@OtherInformation" + VehicleEntity.VehicleDetail.RegistrationNo);
+                Log.Info("Store Proc Name : USP_CT_AddVehicleTechnical");
+                Log.Info("----Info AddVehicleTechnical method end----");
+                DynamicParameters param = new DynamicParameters();
+                param.Add("@UserID", VehicleEntity.UserID);
+                param.Add("@RoleID", VehicleEntity.RoleID);
+                param.Add("@VehicleID", VehicleEntity.ID);
+                param.Add("@Engine" , VehicleEntity.TechnicalDetail.Engine);
+                param.Add("@Body" , VehicleEntity.TechnicalDetail.Body);
+                param.Add("@SuspensionSteeringSystem" , VehicleEntity.TechnicalDetail.SuspensionSteeringSystem);
+                param.Add("@Transmission" , VehicleEntity.TechnicalDetail.Transmission);
+                param.Add("@Electrical" , VehicleEntity.TechnicalDetail.Electrical);
+                param.Add("@AirCondition" , VehicleEntity.TechnicalDetail.AirCondition);
+                param.Add("@Brakes" , VehicleEntity.TechnicalDetail.Brakes);
+                param.Add("@TyresCondition" , VehicleEntity.TechnicalDetail.TyresCondition);
+                param.Add("@OtherInformation" , VehicleEntity.TechnicalDetail.OtherInformation);
+                param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
+                entity.GenericErrorInfo = GetSingleItem<GenericErrorInfo>(CommandType.StoredProcedure, VehicleLiterals.AddVehicleTechnical, param);
+                entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
+                entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
+                Log.Info("----Info AddVehicleTechnical method Exit----");
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                entity.ResponseStatus.Status = 0;
+                entity.ResponseStatus.Message = ex.Message;
+                Log.Error("Error in AddVehicleTechnical Method");
                 Log.Error("Error occured time : " + DateTime.UtcNow);
                 Log.Error("Error message : " + ex.Message);
                 Log.Error("Error StackTrace : " + ex.StackTrace);

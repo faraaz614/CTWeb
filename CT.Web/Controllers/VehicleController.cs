@@ -90,5 +90,39 @@ namespace CT.Web.Controllers
             }
             return View(model);
         }
+
+        [HttpPost]
+        public async Task<ActionResult> AddVehicleDocument(VehicleEntity model)
+        {
+            if (ModelState.ContainsKey("ID"))
+                ModelState["ID"].Errors.Clear();
+
+            if (model.ID > 0)
+            {
+                CTApiResponse cTApiResponse = await Post("/Vehicle/AddVehicleDocument", model);
+                if (cTApiResponse.IsSuccess)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddVehicleTechnical(VehicleEntity model)
+        {
+            if (ModelState.ContainsKey("ID"))
+                ModelState["ID"].Errors.Clear();
+
+            if (model.ID > 0)
+            {
+                CTApiResponse cTApiResponse = await Post("/Vehicle/AddVehicleTechnical", model);
+                if (cTApiResponse.IsSuccess)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+            return View(model);
+        }
     }
 }

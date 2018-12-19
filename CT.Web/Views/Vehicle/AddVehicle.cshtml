@@ -126,7 +126,7 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="inlineFormManufacturing">4. Year of Manufacturing</label>
-                                @Html.TextBoxFor(x => x.VehicleDetail.YearOfManufacturing, new { @class = "form-control" })
+                                @Html.TextBoxFor(x => x.VehicleDetail.YearOfManufacturing, new { @class = "form-control datepicker" })
                             </div>
                         </div>
                         <div class="col-4">
@@ -162,21 +162,23 @@
         }
 
         <h3>Document Details</h3>
-        <div class="row">
-            <div class="card-body">
-                <form>
+        using (Html.BeginForm("AddVehicleDocument", "Vehicle", FormMethod.Post))
+        {
+            @Html.HiddenFor(x => x.ID)
+            <div class="row">
+                <div class="card-body">
                     <div class="form-row align-items-center">
                         <div class="col-4">
                             <div class="form-group form-check-inline">
                                 <label>1.RC availability</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample">
+                                @Html.RadioButtonFor(x => x.DocumentDetail.IsRCavailable, true, new { @class = "form-check-input", @checked = true })
                                 <label class="form-check-label" for="materialInline1">Yes</label>
                             </div>
                             /
                             <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample">
+                                @Html.RadioButtonFor(x => x.DocumentDetail.IsRCavailable, true, new { @class = "form-check-input", @checked = true })
                                 <label class="form-check-label" for="materialInline2">No</label>
                             </div>
                         </div>
@@ -185,12 +187,12 @@
                                 <label>2.Hypothication </label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample">
+                                @Html.RadioButtonFor(x => x.DocumentDetail.Hypothication, true, new { @class = "form-check-input", @checked = true })
                                 <label class="form-check-label" for="materialInline1">Yes</label>
                             </div>
                             /
                             <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample">
+                                @Html.RadioButtonFor(x => x.DocumentDetail.Hypothication, true, new { @class = "form-check-input", @checked = true })
                                 <label class="form-check-label" for="materialInline2">No</label>
                             </div>
                         </div>
@@ -199,12 +201,12 @@
                                 <label>3.If Yes: </label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample">
+                                @Html.RadioButtonFor(x => x.DocumentDetail.IsNOCavailable, true, new { @class = "form-check-input", @checked = true })
                                 <label class="form-check-label" for="materialInline1">NOC available</label>
                             </div>
                             /
                             <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample">
+                                @Html.RadioButtonFor(x => x.DocumentDetail.IsNOCavailable, true, new { @class = "form-check-input", @checked = true })
                                 <label class="form-check-label" for="materialInline2">NOC not available</label>
                             </div>
                         </div>
@@ -213,13 +215,13 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="owners">4.No. of owners</label>
-                                <input type="text" class="form-control mb-2" id="owners">
+                                @Html.TextBoxFor(x => x.DocumentDetail.NoOfOwners, new { @class = "form-control mb-2" })
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="Keys">5.No.of Keys</label>
-                                <input type="text" class="form-control mb-2" id="Keys">
+                                @Html.TextBoxFor(x => x.DocumentDetail.NoOfKeys, new { @class = "form-control mb-2" })
                             </div>
                         </div>
                     </div>
@@ -229,12 +231,12 @@
                                 <label>6.Insurance:</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample">
+                                @Html.RadioButtonFor(x => x.DocumentDetail.IsInsuranceAvailable, true, new { @class = "form-check-input", @checked = true })
                                 <label class="form-check-label" for="materialInline1">Yes</label>
                             </div>
                             /
                             <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample">
+                                @Html.RadioButtonFor(x => x.DocumentDetail.IsInsuranceAvailable, true, new { @class = "form-check-input", @checked = true })
                                 <label class="form-check-label" for="materialInline2">No</label>
                             </div>
                         </div>
@@ -243,71 +245,73 @@
                                 <label>a. If Yes :</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample">
+                                @Html.RadioButtonFor(x => x.DocumentDetail.IsComprehensive, true, new { @class = "form-check-input", @checked = true })
                                 <label class="form-check-label" for="materialInline1">Comprehensive</label>
                             </div>
                             /
                             <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample">
+                                @Html.RadioButtonFor(x => x.DocumentDetail.IsThirdParty, true, new { @class = "form-check-input", @checked = true })
                                 <label class="form-check-label" for="materialInline2">Third Party </label>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="date-picker-example1">b. Expiry Date:</label>
-                                <input type="text" id="date-picker-example1" class="form-control datepicker">
+                                @Html.TextBoxFor(x => x.DocumentDetail.InsuranceExpiryDate, new { @class = "form-control datepicker" })
                             </div>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
+            <input type="submit" value="Save" class="btn btn-success cancel" />
+        }
+
         <h3>Technical Details</h3>
-        <div class="row">
-            <div class="card-body">
-                <form>
+        using (Html.BeginForm("AddVehicleTechnical", "Vehicle", FormMethod.Post))
+        {
+            @Html.HiddenFor(x => x.ID)
+            <div class="row">
+                <div class="card-body">
                     <div class="form-group">
                         <label for="Engine">1.Engine</label>
-                        <input type="text" class="form-control mb-2" id="Engine">
+                        @Html.TextBoxFor(x => x.TechnicalDetail.Engine, new { @class = "form-control mb-2" })
                     </div>
                     <div class="form-group">
                         <label for="Body">2.Body</label>
-                        <input type="text" class="form-control mb-2" id="Body">
+                        @Html.TextBoxFor(x => x.TechnicalDetail.Body, new { @class = "form-control mb-2" })
                     </div>
                     <div class="form-group">
                         <label for="Steering">3.Suspension & Steering System</label>
-                        <input type="text" class="form-control mb-2" id="Steering">
+                        @Html.TextBoxFor(x => x.TechnicalDetail.SuspensionSteeringSystem, new { @class = "form-control mb-2" })
                     </div>
                     <div class="form-group">
                         <label for="Transmission">4.Transmission</label>
-                        <input type="text" class="form-control mb-2" id="Transmission">
+                        @Html.TextBoxFor(x => x.TechnicalDetail.Transmission, new { @class = "form-control mb-2" })
                     </div>
                     <div class="form-group">
                         <label for="Electrical">5.Electrical</label>
-                        <input type="text" class="form-control mb-2" id="Electrical">
+                        @Html.TextBoxFor(x => x.TechnicalDetail.Electrical, new { @class = "form-control mb-2" })
                     </div>
                     <div class="form-group">
                         <label for="AC">6.AC </label>
-                        <input type="text" class="form-control mb-2" id="AC">
+                        @Html.TextBoxFor(x => x.TechnicalDetail.AirCondition, new { @class = "form-control mb-2" })
                     </div>
                     <div class="form-group">
                         <label for="Brakes">7.Brakes</label>
-                        <input type="text" class="form-control mb-2" id="Brakes">
+                        @Html.TextBoxFor(x => x.TechnicalDetail.Brakes, new { @class = "form-control mb-2" })
                     </div>
                     <div class="form-group">
                         <label for="Condition">8.Tyres Condition</label>
-                        <input type="text" class="form-control mb-2" id="Condition">
+                        @Html.TextBoxFor(x => x.TechnicalDetail.TyresCondition, new { @class = "form-control mb-2" })
                     </div>
                     <div class="form-group">
                         <label for="Information">9. Other Information (if any) </label>
-                        <input type="text" class="form-control mb-2" id="Information">
+                        @Html.TextBoxFor(x => x.TechnicalDetail.OtherInformation, new { @class = "form-control mb-2" })
                     </div>
-                    <div class="form-group">
-                        <a class="h4" href="#">Click here to BID</a>
-                    </div>
-                </form>
+                </div>
             </div>
-        </div>
+            <input type="submit" value="Save" class="btn btn-success cancel" />
+        }
     }
-    
+
 </div>

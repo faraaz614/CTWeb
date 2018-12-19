@@ -81,5 +81,31 @@ namespace CT.APIService.Controllers
                 return Ok(tebResponse);
             });
         }
+
+        [HttpPost]
+        public IHttpActionResult AddVehicleDocument(VehicleEntity model)
+        {
+            return RunInSafe(() =>
+            {
+                BaseEntity data = new BaseEntity();
+                data = _VehicleService.AddVehicleDocument(model);
+                tebResponse.Data = data;
+                tebResponse.IsSuccess = true;
+                return Ok(tebResponse);
+            });
+        }
+
+        [HttpPost]
+        public IHttpActionResult AddVehicleTechnical(VehicleEntity model)
+        {
+            return RunInSafe(() =>
+            {
+                BaseEntity data = new BaseEntity();
+                data = _VehicleService.AddVehicleTechnical(model);
+                tebResponse.Data = data;
+                tebResponse.IsSuccess = true;
+                return Ok(tebResponse);
+            });
+        }
     }
 }
