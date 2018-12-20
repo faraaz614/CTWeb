@@ -9,11 +9,6 @@ namespace CT.Common.Entities
 {
     public class VehicleDetailEntity : BaseEntity
     {
-        public VehicleDetailEntity()
-        {
-            FuelTypeList = new List<Combo>();
-        }
-
         public long ID { get; set; }
         public string Make { get; set; }
         public string Model { get; set; }
@@ -28,7 +23,5 @@ namespace CT.Common.Entities
         public DateTime CreatedOn { get; set; }
         public long ModifiedBy { get; set; }
         public DateTime ModifiedOn { get; set; }
-
-        public List<Combo> FuelTypeList { get; set; }
     }
 }

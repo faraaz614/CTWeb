@@ -28,6 +28,7 @@ namespace CT.Common.Entities
             TechnicalDetail = new TechnicalDetailEntity();
             VehicleDetail = new VehicleDetailEntity();
             VehicleImage = new VehicleImageEntity();
+            FuelTypeList = new List<Combo>();
         }
 
         public long ID { get; set; }
@@ -49,5 +50,6 @@ namespace CT.Common.Entities
         public TechnicalDetailEntity TechnicalDetail { get; set; }
         public VehicleDetailEntity VehicleDetail { get; set; }
         public VehicleImageEntity VehicleImage { get; set; }
+        public List<Combo> FuelTypeList { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "AddVehicle";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var fuellist = Model.VehicleDetail.FuelTypeList.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Value }).ToList();
+    var fuellist = Model.FuelTypeList.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Value }).ToList();
 }
 
 <div id="accordion">

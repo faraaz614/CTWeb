@@ -165,7 +165,9 @@ namespace CT.Service.VehicleService
                 param1.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param1.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
                 var list = GetItems<FuelTypeEntity>(CommandType.StoredProcedure, CommonLiterals.GetFuelType, param1).Select(x => new Combo { ID = x.ID, Value = x.Type }).ToList();
-                entity.VehicleEntity.VehicleDetail.FuelTypeList = list;
+                if (entity.VehicleEntity == null)
+                    entity.VehicleEntity = new VehicleEntity();
+                entity.VehicleEntity.FuelTypeList = list;
                 entity.ResponseStatus.Status = param1.Get<dynamic>("@Status");
                 entity.ResponseStatus.Message = param1.Get<dynamic>("@Message");
                 return entity;
