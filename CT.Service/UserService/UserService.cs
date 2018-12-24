@@ -4,7 +4,9 @@ using CT.Common.Literals;
 using CT.Service.Repository;
 using Dapper;
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace CT.Service.UserService
 {
@@ -237,7 +239,22 @@ namespace CT.Service.UserService
                 param.Add("@VehicleID", vehicleEntity.VehicleID);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
-                entity.ListBids = GetItems<VehicleBIDEntity>(CommandType.StoredProcedure, UserLiterals.ViewBid, param).AsList<VehicleBIDEntity>();
+                var bid = GetMultipleList(CommandType.StoredProcedure, UserLiterals.ViewBid, param,
+                    x => x.Read<VehicleEntity>().FirstOrDefault(),
+                    x => x.Read<VehicleDetailEntity>().FirstOrDefault(),
+                    x => x.Read<VehicleImageEntity>().FirstOrDefault(),
+                    x => x.Read<DocumentDetailEntity>().FirstOrDefault(),
+                    x => x.Read<TechnicalDetailEntity>().FirstOrDefault(),
+                    x => x.Read<VehicleBIDEntity>().ToList());
+                entity.VehicleEntity = (VehicleEntity)bid[0];
+                if (entity.VehicleEntity != null)
+                {
+                    entity.VehicleEntity.VehicleDetail = (VehicleDetailEntity)bid[1];
+                    entity.VehicleEntity.VehicleImage = (VehicleImageEntity)bid[2];
+                    entity.VehicleEntity.DocumentDetail = (DocumentDetailEntity)bid[3];
+                    entity.VehicleEntity.TechnicalDetail = (TechnicalDetailEntity)bid[4];
+                    entity.ListBids = (List<VehicleBIDEntity>)bid[5];
+                }
                 entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
                 entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
                 Log.Info("----Info ViewBID method Exit----");

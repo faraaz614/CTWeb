@@ -94,5 +94,6 @@
     <Build Include="dbo\Stored Procedures\USP_CT_GetBidsByDealerID.sql" />
     <Build Include="dbo\Stored Procedures\USP_CT_GetBids.sql" />
     <Build Include="dbo\Stored Procedures\USP_CT_ViewBID.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_Login.sql" />
   </ItemGroup>
 </Project>

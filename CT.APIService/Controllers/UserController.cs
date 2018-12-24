@@ -90,7 +90,7 @@ namespace CT.APIService.Controllers
                 var data = _userService.ViewBID(vehicleEntity);
                 cTApiResponse.Data = data;
                 cTApiResponse.IsSuccess = true;
-                return Ok();
+                return Ok(cTApiResponse);
             });
         }
     }

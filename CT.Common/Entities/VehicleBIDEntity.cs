@@ -12,10 +12,13 @@ namespace CT.Common.Entities
         public BaseVehicleBIDEntity()
         {
             ListBids = new List<VehicleBIDEntity>();
+            VehicleBIDEntity = new VehicleBIDEntity();
+            VehicleEntity = new VehicleEntity();
         }
 
         public List<VehicleBIDEntity> ListBids { get; set; }
         public VehicleBIDEntity VehicleBIDEntity { get; set; }
+        public VehicleEntity VehicleEntity { get; set; }
     }
     public class VehicleBIDEntity : BaseEntity
     {
@@ -26,6 +29,7 @@ namespace CT.Common.Entities
         public decimal? BIDAmount { get; set; }
         public string Description { get; set; }
         public long DealerID { get; set; }
+        public string DealerName { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime ModifiedOn { get; set; }
     }

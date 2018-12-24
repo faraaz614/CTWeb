@@ -12,7 +12,6 @@ namespace CT.Web.Controllers
 {
     public class VehicleController : BaseController
     {
-        // GET: Vehicle
         public async Task<ActionResult> Index()
         {
             BaseVehicleEntity Vehicleslist = new BaseVehicleEntity();

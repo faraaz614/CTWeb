@@ -19,6 +19,10 @@ else if (@ReturnType = 'exists')
 	begin
 	SET @Message='User name already exists';
 	end
+else if (@ReturnType = 'vehicleexists')
+	begin
+	SET @Message='Vehicle name with StockID already exists';
+	end
 else if (@ReturnType = 'delete')
 	begin
 	SET @Message='Record Deleted Successfully';

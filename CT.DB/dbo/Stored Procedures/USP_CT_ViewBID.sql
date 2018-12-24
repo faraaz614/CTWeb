@@ -3,7 +3,7 @@
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE USP_CT_ViewBID
+CREATE PROCEDURE [dbo].[USP_CT_ViewBID]
 (
 @UserID bigint,
 @RoleID int,
@@ -18,7 +18,15 @@ BEGIN
 	SET NOCOUNT ON;
 	BEGIN TRY 
 		SET  @Status = 1;
-		Select * from CT_TRAN_VehicleBID where VehicleID = @VehicleID
+		Select ID,VehicleName,StockID,Description,IsActive,IsDealClosed from [CT_TRAN_Vehicle] where ID = @VehicleID and IsDelete = 0 and IsActive = 1;
+		Select * from CT_TRAN_VehicleDetail where VehicleID = @VehicleID
+		Select * from CT_TRAN_VehicleImage where VehicleID = @VehicleID
+		Select * from CT_TRAN_DocumentDetail where VehicleID = @VehicleID
+		Select * from CT_TRAN_TechnicalDetails where VehicleID = @VehicleID
+		Select bid.ID,veh.VehicleName,veh.StockID,usr.UserName as DealerName,bid.BIDAmount from CT_TRAN_VehicleBID bid
+		join CT_TRAN_Vehicle veh on bid.VehicleID = veh.ID
+		join CT_TRAN_User usr on bid.DealerID = usr.ID
+		where VehicleID = @VehicleID and usr.IsActive = 1 order by BIDAmount desc
 		SET @Message = dbo.UDF_CT_SuccessMessage('') ;
 	END TRY	
 	BEGIN CATCH

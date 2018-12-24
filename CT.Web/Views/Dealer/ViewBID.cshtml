@@ -1,14 +1,22 @@
 ﻿@model CT.Common.Entities.BaseVehicleBIDEntity
 @{
     ViewBag.Title = "BID";
+    string style = Model.VehicleEntity.IsDealClosed ? "card-header-warning" : "card-header-primary";
+    string header = Model.VehicleEntity.IsDealClosed ? "Bids Closed" : "Bids";
+    string headertitle = Model.VehicleEntity.IsDealClosed ? string.Empty : "Current Bidding";
 }
+<style>
+    .topbuffer {
+    margin-top:10px;
+    }
+</style>
 
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header card-header-primary">
-                <h4 class="card-title ">Bids</h4>
-                <p class="card-category">Current Bidding</p>
+            <div class="card-header @style">
+                <h4 class="card-title ">@header</h4>
+                <p class="card-category">@headertitle</p>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -16,20 +24,17 @@
                         <thead class=" text-primary">
                             <tr>
                                 <th>
-                                    VehicleID
-                                </th>
-                                <th>
-                                    Vehicle Name
-                                </th>
-                                <th>
-                                    StockID
+                                    Dealer Name
                                 </th>
                                 <th>
                                     BID Amount
                                 </th>
-                                <th>
-                                    Action
-                                </th>
+                                @if (!Model.VehicleEntity.IsDealClosed)
+                                {
+                                    <th>
+                                        Action
+                                    </th>
+                                }
                             </tr>
                         </thead>
                         <tbody>
@@ -37,25 +42,269 @@
                             {
                                 <tr>
                                     <td>
-                                        @bid.VehicleID
-                                    </td>
-                                    <td>
-                                        @bid.VehicleName
-                                    </td>
-                                    <td>
-                                        @bid.StockID
+                                        @bid.DealerName
                                     </td>
                                     <td>
                                         @bid.BIDAmount
                                     </td>
-                                    <td>
-                                        <a href="@Url.Action("ViewBID","Dealer",new { VehicleID = bid.VehicleID })" class="btn btn-success btn-rounded btn-sm my-0">View</a>
-                                    </td>
+                                    @if (!Model.VehicleEntity.IsDealClosed)
+                                    {
+                                        <td>
+                                            <a href="@Url.Action("CloseBID","Dealer",new { ID = bid.ID })" class="btn btn-success btn-rounded btn-sm my-0">Close</a>
+                                        </td>
+                                    }
                                 </tr>
                             }
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card-body ui-widget-content topbuffer">
+    <h4><b>Car</b></h4>
+    <div class="row">
+        <div class="col-4">
+            <div class="form-group">
+                <label for="form1">Car Name</label>
+                @Html.LabelFor(x => x.VehicleEntity.VehicleName, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label for="form1">Stock ID</label>
+                @Html.LabelFor(x => x.VehicleEntity.StockID, new { @class = "form-control" })
+            </div>
+        </div>
+        
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <label for="form1">Description</label>
+                @Html.LabelFor(x => x.VehicleEntity.Description, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card-body ui-widget-content topbuffer">
+    <h4><b>Car Details</b></h4>
+    <div class="row">
+        <div class="col-4">
+            <div class="form-group">
+                <label class="control-label" for="inlineFormMake">1.Make</label>
+                @Html.LabelFor(x => x.VehicleEntity.VehicleDetail.Make, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label for="inlineFormModel">2.Model</label>
+                @Html.LabelFor(x => x.VehicleEntity.VehicleDetail.Model, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label for="inlineFormVariant">3.Variant</label>
+                @Html.LabelFor(x => x.VehicleEntity.VehicleDetail.Variant, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <div class="form-group">
+                <label for="inlineFormManufacturing">4. Year of Manufacturing</label>
+                @Html.LabelFor(x => x.VehicleEntity.VehicleDetail.YearOfManufacturing, new { @class = "form-control datepicker" })
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label for="inlineFormFuel">5.Fuel Type</label>
+                @Html.LabelFor(x => x.VehicleEntity.VehicleDetail.FuelTypeID, new { @class = "form-control datepicker" })
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label for="inlineFormKilometers">6.Kilometers</label>
+                @Html.LabelFor(x => x.VehicleEntity.VehicleDetail.Kilometers, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <label for="inlineFormTransmission">7. Transmission</label>
+                @Html.LabelFor(x => x.VehicleEntity.VehicleDetail.Transmission, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label for="inlineFormRegistration">8.Registration No.</label>
+                @Html.LabelFor(x => x.VehicleEntity.VehicleDetail.RegistrationNo, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card-body ui-widget-content topbuffer">
+    <h4><b>Document Details</b></h4>
+    <div class="row">
+        <div class="col-4">
+            <div class="form-group form-check-inline">
+                <label>1.RC availability</label>
+            </div>
+            <div class="form-check form-check-inline">
+                @Html.LabelFor(x => x.VehicleEntity.DocumentDetail.IsRCavailable, new { @class = "form-check-input" })
+                <label class="form-check-label" for="materialInline1">Yes</label>
+            </div>
+            /
+            <div class="form-check form-check-inline">
+                @Html.LabelFor(x => x.VehicleEntity.DocumentDetail.IsRCavailable, new { @class = "form-check-input" })
+                <label class="form-check-label" for="materialInline2">No</label>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group form-check-inline">
+                <label>2.Hypothication </label>
+            </div>
+            <div class="form-check form-check-inline">
+                @Html.LabelFor(x => x.VehicleEntity.DocumentDetail.Hypothication, new { @class = "form-check-input" })
+                <label class="form-check-label" for="materialInline1">Yes</label>
+            </div>
+            /
+            <div class="form-check form-check-inline">
+                @Html.LabelFor(x => x.VehicleEntity.DocumentDetail.Hypothication, new { @class = "form-check-input" })
+                <label class="form-check-label" for="materialInline2">No</label>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group form-check-inline">
+                <label>3.If Yes: </label>
+            </div>
+            <div class="form-check form-check-inline">
+                @Html.LabelFor(x => x.VehicleEntity.DocumentDetail.IsNOCavailable, new { @class = "form-check-input" })
+                <label class="form-check-label" for="materialInline1">NOC available</label>
+            </div>
+            /
+            <div class="form-check form-check-inline">
+                @Html.LabelFor(x => x.VehicleEntity.DocumentDetail.IsNOCavailable, new { @class = "form-check-input" })
+                <label class="form-check-label" for="materialInline2">NOC not available</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <label for="owners">4.No. of owners</label>
+                @Html.LabelFor(x => x.VehicleEntity.DocumentDetail.NoOfOwners, new { @class = "form-control mb-2" })
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label for="Keys">5.No.of Keys</label>
+                @Html.LabelFor(x => x.VehicleEntity.DocumentDetail.NoOfKeys, new { @class = "form-control mb-2" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <div class="form-group form-check-inline">
+                <label>6.Insurance:</label>
+            </div>
+            <div class="form-check form-check-inline">
+                @Html.LabelFor(x => x.VehicleEntity.DocumentDetail.IsInsuranceAvailable, new { @class = "form-check-input" })
+                <label class="form-check-label" for="materialInline1">Yes</label>
+            </div>
+            /
+            <div class="form-check form-check-inline">
+                @Html.LabelFor(x => x.VehicleEntity.DocumentDetail.IsInsuranceAvailable, new { @class = "form-check-input" })
+                <label class="form-check-label" for="materialInline2">No</label>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group form-check-inline">
+                <label>a. If Yes :</label>
+            </div>
+            <div class="form-check form-check-inline">
+                @Html.LabelFor(x => x.VehicleEntity.DocumentDetail.IsComprehensive, new { @class = "form-check-input" })
+                <label class="form-check-label" for="materialInline1">Comprehensive</label>
+            </div>
+            /
+            <div class="form-check form-check-inline">
+                @Html.LabelFor(x => x.VehicleEntity.DocumentDetail.IsThirdParty, new { @class = "form-check-input" })
+                <label class="form-check-label" for="materialInline2">Third Party </label>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label for="date-picker-example1">b. Expiry Date:</label>
+                @Html.LabelFor(x => x.VehicleEntity.DocumentDetail.InsuranceExpiryDate, new { @class = "form-control datepicker" })
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card-body ui-widget-content topbuffer">
+    <h4><b>Technical Details</b></h4>
+    <div class="row">
+        <div class="col-4">
+            <div class="form-group">
+                <label for="Engine">1.Engine</label>
+                @Html.LabelFor(x => x.VehicleEntity.TechnicalDetail.Engine, new { @class = "form-control mb-2" })
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label for="Body">2.Body</label>
+                @Html.LabelFor(x => x.VehicleEntity.TechnicalDetail.Body, new { @class = "form-control mb-2" })
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label for="Steering">3.Suspension & Steering System</label>
+                @Html.LabelFor(x => x.VehicleEntity.TechnicalDetail.SuspensionSteeringSystem, new { @class = "form-control mb-2" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <div class="form-group">
+                <label for="Transmission">4.Transmission</label>
+                @Html.LabelFor(x => x.VehicleEntity.TechnicalDetail.Transmission, new { @class = "form-control mb-2" })
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label for="Electrical">5.Electrical</label>
+                @Html.LabelFor(x => x.VehicleEntity.TechnicalDetail.Electrical, new { @class = "form-control mb-2" })
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label for="AC">6.AC </label>
+                @Html.LabelFor(x => x.VehicleEntity.TechnicalDetail.AirCondition, new { @class = "form-control mb-2" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <div class="form-group">
+                <label for="Brakes">7.Brakes</label>
+                @Html.LabelFor(x => x.VehicleEntity.TechnicalDetail.Brakes, new { @class = "form-control mb-2" })
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label for="Condition">8.Tyres Condition</label>
+                @Html.LabelFor(x => x.VehicleEntity.TechnicalDetail.TyresCondition, new { @class = "form-control mb-2" })
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label for="Information">9. Other Information (if any) </label>
+                @Html.LabelFor(x => x.VehicleEntity.TechnicalDetail.OtherInformation, new { @class = "form-control mb-2" })
             </div>
         </div>
     </div>

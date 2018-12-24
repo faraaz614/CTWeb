@@ -67,7 +67,6 @@ namespace CT.Web.Controllers
             return View();
         }
 
-
         private void resizeImage(string newpath, string originalpath, string originalFilename, int canvasWidth, int canvasHeight, int originalWidth, int originalHeight)
         {
             Image image = Image.FromFile(originalpath + originalFilename);
