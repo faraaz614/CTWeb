@@ -1,0 +1,86 @@
+﻿@model CT.Web.Models.LoginModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/Material/assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="/Material/assets/img/favicon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+        CAR TIMEZ Login
+    </title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <!-- CSS Files -->
+    <link href="/Material/assets/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="/Material/assets/demo/demo.css" rel="stylesheet" />
+    <link href="~/Material/assets/css/material-dashboard.css" rel="stylesheet" />
+    <link href="https://mdbootstrap.com/legacy/4.3.2/assets/compiled.min.css" rel="stylesheet" />
+</head>
+<body>
+    <br />
+    <br />
+    <br />
+    <div class="container">
+        <div class="container-fluid">
+            <div class="row"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+                    {
+                         <!--Form with header-->
+                        <div class="card">
+                            <div class="card-block">
+
+                                <!--Header-->
+                                <div class="form-header  purple darken-4">
+                                    <h3><i class="fa fa-lock"></i> Login:</h3>
+                                </div>
+
+                                <!--Body-->
+                                <div class="md-form">
+                                    <i class="fa fa-envelope prefix"></i>
+                                    <input type="text" name="UserName" class="form-control" placeholder="Your email">
+                                    
+                                </div>
+
+                                <div class="md-form">
+                                    <i class="fa fa-lock prefix"></i>
+                                    <input type="password" name="Password" class="form-control"  placeholder="Your password">
+                                </div>
+
+                                <div class="text-center">
+                                    <button class="btn btn-deep-purple" type="submit">Login</button>
+                                </div>
+
+                            </div>
+
+                            <!--Footer-->
+                            <div class="modal-footer">
+                                <div class="options">
+                                    <p>Not a member? <a href="#">Sign Up</a></p>
+                                    <p>Forgot <a href="#">Password?</a></p>
+                                </div>
+                            </div>
+
+                        </div>
+                    <!--/Form with header-->
+                    }
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

@@ -37,6 +37,10 @@ namespace CT.Common.Entities
         [StringLength(150)]
         [MinLength(6, ErrorMessage = "Minimum length should be 6 characters")]
         public string VehicleName { get; set; }
+        [Required]
+        [StringLength(150)]
+        [MinLength(6, ErrorMessage = "Minimum length should be 6 characters")]
+        public string StockID { get; set; }
         public string Description { get; set; }
         public bool IsActive { get; set; }
         public bool IsDealClosed { get; set; }

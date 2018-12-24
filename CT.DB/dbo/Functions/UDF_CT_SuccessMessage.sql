@@ -27,6 +27,18 @@ else if (@ReturnType = 'denied')
 	begin
 SET @Message='Permission Denied';
 	end
+else if (@ReturnType = 'invaliduser')
+	begin
+	SET @Message='User Does not exists';
+	end
+else if (@ReturnType = 'loginsuccess')
+	begin
+	SET @Message='Login successfull';
+	end
+else if (@ReturnType = 'inactiveuser')
+	begin
+	SET @Message='Password wrong or use is not active';
+	end
 else
     begin
 	SET @Message='Operation Successfull';

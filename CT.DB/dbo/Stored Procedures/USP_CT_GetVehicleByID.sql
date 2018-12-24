@@ -18,7 +18,7 @@ BEGIN
 	SET NOCOUNT ON;
 	BEGIN TRY 
 		SET  @Status = 1;
-		Select ID,VehicleName,Description,IsDealClosed from [CT_TRAN_Vehicle] where ID = @VehicleID and IsDelete = 0 and IsActive = 1;
+		Select ID,VehicleName,StockID,Description,IsActive,IsDealClosed from [CT_TRAN_Vehicle] where ID = @VehicleID and IsDelete = 0 and IsActive = 1;
 		Select * from CT_TRAN_VehicleDetail where VehicleID = @VehicleID
 		Select * from CT_TRAN_VehicleImage where VehicleID = @VehicleID
 		Select * from CT_TRAN_DocumentDetail where VehicleID = @VehicleID

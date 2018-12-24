@@ -1,4 +1,5 @@
 ﻿using CT.Common.Common;
+using CT.Common.Entities;
 using CT.Common.Literals;
 using CT.Service.Repository;
 using Dapper;
@@ -181,6 +182,72 @@ namespace CT.Service.UserService
                 entity.ResponseStatus.Status = 0;
                 entity.ResponseStatus.Message = ex.Message;
                 Log.Error("Error in GetUsers Method");
+                Log.Error("Error occured time : " + DateTime.UtcNow);
+                Log.Error("Error message : " + ex.Message);
+                Log.Error("Error StackTrace : " + ex.StackTrace);
+                return entity;
+            }
+        }
+
+        public BaseVehicleBIDEntity GetBIDS(UserEntity userEntity)
+        {
+            BaseVehicleBIDEntity entity = new BaseVehicleBIDEntity();
+            try
+            {
+                Log.Info("----Info GetBIDS method start----");
+                Log.Info("@UserID" + userEntity.ID);
+                Log.Info("@RoleID" + userEntity.RoleID);
+                Log.Info("Store Proc Name : USP_CT_GetBids");
+                DynamicParameters param = new DynamicParameters();
+                param.Add("@UserID", userEntity.ID);
+                param.Add("@RoleID", userEntity.RoleID);
+                param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
+                entity.ListBids = GetItems<VehicleBIDEntity>(CommandType.StoredProcedure, UserLiterals.GetBids, param).AsList<VehicleBIDEntity>();
+                entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
+                entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
+                Log.Info("----Info GetBIDS method Exit----");
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                entity.ResponseStatus.Status = 0;
+                entity.ResponseStatus.Message = ex.Message;
+                Log.Error("Error in GetBIDS Method");
+                Log.Error("Error occured time : " + DateTime.UtcNow);
+                Log.Error("Error message : " + ex.Message);
+                Log.Error("Error StackTrace : " + ex.StackTrace);
+                return entity;
+            }
+        }
+
+        public BaseVehicleBIDEntity ViewBID(VehicleBIDEntity vehicleEntity)
+        {
+            BaseVehicleBIDEntity entity = new BaseVehicleBIDEntity();
+            try
+            {
+                Log.Info("----Info ViewBID method start----");
+                Log.Info("@UserID" + vehicleEntity.ID);
+                Log.Info("@RoleID" + vehicleEntity.RoleID);
+                Log.Info("@VehicleID" + vehicleEntity.VehicleID);
+                Log.Info("Store Proc Name : USP_CT_ViewBID");
+                DynamicParameters param = new DynamicParameters();
+                param.Add("@UserID", vehicleEntity.ID);
+                param.Add("@RoleID", vehicleEntity.RoleID);
+                param.Add("@VehicleID", vehicleEntity.VehicleID);
+                param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
+                entity.ListBids = GetItems<VehicleBIDEntity>(CommandType.StoredProcedure, UserLiterals.ViewBid, param).AsList<VehicleBIDEntity>();
+                entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
+                entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
+                Log.Info("----Info ViewBID method Exit----");
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                entity.ResponseStatus.Status = 0;
+                entity.ResponseStatus.Message = ex.Message;
+                Log.Error("Error in ViewBID Method");
                 Log.Error("Error occured time : " + DateTime.UtcNow);
                 Log.Error("Error message : " + ex.Message);
                 Log.Error("Error StackTrace : " + ex.StackTrace);

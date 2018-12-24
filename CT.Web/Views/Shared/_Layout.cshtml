@@ -177,10 +177,10 @@
                                     </p>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                                    <a class="dropdown-item" href="#">Profile</a>
+                                    <a class="dropdown-item" href="#">@User.Identity.Name</a>
                                     <a class="dropdown-item" href="#">Settings</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Log out</a>
+                                    <a class="dropdown-item" href="@Url.Action("Logout","Account")">Log out</a>
                                 </div>
                             </li>
                         </ul>
@@ -291,7 +291,7 @@
     <!-- Library for adding dinamically elements -->
     <script src="/Material/assets/js/plugins/arrive.min.js"></script>
     <!--  Google Maps Plugin    -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+    @*<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>*@
     <!-- Chartist JS -->
     <script src="/Material/assets/js/plugins/chartist.min.js"></script>
     <!--  Notifications Plugin    -->
@@ -305,7 +305,7 @@
             $().ready(function () {
                 $sidebar = $('.sidebar');
                 $('.mdb_upload').mdb_upload();
-                $('.datepicker').pickadate();
+                //$('.datepicker').pickadate();
                 $sidebar_img_container = $sidebar.find('.sidebar-background');
 
                 $full_page = $('.full-page');
@@ -482,7 +482,9 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         $(function () {
-            $(".datepicker").datepicker();
+            $(".datepicker").datepicker({
+                dateFormat: 'yy/mm/dd'
+            });
             $("#accordion").accordion({
                 heightStyle: "content"
             });

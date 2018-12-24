@@ -30,7 +30,7 @@
         </span>
     </div>
 </div>
-<div class='card-group'>
+@*<div class='card-group'>
     @foreach (var Vehicle in Model.ListVehicles)
     {
         <a href="@Url.Action("AddVehicle", "Vehicle", new { vechileID = Vehicle.ID })">
@@ -45,4 +45,24 @@
             </div>
         </a>
     }
+</div>*@
+
+<div>
+    <div class="row">
+        @foreach (var Vehicle in Model.ListVehicles)
+        {
+            <div class="col-md-4">
+                <a href="@Url.Action("AddVehicle", "Vehicle", new { vechileID = Vehicle.ID })">
+
+                    <div class="card mb-4 box-shadow">
+                        <img class="card-img-top" data-src="" alt="" style="height:225px; width:100%; display:block;" src="https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" data-holder-rendered="true">
+                        <div class="card-body">
+                            <p class="card-text">@Vehicle.VehicleName</p>
+                            <p class="card-text">500000</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+</div>
 </div>

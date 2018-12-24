@@ -1,4 +1,5 @@
 ﻿using CT.Common.Common;
+using CT.Common.Entities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -47,6 +48,8 @@ namespace CT.Web.Controllers
 
             if (ModelState.IsValid)
             {
+                model.RoleID = 1;
+                model.UserID = 1;
                 CTApiResponse cTApiResponse = await Post<UserEntity>("/User/InsertUpdateDealer", model);
                 if (cTApiResponse.IsSuccess)
                 {
@@ -75,9 +78,31 @@ namespace CT.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult BID()
+        public async Task<ActionResult> BID()
         {
-            return View();
+            BaseVehicleBIDEntity baseVehicleEntity = new BaseVehicleBIDEntity();
+            UserEntity userEntity = new UserEntity { RoleID = 1, ID = 1 };
+            CTApiResponse data = await Post("/User/GetBIDS", userEntity);
+            if (data.IsSuccess)
+            {
+                baseVehicleEntity = JsonConvert.DeserializeObject<BaseVehicleBIDEntity>(Convert.ToString(data.Data));
+            }
+            return View(baseVehicleEntity);
+        }
+
+        public async Task<ActionResult> ViewBID(long VehicleID)
+        {
+            BaseVehicleBIDEntity baseVehicleBIDEntity = new BaseVehicleBIDEntity();
+            if (VehicleID > 0)
+            {
+                VehicleBIDEntity vehicleBIDEntity = new VehicleBIDEntity { RoleID = 1, ID = 1, VehicleID = VehicleID };
+                CTApiResponse cTApiResponse = await Post("/User/ViewBID", vehicleBIDEntity);
+                if (cTApiResponse.IsSuccess)
+                {
+                    baseVehicleBIDEntity = JsonConvert.DeserializeObject<BaseVehicleBIDEntity>(Convert.ToString(cTApiResponse.Data));
+                }
+            }
+            return View(baseVehicleBIDEntity);
         }
     }
 }

@@ -153,7 +153,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Common\BaseViewPage.cs" />
     <Compile Include="Common\CommonUtility.cs" />
+    <Compile Include="Common\CustomPrincipal.cs" />
+    <Compile Include="Common\CustomPrincipalSerializeModel.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DealerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -161,6 +165,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -419,10 +425,13 @@
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\Dealer\AddDealer.cshtml" />
     <Content Include="Views\Vehicle\AddVehicle.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Dealer\ViewBID.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Images\450250\" />
+    <Folder Include="Images\Original\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

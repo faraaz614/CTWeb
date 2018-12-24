@@ -3,6 +3,11 @@
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
+@using (Html.BeginForm("Contact", "Home",FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="file" value="" />
+    <input type="submit" name="name" value="save" />
+}
 
 <address>
     One Microsoft Way<br />

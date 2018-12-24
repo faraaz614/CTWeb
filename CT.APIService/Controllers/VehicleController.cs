@@ -27,9 +27,9 @@ namespace CT.APIService.Controllers
                     data = _VehicleService.UpdateVehicle(model);
                 else
                     data = _VehicleService.InsertVehicle(model);
-                tebResponse.Data = data;
-                tebResponse.IsSuccess = true;
-                return Ok(tebResponse);
+                cTApiResponse.Data = data;
+                cTApiResponse.IsSuccess = true;
+                return Ok(cTApiResponse);
             });
         }
 
@@ -39,9 +39,9 @@ namespace CT.APIService.Controllers
             return RunInSafe(() =>
             {
                 var data = _VehicleService.DeleteVehicleByID(model);
-                tebResponse.Data = data;
-                tebResponse.IsSuccess = true;
-                return Ok(tebResponse);
+                cTApiResponse.Data = data;
+                cTApiResponse.IsSuccess = true;
+                return Ok(cTApiResponse);
             });
         }
 
@@ -51,9 +51,9 @@ namespace CT.APIService.Controllers
             return RunInSafe(() =>
             {
                 var data = _VehicleService.GetVehicleByID(model);
-                tebResponse.Data = data;
-                tebResponse.IsSuccess = true;
-                return Ok(tebResponse);
+                cTApiResponse.Data = data;
+                cTApiResponse.IsSuccess = true;
+                return Ok(cTApiResponse);
             });
         }
 
@@ -63,9 +63,9 @@ namespace CT.APIService.Controllers
             return RunInSafe(() =>
             {
                 var data = _VehicleService.GetVehicles(model);
-                tebResponse.Data = data;
-                tebResponse.IsSuccess = true;
-                return Ok(tebResponse);
+                cTApiResponse.Data = data;
+                cTApiResponse.IsSuccess = true;
+                return Ok(cTApiResponse);
             });
         }
 
@@ -76,9 +76,9 @@ namespace CT.APIService.Controllers
             {
                 BaseEntity data = new BaseEntity();
                 data = _VehicleService.AddVehicleDetails(model);
-                tebResponse.Data = data;
-                tebResponse.IsSuccess = true;
-                return Ok(tebResponse);
+                cTApiResponse.Data = data;
+                cTApiResponse.IsSuccess = true;
+                return Ok(cTApiResponse);
             });
         }
 
@@ -89,9 +89,9 @@ namespace CT.APIService.Controllers
             {
                 BaseEntity data = new BaseEntity();
                 data = _VehicleService.AddVehicleDocument(model);
-                tebResponse.Data = data;
-                tebResponse.IsSuccess = true;
-                return Ok(tebResponse);
+                cTApiResponse.Data = data;
+                cTApiResponse.IsSuccess = true;
+                return Ok(cTApiResponse);
             });
         }
 
@@ -102,9 +102,9 @@ namespace CT.APIService.Controllers
             {
                 BaseEntity data = new BaseEntity();
                 data = _VehicleService.AddVehicleTechnical(model);
-                tebResponse.Data = data;
-                tebResponse.IsSuccess = true;
-                return Ok(tebResponse);
+                cTApiResponse.Data = data;
+                cTApiResponse.IsSuccess = true;
+                return Ok(cTApiResponse);
             });
         }
     }

@@ -1,0 +1,62 @@
+﻿@model CT.Common.Entities.BaseVehicleBIDEntity
+@{
+    ViewBag.Title = "BID";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title ">Bids</h4>
+                <p class="card-category">Current Bidding</p>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class=" text-primary">
+                            <tr>
+                                <th>
+                                    VehicleID
+                                </th>
+                                <th>
+                                    Vehicle Name
+                                </th>
+                                <th>
+                                    StockID
+                                </th>
+                                <th>
+                                    BID Amount
+                                </th>
+                                <th>
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var bid in Model.ListBids)
+                            {
+                                <tr>
+                                    <td>
+                                        @bid.VehicleID
+                                    </td>
+                                    <td>
+                                        @bid.VehicleName
+                                    </td>
+                                    <td>
+                                        @bid.StockID
+                                    </td>
+                                    <td>
+                                        @bid.BIDAmount
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("ViewBID","Dealer",new { VehicleID = bid.VehicleID })" class="btn btn-success btn-rounded btn-sm my-0">View</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

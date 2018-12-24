@@ -9,14 +9,11 @@ using System.Web.Mvc;
 
 namespace CT.Web.Controllers
 {
+    [Authorize]
     public class BaseController : Controller
     {
         string apival = ConfigurationManager.AppSettings["ApiUrl"];
 
-        /// <summary>
-        /// get method request to api
-        /// </summary>
-        /// <param name="url">relative url of the resource</param>
         public async Task<CTApiResponse> Get(string url)
         {
             var apiResponse = new CTApiResponse(false, "Unable to connect to api");
@@ -40,12 +37,6 @@ namespace CT.Web.Controllers
             }
         }
 
-        /// <summary>
-        /// post method request to api
-        /// </summary>
-        /// <param name="url">relative url of the resource</param>
-        /// <param name="formdata">post data in dictionary format</param>
-        /// <returns></returns>
         protected virtual async Task<string> Post(string url, Dictionary<string, string> formdata)
         {
 
@@ -76,12 +67,6 @@ namespace CT.Web.Controllers
             }
         }
 
-        /// <summary>
-        /// post method request to api
-        /// </summary>
-        /// <param name="url">relative url of the resource</param>
-        /// <param name="formdata">generic form data to post</param>
-        /// <returns>NECApiResponse</returns>
         protected virtual async Task<CTApiResponse> Post<T>(string url, T formdata)
         {
             if (formdata == null)
@@ -109,12 +94,6 @@ namespace CT.Web.Controllers
             }
         }
 
-        /// <summary>
-        /// put method request to api
-        /// </summary>
-        /// <param name="url">relative url of the resource</param>
-        /// <param name="formdata">generic form data to update</param>
-        /// <returns>NECApiResponse</returns>
         protected virtual async Task<CTApiResponse> Put<T>(string url, T formdata)
         {
             if (formdata == null)
@@ -141,12 +120,6 @@ namespace CT.Web.Controllers
             }
         }
 
-        /// <summary>
-        /// Delete method request to api
-        /// </summary>
-        /// <param name="url">relative url of the resource</param>
-        /// <param name="formdata">generic form data to update</param>
-        /// <returns>NECApiResponse</returns>
         protected virtual async Task<CTApiResponse> Delete(string url)
         {
             var apiResponse = new CTApiResponse(false, "Unable to connect to api");
@@ -170,7 +143,6 @@ namespace CT.Web.Controllers
             }
         }
 
-        // Handy helper method to set the access token for each request:
         void SetClientAuthentication(HttpClient client)
         {
             //var token =  HttpContext.User.Identity.GetToken();

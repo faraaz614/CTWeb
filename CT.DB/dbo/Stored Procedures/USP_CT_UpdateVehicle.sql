@@ -3,12 +3,13 @@
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE [USP_CT_UpdateVehicle]
+CREATE PROCEDURE [dbo].[USP_CT_UpdateVehicle]
 (
 @UserID bigint,
 @RoleID int,
 @VehicleID bigint,
 @VehicleName nvarchar(150),
+@StockID nvarchar(50),
 @Description nvarchar(150) = null,
 @IsDealClosed bit,
 @IsActive bit,
@@ -22,7 +23,7 @@ BEGIN
 	SET NOCOUNT ON;
 	BEGIN TRY 
 		SET  @Status = 1;
-		Update CT_TRAN_Vehicle set VehicleName = @VehicleName, Description = @Description, IsDealClosed = @IsDealClosed, 
+		Update CT_TRAN_Vehicle set VehicleName = @VehicleName, StockID = @StockID, Description = @Description, IsDealClosed = @IsDealClosed, 
 		IsActive = @IsActive, ModifiedBy = @UserID, ModifiedOn = GETDATE()
 		where ID = @VehicleID;
 		SET @Message = dbo.UDF_CT_SuccessMessage('update') ;

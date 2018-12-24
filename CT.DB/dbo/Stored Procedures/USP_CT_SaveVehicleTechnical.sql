@@ -3,7 +3,7 @@
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE USP_CT_AddVehicleTechnical
+CREATE PROCEDURE [USP_CT_SaveVehicleTechnical]
 (
 @UserID bigint,
 @RoleID int,

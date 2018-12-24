@@ -3,11 +3,12 @@
 -- Create date: <12/17/2018>
 -- Description:	<SaveVechile>
 -- =============================================
-CREATE PROCEDURE [USP_CT_SaveVehicle]
+CREATE PROCEDURE [dbo].[USP_CT_SaveVehicle]
 (
 @UserID bigint,
 @RoleID int,
 @VehicleName nvarchar(150),
+@StockID nvarchar(50),
 @Description nvarchar(150) = null,
 @IsDealClosed bit,
 @Status int out,
@@ -22,13 +23,13 @@ BEGIN
 		SET  @Status = 1;  
 		If not exists(SELECT * FROM CT_TRAN_Vehicle WHERE VehicleName = @VehicleName and IsActive = 1)
 			begin
-				INSERT INTO CT_TRAN_Vehicle(VehicleName,Description,IsDealClosed,IsActive,IsDelete,CreatedOn,CreatedBy,ModifiedOn,ModifiedBy)
-				SELECT @VehicleName,@Description,@IsDealClosed,1,0,GETDATE(),@UserID,GETDATE(),@UserID;
+				INSERT INTO CT_TRAN_Vehicle(VehicleName,StockID,Description,IsDealClosed,IsActive,IsDelete,CreatedOn,CreatedBy,ModifiedOn,ModifiedBy)
+				SELECT @VehicleName,@StockID,@Description,@IsDealClosed,1,0,GETDATE(),@UserID,GETDATE(),@UserID;
 				SET @Message = dbo.UDF_CT_SuccessMessage('insert') ;
 			end
 		else
 			begin
-				SET @Message = dbo.UDF_CT_SuccessMessage('exists') ;
+				SET @Message = dbo.UDF_CT_SuccessMessage('vehicleexists') ;
 				SET  @Status = 0;  
 			end
 	END TRY

@@ -85,8 +85,14 @@
     <Build Include="dbo\Stored Procedures\USP_CT_GetVehicleByID.sql" />
     <Build Include="dbo\Stored Procedures\USP_CT_DeleteVehicleByID.sql" />
     <Build Include="dbo\Stored Procedures\USP_CT_GetFuelType.sql" />
-    <Build Include="dbo\Stored Procedures\USP_CT_AddVehicleTechnical.sql" />
-    <Build Include="dbo\Stored Procedures\USP_CT_AddVehicleDocument.sql" />
-    <Build Include="dbo\Stored Procedures\USP_CT_AddVehicleDetails.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_UserLogin.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_SaveVehicleTechnical.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_SaveVehicleDocument.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_SaveVehicleDetails.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_SaveBid.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_GetBidsByVehicleID.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_GetBidsByDealerID.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_GetBids.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_ViewBID.sql" />
   </ItemGroup>
 </Project>

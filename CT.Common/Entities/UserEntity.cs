@@ -44,5 +44,6 @@ namespace CT.Common.Common
         public bool IsActive { get; set; }
         public long CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
+        
     }
 }

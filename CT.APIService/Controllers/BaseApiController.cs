@@ -6,10 +6,10 @@ namespace CT.APIService.Controllers
 {
     public class BaseApiController : ApiController
     {
-        public readonly CTApiResponse tebResponse;
+        public readonly CTApiResponse cTApiResponse;
         public BaseApiController()
         {
-            tebResponse = new CTApiResponse();
+            cTApiResponse = new CTApiResponse();
         }
 
         [NonAction]

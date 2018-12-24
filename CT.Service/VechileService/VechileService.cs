@@ -19,16 +19,18 @@ namespace CT.Service.VehicleService
             BaseEntity entity = new BaseEntity();
             try
             {
-                Log.Info("----Info SaveVehicle method start----");
+                Log.Info("----Info InsertVehicle method start----");
                 Log.Info("@VehicleName" + VehicleEntity.VehicleName);
+                Log.Info("@StockID" + VehicleEntity.StockID);
                 Log.Info("@Description" + VehicleEntity.Description);
                 Log.Info("@IsDealClosed" + VehicleEntity.IsDealClosed);
                 Log.Info("Store Proc Name : USP_CT_SaveVehicle");
-                Log.Info("----Info SaveVehicle method end----");
+                Log.Info("----Info InsertVehicle method end----");
                 DynamicParameters param = new DynamicParameters();
                 param.Add("@UserID", VehicleEntity.UserID);
                 param.Add("@RoleID", VehicleEntity.RoleID);
                 param.Add("@VehicleName", VehicleEntity.VehicleName);
+                param.Add("@StockID", VehicleEntity.StockID);
                 param.Add("@Description", VehicleEntity.Description);
                 param.Add("@IsDealClosed", VehicleEntity.IsDealClosed);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
@@ -36,7 +38,7 @@ namespace CT.Service.VehicleService
                 entity.GenericErrorInfo = GetSingleItem<GenericErrorInfo>(CommandType.StoredProcedure, VehicleLiterals.SaveVehicle, param);
                 entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
                 entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
-                Log.Info("----Info SaveVehicle method Exit----");
+                Log.Info("----Info InsertVehicle method Exit----");
                 return entity;
             }
             catch (Exception ex)
@@ -59,6 +61,7 @@ namespace CT.Service.VehicleService
                 Log.Info("----Info UpdateVehicle method start----");
                 Log.Info("@VehicleID" + VehicleEntity.ID);
                 Log.Info("@VehicleName" + VehicleEntity.VehicleName);
+                Log.Info("@StockID" + VehicleEntity.StockID);
                 Log.Info("@Description" + VehicleEntity.Description);
                 Log.Info("@IsDealClosed" + VehicleEntity.IsDealClosed);
                 Log.Info("Store Proc Name : USP_CT_UpdateVehicle");
@@ -68,6 +71,7 @@ namespace CT.Service.VehicleService
                 param.Add("@RoleID", VehicleEntity.RoleID);
                 param.Add("@VehicleID", VehicleEntity.ID);
                 param.Add("@VehicleName", VehicleEntity.VehicleName);
+                param.Add("@StockID", VehicleEntity.StockID);
                 param.Add("@Description", VehicleEntity.Description);
                 param.Add("@IsDealClosed", VehicleEntity.IsDealClosed);
                 param.Add("@IsActive", VehicleEntity.IsActive);
@@ -132,6 +136,8 @@ namespace CT.Service.VehicleService
                 if (VehicleEntity.ID > 0)
                 {
                     Log.Info("----Info GetVehicleByID method start----");
+                    Log.Info("@UserID" + VehicleEntity.UserID);
+                    Log.Info("@RoleID" + VehicleEntity.RoleID);
                     Log.Info("@VehicleID" + VehicleEntity.ID);
                     Log.Info("Store Proc Name : USP_CT_GetVehicleByID");
                     Log.Info("----Info GetVehicleByID method end----");

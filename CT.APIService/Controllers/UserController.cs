@@ -1,4 +1,5 @@
 ﻿using CT.Common.Common;
+using CT.Common.Entities;
 using CT.Service.UserService;
 using System;
 using System.Collections.Generic;
@@ -27,9 +28,9 @@ namespace CT.APIService.Controllers
                     data = _userService.UpdateDealer(model);
                 else
                     data = _userService.InsertDealer(model);
-                tebResponse.Data = data;
-                tebResponse.IsSuccess = true;
-                return Ok(tebResponse);
+                cTApiResponse.Data = data;
+                cTApiResponse.IsSuccess = true;
+                return Ok(cTApiResponse);
             });
         }
 
@@ -39,9 +40,9 @@ namespace CT.APIService.Controllers
             return RunInSafe(() =>
             {
                 var data = _userService.DeleteDealerByID(model);
-                tebResponse.Data = data;
-                tebResponse.IsSuccess = true;
-                return Ok(tebResponse);
+                cTApiResponse.Data = data;
+                cTApiResponse.IsSuccess = true;
+                return Ok(cTApiResponse);
             });
         }
 
@@ -51,9 +52,9 @@ namespace CT.APIService.Controllers
             return RunInSafe(() =>
             {
                 var data = _userService.GetDealerByID(model);
-                tebResponse.Data = data;
-                tebResponse.IsSuccess = true;
-                return Ok(tebResponse);
+                cTApiResponse.Data = data;
+                cTApiResponse.IsSuccess = true;
+                return Ok(cTApiResponse);
             });
         }
 
@@ -63,9 +64,33 @@ namespace CT.APIService.Controllers
             return RunInSafe(() =>
             {
                 var data = _userService.GetDealers(model);
-                tebResponse.Data = data;
-                tebResponse.IsSuccess = true;
-                return Ok(tebResponse);
+                cTApiResponse.Data = data;
+                cTApiResponse.IsSuccess = true;
+                return Ok(cTApiResponse);
+            });
+        }
+
+        [HttpPost]
+        public IHttpActionResult GetBIDS(UserEntity userEntity)
+        {
+            return RunInSafe(() =>
+            {
+                var data = _userService.GetBIDS(userEntity);
+                cTApiResponse.Data = data;
+                cTApiResponse.IsSuccess = true;
+                return Ok(cTApiResponse);
+            });
+        }
+
+        [HttpPost]
+        public IHttpActionResult ViewBID(VehicleBIDEntity vehicleEntity)
+        {
+            return RunInSafe(() =>
+            {
+                var data = _userService.ViewBID(vehicleEntity);
+                cTApiResponse.Data = data;
+                cTApiResponse.IsSuccess = true;
+                return Ok();
             });
         }
     }

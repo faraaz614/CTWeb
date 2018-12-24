@@ -46,6 +46,8 @@ namespace CT.Web.Controllers
 
             if (ModelState.IsValid)
             {
+                model.RoleID = 1;
+                model.UserID = 1;
                 CTApiResponse cTApiResponse = await Post("/Vehicle/InsertUpdateVehicle", model);
                 if (cTApiResponse.IsSuccess)
                 {
@@ -77,9 +79,6 @@ namespace CT.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> AddVehicleDetails(VehicleEntity model)
         {
-            if (ModelState.ContainsKey("ID"))
-                ModelState["ID"].Errors.Clear();
-
             if (model.ID > 0)
             {
                 CTApiResponse cTApiResponse = await Post("/Vehicle/AddVehicleDetails", model);
@@ -94,9 +93,6 @@ namespace CT.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> AddVehicleDocument(VehicleEntity model)
         {
-            if (ModelState.ContainsKey("ID"))
-                ModelState["ID"].Errors.Clear();
-
             if (model.ID > 0)
             {
                 CTApiResponse cTApiResponse = await Post("/Vehicle/AddVehicleDocument", model);
@@ -111,9 +107,6 @@ namespace CT.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> AddVehicleTechnical(VehicleEntity model)
         {
-            if (ModelState.ContainsKey("ID"))
-                ModelState["ID"].Errors.Clear();
-
             if (model.ID > 0)
             {
                 CTApiResponse cTApiResponse = await Post("/Vehicle/AddVehicleTechnical", model);

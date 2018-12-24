@@ -10,5 +10,7 @@
         public const string GetUserByID = "USP_CT_GetUserByID";
         public const string GetUsers = "USP_CT_GetUsers";
         public const string UpdateUser = "USP_CT_UpdateUser";
+        public const string GetBids = "USP_CT_GetBids";
+        public const string ViewBid = "USP_CT_ViewBID";
     }
 }

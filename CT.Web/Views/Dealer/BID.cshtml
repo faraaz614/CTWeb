@@ -1,4 +1,4 @@
-﻿
+﻿@model CT.Common.Entities.BaseVehicleBIDEntity
 @{
     ViewBag.Title = "BID";
 }
@@ -16,152 +16,48 @@
                         <thead class=" text-primary">
                             <tr>
                                 <th>
-                                    ID
+                                    VehicleID
                                 </th>
                                 <th>
-                                    Dealer Name
+                                    Vehicle Name
                                 </th>
                                 <th>
-                                    Area
+                                    StockID
                                 </th>
                                 <th>
-                                    City
+                                    BID Amount
                                 </th>
                                 <th>
-                                    Close deal
-                                </th>
-                                <th>
-                                    Bid price
+                                    Action
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    1
-                                </td>
-                                <td>
-                                    Dakota Rice
-                                </td>
-                                <td>
-                                    Niger
-                                </td>
-                                <td>
-                                    Oud-Turnhout
-                                </td>
-                                <td>
-                                    <span class="table-remove"><button type="button" class="btn btn-success btn-rounded btn-sm my-0">Close</button></span>
-                                </td>
-                                <td class="text-primary">
-                                    36,738
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    2
-                                </td>
-                                <td>
-                                    Minerva Hooper
-                                </td>
-                                <td>
-                                    Curaçao
-                                </td>
-                                <td>
-                                    Sinaai-Waas
-                                </td>
-                                <td>
-                                    <span class="table-remove"><button type="button" class="btn btn-success btn-rounded btn-sm my-0">Close</button></span>
-                                </td>
-                                <td class="text-primary">
-                                    23,789
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    3
-                                </td>
-                                <td>
-                                    Sage Rodriguez
-                                </td>
-                                <td>
-                                    Netherlands
-                                </td>
-                                <td>
-                                    Baileux
-                                </td>
-                                <td>
-                                    <span class="table-remove"><button type="button" class="btn btn-success btn-rounded btn-sm my-0">Close</button></span>
-                                </td>
-                                <td class="text-primary">
-                                    56,142
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    4
-                                </td>
-                                <td>
-                                    Philip Chaney
-                                </td>
-                                <td>
-                                    Korea, South
-                                </td>
-                                <td>
-                                    Overland Park
-                                </td>
-                                <td>
-                                    <span class="table-remove"><button type="button" class="btn btn-success btn-rounded btn-sm my-0">Close</button></span>
-                                </td>
-                                <td class="text-primary">
-                                    38,735
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    5
-                                </td>
-                                <td>
-                                    Doris Greene
-                                </td>
-                                <td>
-                                    Malawi
-                                </td>
-                                <td>
-                                    Feldkirchen in Kärnten
-                                </td>
-                                <td>
-                                    <span class="table-remove"><button type="button" class="btn btn-success btn-rounded btn-sm my-0">Close</button></span>
-                                </td>
-                                <td class="text-primary">
-                                    63,542
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    6
-                                </td>
-                                <td>
-                                    Mason Porter
-                                </td>
-                                <td>
-                                    Chile
-                                </td>
-                                <td>
-                                    Gloucester
-                                </td>
-                                <td>
-                                    <span class="table-remove"><button type="button" class="btn btn-success btn-rounded btn-sm my-0">Close</button></span>
-                                </td>
-                                <td class="text-primary">
-                                    78,615
-                                </td>
-                            </tr>
+                            @foreach (var bid in Model.ListBids)
+                            {
+                                <tr>
+                                    <td>
+                                        @bid.VehicleID
+                                    </td>
+                                    <td>
+                                        @bid.VehicleName
+                                    </td>
+                                    <td>
+                                        @bid.StockID
+                                    </td>
+                                    <td>
+                                        @bid.BIDAmount
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("ViewBID","Dealer",new { VehicleID = bid.VehicleID })" class="btn btn-success btn-rounded btn-sm my-0">View</a>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
