@@ -25,7 +25,7 @@ namespace CT.Web
         {
             HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
             if (authCookie == null) return;
-            if (authCookie != null)
+            if (authCookie != null && !String.IsNullOrEmpty(authCookie.Value))
             {
                 FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
                 CustomPrincipalSerializeModel serializeModel = JsonConvert.DeserializeObject<CustomPrincipalSerializeModel>(authTicket.UserData);
