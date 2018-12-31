@@ -26,7 +26,7 @@ namespace CT.Web.Common
         }
         public Int64 UserId { get; set; }
         public Int64 EmployeeID { get; set; }
-        public Int64 RoleId { get; set; }
+        public int RoleId { get; set; }
         public string UserName { get; set; }
         public string ProfileName { get; set; }
         public string ProfileName_EN { get; set; }
