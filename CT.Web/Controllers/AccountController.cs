@@ -3,8 +3,6 @@ using CT.Web.Common;
 using CT.Web.Models;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -30,7 +28,7 @@ namespace CT.Web.Controllers
             if (ModelState.IsValid)
             {
                 // validate user by username and password  //get data from db
-                var response = await Post("/Account/Login", new UserEntity { UserName = "srikanth@cartimez.in", Password = "car@123" });
+                CTApiResponse response = await Post("/Account/Login", new UserEntity { UserName = loginModel.Username, Password = loginModel.Password });
                 if (response.IsSuccess)
                 {
                     UserEntity user = JsonConvert.DeserializeObject<UserEntity>(Convert.ToString(response.Data));
@@ -49,7 +47,7 @@ namespace CT.Web.Controllers
                                                                loginModel.RememberMe,
                                                                userData);
                         string encTicket = FormsAuthentication.Encrypt(authTicket);
-                        var faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
+                        HttpCookie faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
                         faCookie.Expires = authTicket.Expiration;
                         Response.Cookies.Add(faCookie);
                         return RedirectToAction("Index", "Home");
