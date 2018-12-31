@@ -1,4 +1,5 @@
 ﻿using CT.Common.Common;
+using CT.Web.Common;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -13,6 +14,11 @@ namespace CT.Web.Controllers
     public class BaseController : Controller
     {
         string apival = ConfigurationManager.AppSettings["ApiUrl"];
+
+        protected virtual new CustomPrincipal User
+        {
+            get { if (HttpContext != null) return HttpContext.User as CustomPrincipal; else return null; }
+        }
 
         public async Task<CTApiResponse> Get(string url)
         {
