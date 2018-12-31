@@ -2,10 +2,7 @@
 using CT.Common.Entities;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace CT.Web.Controllers
@@ -45,8 +42,8 @@ namespace CT.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                model.RoleID = 1;
-                model.UserID = 1;
+                model.RoleID = User.RoleId;
+                model.UserID = User.UserId;
                 CTApiResponse cTApiResponse = await Post("/Vehicle/InsertUpdateVehicle", model);
                 if (cTApiResponse.IsSuccess)
                 {
