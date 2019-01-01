@@ -84,3 +84,9 @@
     color: red;
     float: right;
 }
+
+.isdealclosed {
+    background-color: #fdd9d7;
+    border-color: #fccac7;
+    color: black;
+}

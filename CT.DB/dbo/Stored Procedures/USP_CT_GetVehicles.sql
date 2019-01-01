@@ -3,7 +3,7 @@
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE [USP_CT_GetVehicles]
+CREATE PROCEDURE [dbo].[USP_CT_GetVehicles]
 (
 @UserID bigint,
 @RoleID int,
@@ -19,7 +19,12 @@ BEGIN
 		if exists(select UserName from CT_TRAN_User where ID = @UserID and RoleID = @RoleID) and (@RoleID = 1)
 		begin --if
 			SET  @Status = 1;
-			Select ID,VehicleName,Description,IsDealClosed from CT_TRAN_Vehicle where IsActive = 1 and IsDelete = 0;
+			Select * from 
+			(Select v.ID,v.VehicleName,v.StockID,v.Description,v.IsDealClosed,vi.ImageName,ROW_NUMBER() over(partition by v.id order by v.id) as rowno
+			from CT_TRAN_Vehicle v
+			left outer join CT_TRAN_VehicleImage vi on v.ID = vi.VehicleID
+			where v.IsActive = 1 and v.IsDelete = 0) a
+			where a.rowno = 1
 			set @Message = dbo.UDF_CT_SuccessMessage('')
 		end--if
 		else

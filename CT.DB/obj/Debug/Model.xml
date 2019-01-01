@@ -2317,6 +2317,176 @@ END]]></Value>
 				<Property Name="HeaderContents" Value="-- =============================================&#xD;&#xA;-- Author:&#x9;&#x9;&lt;Author,,Name&gt;&#xD;&#xA;-- Create date: &lt;Create Date,,&gt;&#xD;&#xA;-- Description:&#x9;&lt;Description,,&gt;&#xD;&#xA;-- =============================================&#xD;&#xA;CREATE PROCEDURE [dbo].[USP_CT_DeleteVehicleByID]&#xD;&#xA;(&#xD;&#xA;@UserID bigint,&#xD;&#xA;@RoleID int,&#xD;&#xA;@VehicleID int,&#xD;&#xA;@Status int out,&#xD;&#xA;@Message nvarchar(500) out&#xD;&#xA;)&#xD;&#xA;AS" />
 			</Annotation>
 		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[USP_CT_DeleteVehicleImage]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	BEGIN TRY
+		SET  @Status = 1;  
+		If exists(SELECT * FROM CT_TRAN_VehicleImage WHERE ImageName = @ImageName and VehicleID = @VehicleID)
+		begin
+			delete from CT_TRAN_VehicleImage where ImageName = @ImageName and VehicleID = @VehicleID;
+			SET @Message = dbo.UDF_CT_SuccessMessage('delete') ;
+		end		
+	END TRY
+	BEGIN CATCH     
+		SET  @Status = 0;   
+		SET  @Message = 'Generic Error: '+ ERROR_MESSAGE() ;
+		EXECUTE USP_CT_GetErrorInfo;  
+	END CATCH
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[USP_CT_DeleteVehicleImage].[@Status]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CT_TRAN_VehicleImage]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CT_TRAN_VehicleImage].[ImageName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[USP_CT_DeleteVehicleImage].[@ImageName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CT_TRAN_VehicleImage].[VehicleID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[USP_CT_DeleteVehicleImage].[@VehicleID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CT_TRAN_VehicleImage]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CT_TRAN_VehicleImage].[ImageName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CT_TRAN_VehicleImage].[VehicleID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[USP_CT_DeleteVehicleImage].[@Message]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[UDF_CT_SuccessMessage]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[USP_CT_GetErrorInfo]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[USP_CT_DeleteVehicleImage].[@UserID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bigint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[USP_CT_DeleteVehicleImage].[@RoleID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[USP_CT_DeleteVehicleImage].[@VehicleID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[USP_CT_DeleteVehicleImage].[@ImageName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="150" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[USP_CT_DeleteVehicleImage].[@Status]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[USP_CT_DeleteVehicleImage].[@Message]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="500" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="194" />
+				<Property Name="Length" Value="962" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="-- =============================================&#xD;&#xA;-- Author:&#x9;&#x9;&lt;Author,,Name&gt;&#xD;&#xA;-- Create date: &lt;Create Date,,&gt;&#xD;&#xA;-- Description:&#x9;&lt;Description,,&gt;&#xD;&#xA;-- =============================================&#xD;&#xA;CREATE PROCEDURE USP_CT_DeleteVehicleImage&#xD;&#xA;(&#xD;&#xA;@UserID bigint,&#xD;&#xA;@RoleID int,&#xD;&#xA;@VehicleID int,&#xD;&#xA;@ImageName nvarchar(150),&#xD;&#xA;@Status int out,&#xD;&#xA;@Message nvarchar(500) out&#xD;&#xA;)&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
 		<Element Type="SqlProcedure" Name="[dbo].[USP_CT_GetBids]">
 			<Property Name="BodyScript">
 				<Value><![CDATA[
@@ -2328,10 +2498,11 @@ BEGIN
 		if exists(select UserName from CT_TRAN_User where ID = @UserID and RoleID = @RoleID) and (@RoleID = 1)
 		begin --if
 			SET  @Status = 1;
-			Select bid.VehicleID,veh.VehicleName,veh.StockID,MAX(bid.BIDAmount) as BIDAmount
+			Select bid.VehicleID,veh.VehicleName,veh.StockID,MAX(bid.BIDAmount) as BIDAmount,veh.IsDealClosed
 			from CT_TRAN_VehicleBID bid 
 			join CT_TRAN_Vehicle veh on bid.VehicleID = veh.ID
-			group by bid.VehicleID,veh.VehicleName,veh.StockID;
+			where veh.IsDelete = 0 and veh.IsActive = 1
+			group by bid.VehicleID,veh.VehicleName,veh.StockID,veh.IsDealClosed;
 			set @Message = dbo.UDF_CT_SuccessMessage('')
 		end--if
 		else
@@ -2390,6 +2561,15 @@ END]]></Value>
 				</Entry>
 				<Entry>
 					<References Name="[dbo].[CT_TRAN_VehicleBID].[BIDAmount]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CT_TRAN_Vehicle].[IsDealClosed]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CT_TRAN_Vehicle].[IsDelete]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CT_TRAN_Vehicle].[IsActive]" />
 				</Entry>
 				<Entry>
 					<References Name="[dbo].[USP_CT_GetBids].[@Message]" />
@@ -2473,7 +2653,7 @@ END]]></Value>
 			</Relationship>
 			<Annotation Type="SysCommentsObjectAnnotation">
 				<Property Name="CreateOffset" Value="194" />
-				<Property Name="Length" Value="1148" />
+				<Property Name="Length" Value="1230" />
 				<Property Name="StartLine" Value="1" />
 				<Property Name="StartColumn" Value="1" />
 				<Property Name="HeaderContents" Value="-- =============================================&#xD;&#xA;-- Author:&#x9;&#x9;&lt;Author,,Name&gt;&#xD;&#xA;-- Create date: &lt;Create Date,,&gt;&#xD;&#xA;-- Description:&#x9;&lt;Description,,&gt;&#xD;&#xA;-- =============================================&#xD;&#xA;CREATE PROCEDURE [dbo].[USP_CT_GetBids]&#xD;&#xA;(&#xD;&#xA;@UserID bigint,&#xD;&#xA;@RoleID int,&#xD;&#xA;@Status int out,&#xD;&#xA;@Message nvarchar(500) out&#xD;&#xA;)&#xD;&#xA;AS" />
@@ -3392,7 +3572,12 @@ BEGIN
 		if exists(select UserName from CT_TRAN_User where ID = @UserID and RoleID = @RoleID) and (@RoleID = 1)
 		begin --if
 			SET  @Status = 1;
-			Select ID,VehicleName,Description,IsDealClosed from CT_TRAN_Vehicle where IsActive = 1 and IsDelete = 0;
+			Select * from 
+			(Select v.ID,v.VehicleName,v.StockID,v.Description,v.IsDealClosed,vi.ImageName,ROW_NUMBER() over(partition by v.id order by v.id) as rowno
+			from CT_TRAN_Vehicle v
+			left outer join CT_TRAN_VehicleImage vi on v.ID = vi.VehicleID
+			where v.IsActive = 1 and v.IsDelete = 0) a
+			where a.rowno = 1
 			set @Message = dbo.UDF_CT_SuccessMessage('')
 		end--if
 		else
@@ -3435,16 +3620,31 @@ END]]></Value>
 					<References Name="[dbo].[CT_TRAN_Vehicle]" />
 				</Entry>
 				<Entry>
+					<References Name="[dbo].[CT_TRAN_VehicleImage]" />
+				</Entry>
+				<Entry>
 					<References Name="[dbo].[CT_TRAN_Vehicle].[ID]" />
 				</Entry>
 				<Entry>
+					<References Name="[dbo].[CT_TRAN_VehicleImage].[VehicleID]" />
+				</Entry>
+				<Entry>
 					<References Name="[dbo].[CT_TRAN_Vehicle].[VehicleName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CT_TRAN_Vehicle].[StockID]" />
 				</Entry>
 				<Entry>
 					<References Name="[dbo].[CT_TRAN_Vehicle].[Description]" />
 				</Entry>
 				<Entry>
 					<References Name="[dbo].[CT_TRAN_Vehicle].[IsDealClosed]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CT_TRAN_VehicleImage].[ImageName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CT_TRAN_Vehicle].[ID]" />
 				</Entry>
 				<Entry>
 					<References Name="[dbo].[CT_TRAN_Vehicle].[IsActive]" />
@@ -3534,10 +3734,10 @@ END]]></Value>
 			</Relationship>
 			<Annotation Type="SysCommentsObjectAnnotation">
 				<Property Name="CreateOffset" Value="194" />
-				<Property Name="Length" Value="1026" />
+				<Property Name="Length" Value="1248" />
 				<Property Name="StartLine" Value="1" />
 				<Property Name="StartColumn" Value="1" />
-				<Property Name="HeaderContents" Value="-- =============================================&#xD;&#xA;-- Author:&#x9;&#x9;&lt;Author,,Name&gt;&#xD;&#xA;-- Create date: &lt;Create Date,,&gt;&#xD;&#xA;-- Description:&#x9;&lt;Description,,&gt;&#xD;&#xA;-- =============================================&#xD;&#xA;CREATE PROCEDURE [USP_CT_GetVehicles]&#xD;&#xA;(&#xD;&#xA;@UserID bigint,&#xD;&#xA;@RoleID int,&#xD;&#xA;@Status int out,&#xD;&#xA;@Message nvarchar(500) out&#xD;&#xA;)&#xD;&#xA;AS" />
+				<Property Name="HeaderContents" Value="-- =============================================&#xD;&#xA;-- Author:&#x9;&#x9;&lt;Author,,Name&gt;&#xD;&#xA;-- Create date: &lt;Create Date,,&gt;&#xD;&#xA;-- Description:&#x9;&lt;Description,,&gt;&#xD;&#xA;-- =============================================&#xD;&#xA;CREATE PROCEDURE [dbo].[USP_CT_GetVehicles]&#xD;&#xA;(&#xD;&#xA;@UserID bigint,&#xD;&#xA;@RoleID int,&#xD;&#xA;@Status int out,&#xD;&#xA;@Message nvarchar(500) out&#xD;&#xA;)&#xD;&#xA;AS" />
 			</Annotation>
 		</Element>
 		<Element Type="SqlProcedure" Name="[dbo].[USP_CT_Login]">
@@ -5132,6 +5332,192 @@ END]]></Value>
 				<Property Name="StartLine" Value="1" />
 				<Property Name="StartColumn" Value="1" />
 				<Property Name="HeaderContents" Value="-- =============================================&#xD;&#xA;-- Author:&#x9;&#x9;&lt;Author,,Name&gt;&#xD;&#xA;-- Create date: &lt;Create Date,,&gt;&#xD;&#xA;-- Description:&#x9;&lt;Description,,&gt;&#xD;&#xA;-- =============================================&#xD;&#xA;CREATE PROCEDURE [USP_CT_SaveVehicleDocument]&#xD;&#xA;(&#xD;&#xA;@UserID bigint,&#xD;&#xA;@RoleID int,&#xD;&#xA;@VehicleID int,&#xD;&#xA;@IsRCavailable bit,&#xD;&#xA;@Hypothication bit,&#xD;&#xA;@IsNOCavailable bit,&#xD;&#xA;@NoOfOwners int,&#xD;&#xA;@NoOfKeys int,&#xD;&#xA;@IsInsuranceAvailable bit,&#xD;&#xA;@IsComprehensive bit,&#xD;&#xA;@IsThirdParty bit,&#xD;&#xA;@InsuranceExpiryDate date,&#xD;&#xA;@Status int out,&#xD;&#xA;@Message nvarchar(500) out&#xD;&#xA;)&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[USP_CT_SaveVehicleImage]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	BEGIN TRY
+		SET  @Status = 1;  
+		If not exists(SELECT * FROM CT_TRAN_VehicleImage WHERE ImageName = @ImageName and VehicleID = @VehicleID)
+		begin
+			INSERT INTO CT_TRAN_VehicleImage(ImageName,VehicleID,CreatedOn,CreatedBy,ModifiedOn,ModifiedBy)
+			SELECT @ImageName,@VehicleID,GETDATE(),@UserID,GETDATE(),@UserID;
+			SET @Message = dbo.UDF_CT_SuccessMessage('insert') ;
+		end		
+	END TRY
+	BEGIN CATCH     
+		SET  @Status = 0;   
+		SET  @Message = 'Generic Error: '+ ERROR_MESSAGE() ;
+		EXECUTE USP_CT_GetErrorInfo;  
+	END CATCH 
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[USP_CT_SaveVehicleImage].[@Status]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CT_TRAN_VehicleImage]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CT_TRAN_VehicleImage].[ImageName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[USP_CT_SaveVehicleImage].[@ImageName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CT_TRAN_VehicleImage].[VehicleID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[USP_CT_SaveVehicleImage].[@VehicleID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CT_TRAN_VehicleImage]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CT_TRAN_VehicleImage].[ImageName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CT_TRAN_VehicleImage].[VehicleID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CT_TRAN_VehicleImage].[CreatedOn]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CT_TRAN_VehicleImage].[CreatedBy]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CT_TRAN_VehicleImage].[ModifiedOn]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CT_TRAN_VehicleImage].[ModifiedBy]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[USP_CT_SaveVehicleImage].[@UserID]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[USP_CT_SaveVehicleImage].[@Message]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[UDF_CT_SuccessMessage]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[USP_CT_GetErrorInfo]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[USP_CT_SaveVehicleImage].[@UserID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bigint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[USP_CT_SaveVehicleImage].[@RoleID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[USP_CT_SaveVehicleImage].[@VehicleID]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[USP_CT_SaveVehicleImage].[@ImageName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="150" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[USP_CT_SaveVehicleImage].[@Status]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[USP_CT_SaveVehicleImage].[@Message]">
+						<Property Name="IsOutput" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="500" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="194" />
+				<Property Name="Length" Value="1041" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="-- =============================================&#xD;&#xA;-- Author:&#x9;&#x9;&lt;Author,,Name&gt;&#xD;&#xA;-- Create date: &lt;Create Date,,&gt;&#xD;&#xA;-- Description:&#x9;&lt;Description,,&gt;&#xD;&#xA;-- =============================================&#xD;&#xA;CREATE PROCEDURE USP_CT_SaveVehicleImage&#xD;&#xA;(&#xD;&#xA;@UserID bigint,&#xD;&#xA;@RoleID int,&#xD;&#xA;@VehicleID int,&#xD;&#xA;@ImageName nvarchar(150),&#xD;&#xA;@Status int out,&#xD;&#xA;@Message nvarchar(500) out&#xD;&#xA;)&#xD;&#xA;AS" />
 			</Annotation>
 		</Element>
 		<Element Type="SqlProcedure" Name="[dbo].[USP_CT_SaveVehicleTechnical]">

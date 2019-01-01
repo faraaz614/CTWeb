@@ -28,6 +28,9 @@
                                     BID Amount
                                 </th>
                                 <th>
+                                    Deal Status
+                                </th>
+                                <th>
                                     Action
                                 </th>
                             </tr>
@@ -35,7 +38,8 @@
                         <tbody>
                             @foreach (var bid in Model.ListBids)
                             {
-                                <tr>
+                                string cls = bid.IsDealClosed ? "isdealclosed" : string.Empty;
+                                <tr class=@cls>
                                     <td>
                                         @bid.VehicleID
                                     </td>
@@ -47,6 +51,9 @@
                                     </td>
                                     <td>
                                         @bid.BIDAmount
+                                    </td>
+                                    <td>
+                                        @(bid.IsDealClosed ? "Closed" : "Open")
                                     </td>
                                     <td>
                                         <a href="@Url.Action("ViewBID","Dealer",new { VehicleID = bid.VehicleID })" class="btn btn-success btn-rounded btn-sm my-0">View</a>

@@ -95,5 +95,7 @@
     <Build Include="dbo\Stored Procedures\USP_CT_GetBids.sql" />
     <Build Include="dbo\Stored Procedures\USP_CT_ViewBID.sql" />
     <Build Include="dbo\Stored Procedures\USP_CT_Login.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_SaveVehicleImage.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_DeleteVehicleImage.sql" />
   </ItemGroup>
 </Project>
