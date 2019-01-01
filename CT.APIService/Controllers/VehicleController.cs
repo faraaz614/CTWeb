@@ -107,5 +107,31 @@ namespace CT.APIService.Controllers
                 return Ok(cTApiResponse);
             });
         }
+
+        [HttpPost]
+        public IHttpActionResult AddVehicleImages(VehicleEntity model)
+        {
+            return RunInSafe(() =>
+            {
+                BaseEntity data = new BaseEntity();
+                data = _VehicleService.AddVehicleImages(model);
+                cTApiResponse.Data = data;
+                cTApiResponse.IsSuccess = true;
+                return Ok(cTApiResponse);
+            });
+        }
+
+        [HttpPost]
+        public IHttpActionResult DeleteVehicleImage(VehicleImageEntity model)
+        {
+            return RunInSafe(() =>
+            {
+                BaseEntity data = new BaseEntity();
+                data = _VehicleService.DeleteVehicleImage(model);
+                cTApiResponse.Data = data;
+                cTApiResponse.IsSuccess = true;
+                return Ok(cTApiResponse);
+            });
+        }
     }
 }

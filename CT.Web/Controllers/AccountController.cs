@@ -34,27 +34,34 @@ namespace CT.Web.Controllers
                     UserEntity user = JsonConvert.DeserializeObject<UserEntity>(Convert.ToString(response.Data));
                     if (user != null)
                     {
-                        CustomPrincipalSerializeModel serializeModel = new CustomPrincipalSerializeModel();
-                        serializeModel.UserId = user.UserID;
-                        serializeModel.UserName = user.UserName;
-                        serializeModel.RoleId = user.RoleID;
-                        string userData = JsonConvert.SerializeObject(serializeModel);
-                        FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
-                                                               1,
-                                                               user.UserName,
-                                                               DateTime.Now,
-                                                               DateTime.Now.AddHours(2),
-                                                               loginModel.RememberMe,
-                                                               userData);
-                        string encTicket = FormsAuthentication.Encrypt(authTicket);
-                        HttpCookie faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
-                        faCookie.Expires = authTicket.Expiration;
-                        Response.Cookies.Add(faCookie);
-                        return RedirectToAction("Index", "Home");
+                        if (user.ResponseStatus.Status == 1)
+                        {
+                            CustomPrincipalSerializeModel serializeModel = new CustomPrincipalSerializeModel();
+                            serializeModel.UserId = user.UserID;
+                            serializeModel.UserName = user.UserName;
+                            serializeModel.RoleId = user.RoleID;
+                            string userData = JsonConvert.SerializeObject(serializeModel);
+                            FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
+                                                                   1,
+                                                                   user.UserName,
+                                                                   DateTime.Now,
+                                                                   DateTime.Now.AddHours(2),
+                                                                   loginModel.RememberMe,
+                                                                   userData);
+                            string encTicket = FormsAuthentication.Encrypt(authTicket);
+                            HttpCookie faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
+                            faCookie.Expires = authTicket.Expiration;
+                            Response.Cookies.Add(faCookie);
+                            return RedirectToAction("Index", "Home");
+                        }
+                        else
+                        {
+                            loginModel.ErrorMessage = user.ResponseStatus.Message;
+                        }
                     }
                     else
                     {
-                        loginModel.ErrorMessage = "Access Denied! Wrong Credential";
+                        loginModel.ErrorMessage = "Error Occurred.";
                     }
                 }
                 else

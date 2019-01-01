@@ -28,6 +28,8 @@ namespace CT.Service.Login
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
                 entity = GetSingleItem<UserEntity>(CommandType.StoredProcedure, UserLiterals.Login, param);
+                if (entity == null)
+                    entity = new UserEntity();
                 entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
                 entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
                 Log.Info("----Info Login method Exit----");
@@ -35,6 +37,8 @@ namespace CT.Service.Login
             }
             catch (Exception ex)
             {
+                if (entity == null)
+                    entity = new UserEntity();
                 entity.ResponseStatus.Status = 0;
                 entity.ResponseStatus.Message = ex.Message;
                 Log.Error("Error in Login Method");

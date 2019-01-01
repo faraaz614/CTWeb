@@ -27,7 +27,7 @@ namespace CT.Common.Entities
             DocumentDetail = new DocumentDetailEntity();
             TechnicalDetail = new TechnicalDetailEntity();
             VehicleDetail = new VehicleDetailEntity();
-            VehicleImage = new VehicleImageEntity();
+            VehicleImage = new List<VehicleImageEntity>();
             FuelTypeList = new List<Combo>();
         }
 
@@ -41,6 +41,7 @@ namespace CT.Common.Entities
         [StringLength(150)]
         [MinLength(6, ErrorMessage = "Minimum length should be 6 characters")]
         public string StockID { get; set; }
+        public string ImageName { get; set; }
         public string Description { get; set; }
         public bool IsActive { get; set; }
         public bool IsDealClosed { get; set; }
@@ -53,7 +54,7 @@ namespace CT.Common.Entities
         public DocumentDetailEntity DocumentDetail { get; set; }
         public TechnicalDetailEntity TechnicalDetail { get; set; }
         public VehicleDetailEntity VehicleDetail { get; set; }
-        public VehicleImageEntity VehicleImage { get; set; }
+        public List<VehicleImageEntity> VehicleImage { get; set; }
         public List<Combo> FuelTypeList { get; set; }
     }
 }

@@ -16,5 +16,7 @@ namespace CT.Common.Literals
         public const string AddVehicleDetails = "USP_CT_SaveVehicleDetails";
         public const string AddVehicleDocument = "USP_CT_SaveVehicleDocument";
         public const string AddVehicleTechnical = "USP_CT_SaveVehicleTechnical";
+        public const string AddVehicleImage = "USP_CT_SaveVehicleImage";
+        public const string DeleteVehicleImage = "USP_CT_DeleteVehicleImage";
     }
 }

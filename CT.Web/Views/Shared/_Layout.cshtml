@@ -30,7 +30,7 @@
 
                 Tip 2: you can also add an image using data-image tag
             -->
-            @if (TempData[CT.Web.Common.CommonUtility.Success.ToString()]!=null)
+            @if (TempData[CT.Web.Common.CommonUtility.Success.ToString()] != null)
             {
                 <div class="alert alert-success">@Convert.ToString(TempData[CT.Web.Common.CommonUtility.Success.ToString()])</div>
             }
@@ -168,7 +168,6 @@
                                     <a class="dropdown-item" href="#">Another One</a>
                                 </div>
                             </li>
-
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="material-icons">person</i>
@@ -229,9 +228,7 @@
         </div>
     </div>
 
-
     <div class="text-center">
-
     </div>
     <div class="fixed-plugin">
         <div class="dropdown show-dropdown">
@@ -304,7 +301,7 @@
         $(document).ready(function () {
             $().ready(function () {
                 $sidebar = $('.sidebar');
-                $('.mdb_upload').mdb_upload();
+                //$('.mdb_upload').mdb_upload();
                 //$('.datepicker').pickadate();
                 $sidebar_img_container = $sidebar.find('.sidebar-background');
 
@@ -477,6 +474,7 @@
             md.initDashboardPageCharts();
 
         });</script>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -485,12 +483,34 @@
             $(".datepicker").datepicker({
                 dateFormat: 'yy/mm/dd'
             });
+
             $("#accordion").accordion({
                 heightStyle: "content"
             });
+
+            $(".closebutton").click(function () {
+            var $this = $(this);
+            var vehicleID = $this.next("img").attr("data-vehicleID");
+            var imagename = $this.next("img").attr("data-imagename");
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("DeleteVehicleImage","Vehicle")",
+                data: { ImageName: imagename, vehicleID: vehicleID },
+                success: function (data) {
+                    if (data) {
+                        $this.parent().remove();
+                    }
+                    else {
+                        alert('Error Occurred. Please reload and try again.');
+                    }
+                },
+                error: function () {
+                    alert('Error Occurred. Please reload and try again.');
+                }
+            });
+        });
         });
     </script>
 </body>
-
 
 </html>

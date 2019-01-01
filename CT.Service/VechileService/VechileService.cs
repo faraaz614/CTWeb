@@ -150,14 +150,14 @@ namespace CT.Service.VehicleService
                     var vehcile = GetMultipleList(CommandType.StoredProcedure, VehicleLiterals.GetVehicleByID, param,
                         x => x.Read<VehicleEntity>().FirstOrDefault(),
                         x => x.Read<VehicleDetailEntity>().FirstOrDefault(),
-                        x => x.Read<VehicleImageEntity>().FirstOrDefault(),
+                        x => x.Read<VehicleImageEntity>().ToList(),
                         x => x.Read<DocumentDetailEntity>().FirstOrDefault(),
                         x => x.Read<TechnicalDetailEntity>().FirstOrDefault());
                     entity.VehicleEntity = (VehicleEntity)vehcile[0];
                     if (entity.VehicleEntity != null)
                     {
                         entity.VehicleEntity.VehicleDetail = (VehicleDetailEntity)vehcile[1];
-                        entity.VehicleEntity.VehicleImage = (VehicleImageEntity)vehcile[2];
+                        entity.VehicleEntity.VehicleImage = (List<VehicleImageEntity>)vehcile[2];
                         entity.VehicleEntity.DocumentDetail = (DocumentDetailEntity)vehcile[3];
                         entity.VehicleEntity.TechnicalDetail = (TechnicalDetailEntity)vehcile[4];
                     }
@@ -371,6 +371,90 @@ namespace CT.Service.VehicleService
                 entity.ResponseStatus.Status = 0;
                 entity.ResponseStatus.Message = ex.Message;
                 Log.Error("Error in AddVehicleTechnical Method");
+                Log.Error("Error occured time : " + DateTime.UtcNow);
+                Log.Error("Error message : " + ex.Message);
+                Log.Error("Error StackTrace : " + ex.StackTrace);
+                return entity;
+            }
+        }
+
+        public BaseEntity AddVehicleImages(VehicleEntity VehicleEntity)
+        {
+            BaseEntity entity = new BaseEntity();
+            foreach (var item in VehicleEntity.VehicleImage)
+            {
+                entity = AddVehicleImage(item);
+            }
+            return entity;
+        }
+
+        public BaseEntity AddVehicleImage(VehicleImageEntity VehicleImageEntity)
+        {
+            BaseEntity entity = new BaseEntity();
+            try
+            {
+                Log.Info("----Info AddVehicleImages method start----");
+                Log.Info("@UserID" + VehicleImageEntity.UserID);
+                Log.Info("@RoleID" + VehicleImageEntity.RoleID);
+                Log.Info("@VehicleID" + VehicleImageEntity.VehicleID);
+                Log.Info("@ImageName" + VehicleImageEntity.ImageName);
+                Log.Info("Store Proc Name : USP_CT_SaveVehicleImage");
+                Log.Info("----Info AddVehicleImages method end----");
+                DynamicParameters param = new DynamicParameters();
+                param.Add("@UserID", VehicleImageEntity.UserID);
+                param.Add("@RoleID", VehicleImageEntity.RoleID);
+                param.Add("@VehicleID", VehicleImageEntity.VehicleID);
+                param.Add("@ImageName", VehicleImageEntity.ImageName);
+                param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
+                entity.GenericErrorInfo = GetSingleItem<GenericErrorInfo>(CommandType.StoredProcedure, VehicleLiterals.AddVehicleImage, param);
+                entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
+                entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
+                Log.Info("----Info AddVehicleImages method Exit----");
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                entity.ResponseStatus.Status = 0;
+                entity.ResponseStatus.Message = ex.Message;
+                Log.Error("Error in AddVehicleImages Method");
+                Log.Error("Error occured time : " + DateTime.UtcNow);
+                Log.Error("Error message : " + ex.Message);
+                Log.Error("Error StackTrace : " + ex.StackTrace);
+                return entity;
+            }
+        }
+
+        public BaseEntity DeleteVehicleImage(VehicleImageEntity VehicleImageEntity)
+        {
+            BaseEntity entity = new BaseEntity();
+            try
+            {
+                Log.Info("----Info DeleteVehicleImage method start----");
+                Log.Info("@UserID" + VehicleImageEntity.UserID);
+                Log.Info("@RoleID" + VehicleImageEntity.RoleID);
+                Log.Info("@VehicleID" + VehicleImageEntity.VehicleID);
+                Log.Info("@ImageName" + VehicleImageEntity.ImageName);
+                Log.Info("Store Proc Name : USP_CT_DeleteVehicleImage");
+                Log.Info("----Info DeleteVehicleImage method end----");
+                DynamicParameters param = new DynamicParameters();
+                param.Add("@UserID", VehicleImageEntity.UserID);
+                param.Add("@RoleID", VehicleImageEntity.RoleID);
+                param.Add("@VehicleID", VehicleImageEntity.VehicleID);
+                param.Add("@ImageName", VehicleImageEntity.ImageName);
+                param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
+                entity.GenericErrorInfo = GetSingleItem<GenericErrorInfo>(CommandType.StoredProcedure, VehicleLiterals.DeleteVehicleImage, param);
+                entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
+                entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
+                Log.Info("----Info DeleteVehicleImage method Exit----");
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                entity.ResponseStatus.Status = 0;
+                entity.ResponseStatus.Message = ex.Message;
+                Log.Error("Error in DeleteVehicleImage Method");
                 Log.Error("Error occured time : " + DateTime.UtcNow);
                 Log.Error("Error message : " + ex.Message);
                 Log.Error("Error StackTrace : " + ex.StackTrace);

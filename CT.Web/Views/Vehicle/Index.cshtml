@@ -30,35 +30,20 @@
         </span>
     </div>
 </div>
-@*<div class='card-group'>
-    @foreach (var Vehicle in Model.ListVehicles)
-    {
-        <a href="@Url.Action("AddVehicle", "Vehicle", new { vechileID = Vehicle.ID })">
-            <div class="card">
-                <img class="img-fluid" src="https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Card image cap">
-                <div class="card-block">
-                    <h4 class="card-title">
-                        <span class="badge badge-success">@Vehicle.VehicleName</span>
-                        <span class="badge badge-info">₹50,000,00</span>
-                    </h4>
-                </div>
-            </div>
-        </a>
-    }
-</div>*@
 
 <div>
     <div class="row">
         @foreach (var Vehicle in Model.ListVehicles)
         {
+            string image = !String.IsNullOrWhiteSpace(Vehicle.ImageName) ? Vehicle.ImageName : "noimage.PNG";
             <div class="col-md-4">
                 <a href="@Url.Action("AddVehicle", "Vehicle", new { vechileID = Vehicle.ID })">
 
                     <div class="card mb-4 box-shadow">
-                        <img class="card-img-top" data-src="" alt="" style="height:225px; width:100%; display:block;" src="https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" data-holder-rendered="true">
+                        <img class="card-img-top" alt="" style="height:225px; width:100%; display:block;" src="@Url.Content("~/Images/450250/" + image)" data-holder-rendered="true">
                         <div class="card-body">
-                            <p class="card-text">@Vehicle.VehicleName</p>
-                            <p class="card-text">500000</p>
+                            <text>@Vehicle.VehicleName</text>
+                            <text class="cars-closed">@(Vehicle.IsDealClosed ? "Deal Closed" : "")</text>
                         </div>
                     </div>
                 </a>

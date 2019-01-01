@@ -62,6 +62,13 @@
                                     <button class="btn btn-deep-purple" type="submit">Login</button>
                                 </div>
 
+                                @if (Model.ErrorMessage != null)
+                                {
+                                    <div class="md-form">
+                                        <div class="alert-danger p-xl-1">@Model.ErrorMessage</div>
+                                    </div>
+                                }
+
                             </div>
 
                             <!--Footer-->

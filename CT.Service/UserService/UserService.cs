@@ -242,7 +242,7 @@ namespace CT.Service.UserService
                 var bid = GetMultipleList(CommandType.StoredProcedure, UserLiterals.ViewBid, param,
                     x => x.Read<VehicleEntity>().FirstOrDefault(),
                     x => x.Read<VehicleDetailEntity>().FirstOrDefault(),
-                    x => x.Read<VehicleImageEntity>().FirstOrDefault(),
+                    x => x.Read<VehicleImageEntity>().ToList(),
                     x => x.Read<DocumentDetailEntity>().FirstOrDefault(),
                     x => x.Read<TechnicalDetailEntity>().FirstOrDefault(),
                     x => x.Read<VehicleBIDEntity>().ToList());
@@ -250,7 +250,7 @@ namespace CT.Service.UserService
                 if (entity.VehicleEntity != null)
                 {
                     entity.VehicleEntity.VehicleDetail = (VehicleDetailEntity)bid[1];
-                    entity.VehicleEntity.VehicleImage = (VehicleImageEntity)bid[2];
+                    entity.VehicleEntity.VehicleImage = (List<VehicleImageEntity>)bid[2];
                     entity.VehicleEntity.DocumentDetail = (DocumentDetailEntity)bid[3];
                     entity.VehicleEntity.TechnicalDetail = (TechnicalDetailEntity)bid[4];
                     entity.ListBids = (List<VehicleBIDEntity>)bid[5];

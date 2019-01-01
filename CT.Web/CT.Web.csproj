@@ -166,6 +166,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\CTAuthorizeAttribute.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -178,6 +179,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\450250\noimage.PNG" />
+    <Content Include="Images\Original\noimage.PNG" />
     <Content Include="Material\assets\css\material-dashboard-rtl.css" />
     <Content Include="Material\assets\css\material-dashboard.css" />
     <Content Include="Material\assets\css\material-dashboard.min.css" />
@@ -430,8 +433,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Images\450250\" />
-    <Folder Include="Images\Original\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

@@ -3,6 +3,7 @@ using CT.Common.Entities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -41,15 +42,29 @@ namespace CT.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddDealer(UserEntity model)
+        public async Task<ActionResult> AddDealer(UserEntity model, HttpPostedFileBase file)
         {
             if (ModelState.ContainsKey("ID"))
                 ModelState["ID"].Errors.Clear();
 
             if (ModelState.IsValid)
             {
-                model.RoleID = 1;
-                model.UserID = 1;
+                if (file.ContentLength > 0)
+                {
+                    try
+                    {
+                        model.ProfilePic = DateTime.Now.Ticks.ToString() + Path.GetExtension(file.FileName);
+                        file.SaveAs(Path.Combine(Server.MapPath("~/Images/Original/"), model.ProfilePic));
+                        resizeImage(Server.MapPath("~/Images/450250/"), Server.MapPath("~/Images/Original/"), model.ProfilePic, 450, 250, 450, 250);
+                    }
+                    catch (Exception ex)
+                    {
+                        return View(model);
+                    }
+                }
+                
+                model.RoleID = User.RoleId;
+                model.UserID = User.UserId;
                 CTApiResponse cTApiResponse = await Post<UserEntity>("/User/InsertUpdateDealer", model);
                 if (cTApiResponse.IsSuccess)
                 {
