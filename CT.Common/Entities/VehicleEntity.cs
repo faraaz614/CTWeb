@@ -33,13 +33,13 @@ namespace CT.Common.Entities
 
         public long ID { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Car Name is required.")]
         [StringLength(150)]
-        [MinLength(6, ErrorMessage = "Minimum length should be 6 characters")]
+        [MinLength(6, ErrorMessage = "Car Name should be 6 characters")]
         public string VehicleName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "StockID is required.")]
         [StringLength(150)]
-        [MinLength(6, ErrorMessage = "Minimum length should be 6 characters")]
+        [MinLength(6, ErrorMessage = "StockID should be 6 characters")]
         public string StockID { get; set; }
         public string ImageName { get; set; }
         public string Description { get; set; }
