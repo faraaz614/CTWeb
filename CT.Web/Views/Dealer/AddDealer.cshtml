@@ -2,17 +2,22 @@
 @{
     ViewBag.Title = "Add/Update Dealer";
 }
-
+@Html.Partial("~/Views/Dealer/_DealerTabs.cshtml")
 <h3>Add/Update Dealer</h3>
 <div class="row ui-widget-content">
     <div class="card-body">
+        @if (TempData[CT.Web.Common.CommonUtility.Error.ToString()] != null)
+        {
+            <div class="alert alert-warning">@Convert.ToString(TempData[CT.Web.Common.CommonUtility.Error.ToString()])</div>
+        }        
+
         @using (Html.BeginForm("AddDealer", "Dealer", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.ValidationSummary()
             @Html.HiddenFor(x => x.ID)
             <div class="form-group">
                 <label for="Engine">First Name</label>
-                @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control mb-2" })
+                @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control mb-2", @required = "required", @minlength = "6" })
             </div>
             <div class="form-group">
                 <label for="Body">Last Name</label>
@@ -20,12 +25,11 @@
             </div>
             <div class="form-group">
                 <label for="Steering">Username</label>
-                @Html.TextBoxFor(x => x.UserName, new { @class = "form-control mb-2" })
-                @Html.ValidationMessageFor(x => x.UserName)
+                @Html.TextBoxFor(x => x.UserName, new { @class = "form-control mb-2", @required = "required" })
             </div>
             <div class="form-group">
                 <label for="Transmission">Password</label>
-                @Html.TextBoxFor(x => x.Password, new { @class = "form-control mb-2" })
+                @Html.TextBoxFor(x => x.Password, new { @class = "form-control mb-2", @required = "required", @minlength = "6" })
             </div>
             <div class="form-group">
                 @if (!String.IsNullOrWhiteSpace(Model.ProfilePic))
@@ -35,7 +39,7 @@
             </div>
             <div class="">
                 <label for="form1">Upload Picture</label>
-                <input type="file" name="file" class="form-control mb-2" />
+                <input type="file" name="file" class="form-control mb-2" @(String.IsNullOrEmpty(Model.ProfilePic)?"required":"") />
             </div>
             <div class="form-group">
                 <input type="submit" class="btn btn-success fileinput-button" value="Save">

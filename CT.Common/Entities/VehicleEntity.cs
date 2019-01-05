@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CT.Common.Entities
 {
@@ -32,7 +29,6 @@ namespace CT.Common.Entities
         }
 
         public long ID { get; set; }
-
         [Required(ErrorMessage ="Car Name is required.")]
         [StringLength(150)]
         [MinLength(6, ErrorMessage = "Car Name should be 6 characters")]

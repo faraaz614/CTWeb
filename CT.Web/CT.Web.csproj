@@ -49,6 +49,9 @@
     <Reference Include="Dapper, Version=1.50.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.1.50.5\lib\net451\Dapper.dll</HintPath>
     </Reference>
+    <Reference Include="ImageResizer, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageResizer.4.2.5\lib\net45\ImageResizer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -175,6 +178,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Login.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -184,6 +188,8 @@
     <Content Include="Material\assets\css\material-dashboard-rtl.css" />
     <Content Include="Material\assets\css\material-dashboard.css" />
     <Content Include="Material\assets\css\material-dashboard.min.css" />
+    <Content Include="Material\assets\css\mdb.css" />
+    <Content Include="Material\assets\css\style.min.css" />
     <Content Include="Material\assets\demo\demo.css" />
     <Content Include="Material\assets\demo\demo.js" />
     <Content Include="Material\assets\demo\docs.css" />
@@ -205,6 +211,7 @@
     <Content Include="Material\assets\js\core\popper.min.js" />
     <Content Include="Material\assets\js\material-dashboard.js" />
     <Content Include="Material\assets\js\material-dashboard.min.js" />
+    <Content Include="Material\assets\js\mdb.min.js" />
     <Content Include="Material\assets\js\plugins\arrive.min.js" />
     <Content Include="Material\assets\js\plugins\bootstrap-datetimepicker.min.js" />
     <Content Include="Material\assets\js\plugins\bootstrap-notify.js" />
@@ -222,6 +229,7 @@
     <Content Include="Material\assets\js\plugins\nouislider.min.js" />
     <Content Include="Material\assets\js\plugins\perfect-scrollbar.jquery.min.js" />
     <Content Include="Material\assets\js\plugins\sweetalert2.js" />
+    <Content Include="Material\assets\js\popper.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -406,6 +414,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Login.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -430,6 +439,8 @@
     <Content Include="Views\Vehicle\AddVehicle.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Dealer\ViewBID.cshtml" />
+    <Content Include="Views\Dealer\_DealerTabs.cshtml" />
+    <Content Include="Views\Vehicle\_VehicleTabs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

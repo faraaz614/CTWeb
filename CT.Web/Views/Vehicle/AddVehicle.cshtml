@@ -4,7 +4,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var fuellist = Model.FuelTypeList.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Value }).ToList();
 }
-
+@Html.Partial("~/Views/Vehicle/_VehicleTabs.cshtml")
+<hr />
 <div id="accordion">
     <h3>Add Car</h3>
     @using (Html.BeginForm("AddVehicle", "Vehicle", FormMethod.Post))
@@ -14,40 +15,17 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="form1">Car Name</label>
-                    @Html.TextBoxFor(x => x.VehicleName, new { @class = "form-control" })
+                    @Html.TextBoxFor(x => x.VehicleName, new { @class = "form-control", @required = "required" })
                 </div>
                 <div class="form-group">
                     <label for="form1">Stock ID</label>
-                    @Html.TextBoxFor(x => x.StockID, new { @class = "form-control" })
+                    @Html.TextBoxFor(x => x.StockID, new { @class = "form-control", @required = "required" })
                 </div>
                 <div class="form-group">
                     <label for="form1">Description</label>
                     @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
                 </div>
-                <div class="form-group">
-                    <label for="form1">Is Deal Closed</label>
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="IsDealClosed1" value="true" name="IsDealClosed" @(Model.IsDealClosed ? "checked" : "")>
-                        <label class="custom-control-label" for="IsDealClosed1">Yes</label>
-                    </div>
-                    /
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="IsDealClosed2" value="false" name="IsDealClosed" @(!Model.IsDealClosed ? "checked" : "")>
-                        <label class="custom-control-label" for="IsDealClosed2">No</label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="form1">Is Active</label>
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="defaultInline1" value="true" name="IsActive" @(Model.IsActive ? "checked" : "")>
-                        <label class="custom-control-label" for="defaultInline1">Yes</label>
-                    </div>
-                    /
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="defaultInline2" value="false" name="IsActive" @(!Model.IsActive ? "checked" : "")>
-                        <label class="custom-control-label" for="defaultInline2">No</label>
-                    </div>
-                </div>
+
             </div>
         </div>
         <input type="submit" value="Save" class="btn btn-success cancel" />
@@ -66,10 +44,10 @@
             <div class="container">
                 @foreach (var image in Model.VehicleImage)
                 {
-                <div class="imgcontainer">
-                    <div class="closebutton">X</div>
-                    <img src="@Url.Content("~/Images/450250/" + image.ImageName)" data-imagename="@image.ImageName" data-vehicleID="@Model.ID" class="vehicleimage" alt="" height="100" width="150" />
-                </div>
+                    <div class="imgcontainer">
+                        <div class="closebutton">X</div>
+                        <img src="@Url.Content("~/Images/450250/" + image.ImageName)" data-imagename="@image.ImageName" data-vehicleID="@Model.ID" class="vehicleimage" alt="" height="100" width="150" />
+                    </div>
                 }
             </div>
             <div class="clearfix"></div>
@@ -165,12 +143,12 @@
                             <div class="form-group">
                                 <label for="form1">1.RC availability&nbsp;&nbsp;&nbsp;</label>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" id="IsRCavailable1" value="true" name="IsRCavailable" @(Model.DocumentDetail.IsRCavailable ? "checked" : "")>
+                                    <input type="radio" class="custom-control-input" id="IsRCavailable1" value="true" name="IsRCavailable" @(Model.DocumentDetail != null ? Model.DocumentDetail.IsRCavailable ? "checked" : "" : "")>
                                     <label class="custom-control-label" for="IsRCavailable1">Yes</label>
                                 </div>
                                 /
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" id="IsRCavailable2" value="false" name="IsRCavailable" @(!Model.DocumentDetail.IsRCavailable ? "checked" : "")>
+                                    <input type="radio" class="custom-control-input" id="IsRCavailable2" value="false" name="IsRCavailable" @(Model.DocumentDetail != null ? !Model.DocumentDetail.IsRCavailable ? "checked" : "" : "")>
                                     <label class="custom-control-label" for="IsRCavailable2">No</label>
                                 </div>
                             </div>
@@ -179,12 +157,12 @@
                             <div class="form-group">
                                 <label for="form1">2.Hypothication&nbsp;&nbsp;&nbsp;</label>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" id="Hypothication1" value="true" name="Hypothication" @(Model.DocumentDetail.Hypothication ? "checked" : "")>
+                                    <input type="radio" class="custom-control-input" id="Hypothication1" value="true" name="Hypothication" @(Model.DocumentDetail != null ? Model.DocumentDetail != null ? Model.DocumentDetail.Hypothication ? "checked" : "" : "" : "")>
                                     <label class="custom-control-label" for="Hypothication1">Yes</label>
                                 </div>
                                 /
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" id="Hypothication2" value="false" name="Hypothication" @(!Model.DocumentDetail.Hypothication ? "checked" : "")>
+                                    <input type="radio" class="custom-control-input" id="Hypothication2" value="false" name="Hypothication" @(Model.DocumentDetail != null ? !Model.DocumentDetail.Hypothication ? "checked" : "" : "")>
                                     <label class="custom-control-label" for="Hypothication2">No</label>
                                 </div>
                             </div>
@@ -193,12 +171,12 @@
                             <div class="form-group">
                                 <label for="form1">3.If Yes:&nbsp;&nbsp;&nbsp;</label>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" id="IsNOCavailable1" value="true" name="IsNOCavailable" @(Model.DocumentDetail.IsNOCavailable ? "checked" : "")>
+                                    <input type="radio" class="custom-control-input" id="IsNOCavailable1" value="true" name="IsNOCavailable" @(Model.DocumentDetail != null ? Model.DocumentDetail.IsNOCavailable ? "checked" : "" : "")>
                                     <label class="custom-control-label" for="IsNOCavailable1">NOC available</label>
                                 </div>
                                 /
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" id="IsNOCavailable2" value="false" name="IsNOCavailable" @(!Model.DocumentDetail.IsNOCavailable ? "checked" : "")>
+                                    <input type="radio" class="custom-control-input" id="IsNOCavailable2" value="false" name="IsNOCavailable" @(Model.DocumentDetail != null ? !Model.DocumentDetail.IsNOCavailable ? "checked" : "" : "")>
                                     <label class="custom-control-label" for="IsNOCavailable2">NOC not available</label>
                                 </div>
                             </div>
@@ -223,12 +201,12 @@
                             <div class="form-group">
                                 <label for="form1">6.Insurance:&nbsp;&nbsp;&nbsp;</label>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" id="IsInsuranceAvailable1" value="true" name="IsInsuranceAvailable" @(Model.DocumentDetail.IsInsuranceAvailable ? "checked" : "")>
+                                    <input type="radio" class="custom-control-input" id="IsInsuranceAvailable1" value="true" name="IsInsuranceAvailable" @(Model.DocumentDetail!=null?Model.DocumentDetail.IsInsuranceAvailable ? "checked" : "":"")>
                                     <label class="custom-control-label" for="IsInsuranceAvailable1">Yes</label>
                                 </div>
                                 /
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" id="IsInsuranceAvailable2" value="false" name="IsInsuranceAvailable" @(!Model.DocumentDetail.IsInsuranceAvailable ? "checked" : "")>
+                                    <input type="radio" class="custom-control-input" id="IsInsuranceAvailable2" value="false" name="IsInsuranceAvailable" @(Model.DocumentDetail!=null?!Model.DocumentDetail.IsInsuranceAvailable ? "checked" : "":"")>
                                     <label class="custom-control-label" for="IsInsuranceAvailable2">No</label>
                                 </div>
                             </div>
@@ -237,12 +215,12 @@
                             <div class="form-group">
                                 <label for="form1">a. If Yes :&nbsp;&nbsp;&nbsp;</label>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" id="IsComprehensive1" value="true" name="IsComprehensive" @(Model.DocumentDetail.IsComprehensive ? "checked" : "")>
+                                    <input type="radio" class="custom-control-input" id="IsComprehensive1" value="true" name="IsComprehensive" @(Model.DocumentDetail!=null?Model.DocumentDetail.IsComprehensive ? "checked" : "":"")>
                                     <label class="custom-control-label" for="IsComprehensive1">Comprehensive</label>
                                 </div>
                                 /
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" id="IsComprehensive2" value="false" name="IsComprehensive" @(!Model.DocumentDetail.IsComprehensive ? "checked" : "")>
+                                    <input type="radio" class="custom-control-input" id="IsComprehensive2" value="false" name="IsComprehensive" @(Model.DocumentDetail!=null?!Model.DocumentDetail.IsComprehensive ? "checked" : "":"")>
                                     <label class="custom-control-label" for="IsComprehensive2">Third Party</label>
                                 </div>
                             </div>

@@ -28,7 +28,7 @@ namespace CT.Service.UserService
                 DynamicParameters param = new DynamicParameters();
                 param.Add("@FirstName", userEntity.FirstName);
                 param.Add("@LastName", userEntity.LastName);
-                param.Add("@UserID", userEntity.ID);
+                param.Add("@UserID", userEntity.UserID);
                 param.Add("@RoleID", userEntity.RoleID);
                 param.Add("@UserName", userEntity.UserName);
                 param.Add("@Password", userEntity.Password);
@@ -69,7 +69,8 @@ namespace CT.Service.UserService
                 DynamicParameters param = new DynamicParameters();
                 param.Add("@FirstName", userEntity.FirstName);
                 param.Add("@LastName", userEntity.LastName);
-                param.Add("@UserID", userEntity.ID);
+                param.Add("@ID", userEntity.ID);
+                param.Add("@UserID", userEntity.UserID);
                 param.Add("@RoleID", userEntity.RoleID);
                 param.Add("@UserName", userEntity.UserName);
                 param.Add("@Password", userEntity.Password);
@@ -137,7 +138,8 @@ namespace CT.Service.UserService
                 Log.Info("@RoleID" + userEntity.RoleID);
                 Log.Info("Store Proc Name : USP_CT_GetUserByID");
                 DynamicParameters param = new DynamicParameters();
-                param.Add("@UserID", userEntity.ID);
+                param.Add("@ID", userEntity.ID);
+                param.Add("@UserID", userEntity.UserID);
                 param.Add("@RoleID", userEntity.RoleID);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
@@ -152,6 +154,38 @@ namespace CT.Service.UserService
                 entity.ResponseStatus.Status = 0;
                 entity.ResponseStatus.Message = ex.Message;
                 Log.Error("Error in GetUserByID Method");
+                Log.Error("Error occured time : " + DateTime.UtcNow);
+                Log.Error("Error message : " + ex.Message);
+                Log.Error("Error StackTrace : " + ex.StackTrace);
+                return entity;
+            }
+        }
+
+        public BaseUserEntity GetDealers(long userID, int roleID)
+        {
+            BaseUserEntity entity = new BaseUserEntity();
+            try
+            {
+                Log.Info("----Info GetUsers method start----");
+                Log.Info("@UserID" + userID);
+                Log.Info("@RoleID" + roleID);
+                Log.Info("Store Proc Name : USP_CT_GetUsers");
+                DynamicParameters param = new DynamicParameters();
+                param.Add("@UserID", userID);
+                param.Add("@RoleID", roleID);
+                param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
+                entity.ListUsers = GetItems<UserEntity>(CommandType.StoredProcedure, UserLiterals.GetUsers, param).AsList<UserEntity>();
+                entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
+                entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
+                Log.Info("----Info GetUsers method Exit----");
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                entity.ResponseStatus.Status = 0;
+                entity.ResponseStatus.Message = ex.Message;
+                Log.Error("Error in GetUsers Method");
                 Log.Error("Error occured time : " + DateTime.UtcNow);
                 Log.Error("Error message : " + ex.Message);
                 Log.Error("Error StackTrace : " + ex.StackTrace);
@@ -239,7 +273,7 @@ namespace CT.Service.UserService
                 param.Add("@VehicleID", vehicleEntity.VehicleID);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
-                var bid = GetMultipleList(CommandType.StoredProcedure, UserLiterals.ViewBid, param,
+                List<object> bid = GetMultipleList(CommandType.StoredProcedure, UserLiterals.ViewBid, param,
                     x => x.Read<VehicleEntity>().FirstOrDefault(),
                     x => x.Read<VehicleDetailEntity>().FirstOrDefault(),
                     x => x.Read<VehicleImageEntity>().ToList(),

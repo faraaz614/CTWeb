@@ -1,5 +1,7 @@
 ﻿using CT.Common.Common;
 using CT.Common.Entities;
+using CT.Service.VehicleService;
+using ImageResizer;
 using Newtonsoft.Json;
 using System;
 using System.IO;
@@ -11,33 +13,22 @@ namespace CT.Web.Controllers
 {
     public class VehicleController : BaseController
     {
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            BaseVehicleEntity Vehicleslist = new BaseVehicleEntity();
-            VehicleEntity vehicleEntity = new VehicleEntity { RoleID = 1, UserID = 1 };
-            CTApiResponse cTApiResponse = await Post("/Vehicle/GetVehicles", vehicleEntity);
-            if (cTApiResponse.IsSuccess)
-            {
-                Vehicleslist = JsonConvert.DeserializeObject<BaseVehicleEntity>(Convert.ToString(cTApiResponse.Data));
-            }
-            return View(Vehicleslist);
+            BaseVehicleEntity data = new VehicleService().GetVehicles(new VehicleEntity() { UserID = User.UserId, RoleID = User.RoleId });
+            return View(data);
         }
 
-        public async Task<ActionResult> AddVehicle(long vechileID = 0)
+        public ActionResult AddVehicle(long vechileID = 0)
         {
-            VehicleEntity model = new VehicleEntity();
-            model = new VehicleEntity { RoleID = 1, UserID = 1, ID = vechileID };
-            CTApiResponse cTApiResponse = await Post("/Vehicle/GetVehicleByID", model);
-            if (cTApiResponse.IsSuccess)
-            {
-                BaseVehicleEntity baseVehicleEntity = JsonConvert.DeserializeObject<BaseVehicleEntity>(Convert.ToString(cTApiResponse.Data));
-                model = baseVehicleEntity.VehicleEntity;
-            }
+            VehicleEntity model = new VehicleEntity() { RoleID = User.RoleId, UserID = User.UserId, ID = vechileID };
+            BaseVehicleEntity vehicleInfo = new VehicleService().GetVehicleByID(model);
+            model = vehicleInfo.VehicleEntity;
             return View(model);
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddVehicle(VehicleEntity model)
+        public ActionResult AddVehicle(VehicleEntity model)
         {
             if (ModelState.ContainsKey("ID"))
                 ModelState["ID"].Errors.Clear();
@@ -46,11 +37,18 @@ namespace CT.Web.Controllers
             {
                 model.RoleID = User.RoleId;
                 model.UserID = User.UserId;
-                CTApiResponse cTApiResponse = await Post("/Vehicle/InsertUpdateVehicle", model);
-                if (cTApiResponse.IsSuccess)
+                BaseEntity dataInfo = new BaseEntity();
+                if (model.ID == 0)
+                    dataInfo = new VehicleService().InsertVehicle(model);
+                else
+                    dataInfo = new VehicleService().UpdateVehicle(model);
+                if (dataInfo.ResponseStatus.Status == 1)
                 {
+                    TempData[CT.Web.Common.CommonUtility.Success.ToString()] = dataInfo.ResponseStatus.Message;
                     return RedirectToAction("Index");
                 }
+                else
+                    TempData[CT.Web.Common.CommonUtility.Error.ToString()] = dataInfo.ResponseStatus.Message;
             }
             return View(model);
         }
@@ -117,11 +115,11 @@ namespace CT.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddVehicleImages(VehicleEntity model, HttpPostedFileBase[] files)
+        public ActionResult AddVehicleImages(VehicleEntity model, HttpPostedFileBase[] files)
         {
             if (model.ID > 0)
             {
-                foreach (var file in files)
+                foreach (HttpPostedFileBase file in files)
                 {
                     if (file != null && file.ContentLength > 0)
                     {
@@ -129,23 +127,32 @@ namespace CT.Web.Controllers
                         {
                             string imagename = DateTime.Now.Ticks.ToString() + Path.GetExtension(file.FileName);
                             file.SaveAs(Path.Combine(Server.MapPath("~/Images/Original/"), imagename));
+                            string savedFileName = Path.Combine(Server.MapPath("~/Images/Original/"), imagename);
+                            string destinationImagePath = Path.Combine(Server.MapPath("~/Images/450250/"), imagename);
                             resizeImage(Server.MapPath("~/Images/450250/"), Server.MapPath("~/Images/Original/"), imagename, 450, 250, 450, 250);
                             model.VehicleImage.Add(new VehicleImageEntity { ImageName = imagename, VehicleID = model.ID });
                         }
                         catch (Exception ex)
                         {
-                            return View(model);
+                            TempData[CT.Web.Common.CommonUtility.Error.ToString()] = ex.Message;
+                            return RedirectToAction("AddVehicle", new
+                            {
+                                vechileID = model.ID
+                            });
                         }
                     }
                 }
 
                 model.RoleID = User.RoleId;
                 model.UserID = User.UserId;
-                CTApiResponse cTApiResponse = await Post("/Vehicle/AddVehicleImages", model);
-                if (cTApiResponse.IsSuccess)
+                BaseEntity dataInfo = new VehicleService().AddVehicleImages(model);
+                if (dataInfo.ResponseStatus.Status == 1)
                 {
-                    return RedirectToAction("Index");
+                    TempData[CT.Web.Common.CommonUtility.Success.ToString()] = dataInfo.ResponseStatus.Message;
+                    return View("AddVehicle", new { vehicleId = model.ID });
                 }
+                else
+                    TempData[CT.Web.Common.CommonUtility.Error.ToString()] = dataInfo.ResponseStatus.Message;
             }
             return View(model);
         }
@@ -153,7 +160,7 @@ namespace CT.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> DeleteVehicleImage(string ImageName, string vehicleID)
         {
-            if (!String.IsNullOrEmpty(ImageName) && !String.IsNullOrEmpty(vehicleID))
+            if (!string.IsNullOrEmpty(ImageName) && !string.IsNullOrEmpty(vehicleID))
             {
                 CTApiResponse cTApiResponse = await Post("/Vehicle/DeleteVehicleImage", new VehicleImageEntity { VehicleID = Convert.ToInt64(vehicleID), ImageName = ImageName });
                 if (cTApiResponse.IsSuccess)

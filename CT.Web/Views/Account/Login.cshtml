@@ -12,82 +12,105 @@
     <link rel="apple-touch-icon" sizes="76x76" href="/Material/assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="/Material/assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>
-        CAR TIMEZ Login
-    </title>
+    <title>CAR TIMEZ Login</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-    <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-    <!-- CSS Files -->
-    <link href="/Material/assets/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
-    <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="/Material/assets/demo/demo.css" rel="stylesheet" />
-    <link href="~/Material/assets/css/material-dashboard.css" rel="stylesheet" />
-    <link href="https://mdbootstrap.com/legacy/4.3.2/assets/compiled.min.css" rel="stylesheet" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="~/Content/Login.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <br />
-    <br />
-    <br />
     <div class="container">
-        <div class="container-fluid">
-            <div class="row"></div>
-            <div class="row">
-                <div class="col-md-12">
-                    @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+        <div class="row">
+
+            <!-- Mixins-->
+            <!-- Pen Title-->
+            <div class="pen-title">
+                <h1>CarTimez </h1>
+            </div>
+            <div class="container">
+                <div class="card"></div>
+                <div class="card">
+                    <h1 class="title">Login</h1>
+                    @using (Html.BeginForm("Login", "Account"))
                     {
-                         <!--Form with header-->
-                        <div class="card">
-                            <div class="card-block">
-
-                                <!--Header-->
-                                <div class="form-header  purple darken-4">
-                                    <h3><i class="fa fa-lock"></i> Login:</h3>
-                                </div>
-
-                                <!--Body-->
-                                <div class="md-form">
-                                    <i class="fa fa-envelope prefix"></i>
-                                    <input type="text" name="UserName" class="form-control" placeholder="Your email">
-                                    
-                                </div>
-
-                                <div class="md-form">
-                                    <i class="fa fa-lock prefix"></i>
-                                    <input type="password" name="Password" class="form-control"  placeholder="Your password">
-                                </div>
-
-                                <div class="text-center">
-                                    <button class="btn btn-deep-purple" type="submit">Login</button>
-                                </div>
-
-                                @if (Model.ErrorMessage != null)
-                                {
-                                    <div class="md-form">
-                                        <div class="alert-danger p-xl-1">@Model.ErrorMessage</div>
-                                    </div>
-                                }
-
-                            </div>
-
-                            <!--Footer-->
-                            <div class="modal-footer">
-                                <div class="options">
-                                    <p>Not a member? <a href="#">Sign Up</a></p>
-                                    <p>Forgot <a href="#">Password?</a></p>
-                                </div>
-                            </div>
-
+                       <input type="hidden" id="hfErrorMessage" value="@Model.ErrorMessage" />
+                        <div class="input-container">
+                            @Html.TextBoxFor(x => x.Username, new { @required = "required" })
+                            <label for="Username">User Name</label>
+                            <div class="bar"></div>
                         </div>
-                    <!--/Form with header-->
+                        <div class="input-container">
+                            @Html.PasswordFor(x => x.Password, new { @required = "required" })
+                            <label for="Password">Password</label>
+                            <div class="bar"></div>
+                        </div>
+                        <div class="button-container">
+                            <button class="btn btn-info" type="submit"><span>Login</span></button>
+                        </div>
+                        <div class="footer"><a href="#">Forgot your password?</a></div>
+                    }
+                </div>
+                <div class="card alt">
+                    <div class="toggle"></div>
+                    <h1 class="title">
+                        Register
+                        <div class="close"></div>
+                    </h1>
+                    @using (Html.BeginForm("Register", "Account"))
+                    {
+                        <div class="input-container">
+                            <input type="text" id="rUsername" required="required" />
+                            <label for="rUsername">Username</label>
+                            <div class="bar"></div>
+                        </div>
+                        <div class="input-container">
+                            <input type="password" id="rPassword" required="required" />
+                            <label for="rPassword">Password</label>
+                            <div class="bar"></div>
+                        </div>
+                        <div class="input-container">
+                            <input type="password" id="Repeat Password" required="required" />
+                            <label for="Repeat Password">Repeat Password</label>
+                            <div class="bar"></div>
+                        </div>
+                        <div class="button-container">
+                            <button><span>Next</span></button>
+                        </div>
                     }
 
                 </div>
             </div>
         </div>
-
     </div>
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="modal fade" id="loginAlert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-notify modal-warning" role="document">
+                <!--Content-->
+                <div class="modal-content">
+                    <!--Header-->
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title white-text w-100 font-weight-bold py-2">Login Failed</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="white-text">&times;</span>
+                        </button>
+                    </div>
 
+                    <!--Body-->
+                    <div class="modal-body">
+                        <h4 class="text-danger">@Model.ErrorMessage</h4>
+                    </div>
+                    <!--Footer-->
+                    <div class="modal-footer justify-content-center">
+                        <a data-dismiss="modal" aria-label="Close" href="#" class="btn btn-warning">Close <i class="fas fa-paper-plane-o ml-1"></i></a>
+                    </div>
+                </div>
+                <!--/.Content-->
+            </div>
+        </div>
+    }
+    <script src="~/Scripts/Login.js"></script>
 </body>
 </html>

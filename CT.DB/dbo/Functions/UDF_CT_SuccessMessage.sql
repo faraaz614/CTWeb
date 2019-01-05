@@ -21,7 +21,7 @@ else if (@ReturnType = 'exists')
 	end
 else if (@ReturnType = 'vehicleexists')
 	begin
-	SET @Message='Vehicle name with StockID already exists';
+	SET @Message='Vehicle with Stock ID is already exists';
 	end
 else if (@ReturnType = 'delete')
 	begin

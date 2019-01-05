@@ -23,21 +23,72 @@
     <link href="~/Material/assets/css/material-dashboard.css" rel="stylesheet" />
 </head>
 <body class="">
+    @if (TempData[CT.Web.Common.CommonUtility.Success.ToString()] != null)
+    {
+        <div class="modal fade" id="successMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-notify modal-success" role="document">
+                <!--Content-->
+                <div class="modal-content">
+                    <!--Header-->
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title white-text w-100 font-weight-bold py-2">Success</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="white-text">&times;</span>
+                        </button>
+                    </div>
+
+                    <!--Body-->
+                    <div class="modal-body">
+                        <h4 class="text-success">@TempData[CT.Web.Common.CommonUtility.Success.ToString()]</h4>
+                    </div>
+                    <!--Footer-->
+                    <div class="modal-footer justify-content-center">
+                        <a data-dismiss="modal" aria-label="Close" href="#" class="btn btn-warning">Close <i class="fas fa-paper-plane-o ml-1"></i></a>
+                    </div>
+                </div>
+                <!--/.Content-->
+            </div>
+        </div>
+
+    }
+    else
+    {
+        <div class="modal fade" id="successMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-notify modal-warning" role="document">
+                <!--Content-->
+                <div class="modal-content">
+                    <!--Header-->
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title white-text w-100 font-weight-bold py-2">Warning</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="white-text">&times;</span>
+                        </button>
+                    </div>
+
+                    <!--Body-->
+                    <div class="modal-body">
+                        <h4 class="text-warning">@TempData[CT.Web.Common.CommonUtility.Error.ToString()]</h4>
+                    </div>
+                    <!--Footer-->
+                    <div class="modal-footer justify-content-center">
+                        <a data-dismiss="modal" aria-label="Close" href="#" class="btn btn-warning">Close <i class="fas fa-paper-plane-o ml-1"></i></a>
+                    </div>
+                </div>
+                <!--/.Content-->
+            </div>
+        </div>
+    }
+
     <div class="wrapper ">
         <div class="sidebar" data-color="purple" data-background-color="white" data-image="/Material/assets/img/sidebar-1.jpg">
-            <!--
-                Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
-                Tip 2: you can also add an image using data-image tag
-            -->
-            @if (TempData[CT.Web.Common.CommonUtility.Success.ToString()] != null)
-            {
-                <div class="alert alert-success">@Convert.ToString(TempData[CT.Web.Common.CommonUtility.Success.ToString()])</div>
-            }
-            else
-            {
-                <div class="alert alert-warning">@Convert.ToString(TempData[CT.Web.Common.CommonUtility.Error.ToString()])</div>
-            }
+            <input type="hidden" id="hfSuccess" value="@TempData[CT.Web.Common.CommonUtility.Success.ToString()]" />
+            <input type="hidden" id="hfWarning" value="@TempData[CT.Web.Common.CommonUtility.Error.ToString()]" />
+            <a href="#" id="btnShowPopup" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#successMessage">
+            </a>
+
             <div class="logo">
                 <a href="http://cartimez.in/" class="simple-text logo-normal">
                     <img src="http://cartimez.in/wp-content/uploads/2018/07/cartimez-logo-new.png" style="width: 235px;" title="Home" alt="Logo">
@@ -228,50 +279,109 @@
         </div>
     </div>
 
-    <!--   Core JS Files   -->
+    <!-- Modal -->
+    <div class="modal fade" id="darkModalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog form-dark" role="document">
+            <!--Content-->
+            <div class="modal-content card card-image" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/pricing-table%20(7).jpg');">
+                <div class="text-white rgba-stylish-strong py-5 px-5 z-depth-4">
+                    <!--Header-->
+                    <div class="modal-header text-center pb-4">
+                        <h3 class="modal-title w-100 white-text font-weight-bold" id="myModalLabel">
+                            <strong>SIGN</strong> <a class="green-text font-weight-bold"><strong> UP</strong></a>
+                        </h3>
+                        <button type="button" class="close white-text" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <!--Body-->
+                    <div class="modal-body">
+                        <!--Body-->
+                        <div class="md-form mb-5">
+                            <input type="email" id="Form-email5" class="form-control validate white-text">
+                            <label data-error="wrong" data-success="right" for="Form-email5">Your email</label>
+                        </div>
+
+                        <div class="md-form pb-3">
+                            <input type="password" id="Form-pass5" class="form-control validate white-text">
+                            <label data-error="wrong" data-success="right" for="Form-pass5">Your password</label>
+                            <div class="form-group mt-4">
+                                <input class="form-check-input" type="checkbox" id="checkbox624">
+                                <label for="checkbox624" class="white-text form-check-label">
+                                    Accept the<a href="#" class="green-text font-weight-bold">
+                                        Terms and Conditions
+                                    </a>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!--Grid row-->
+                        <div class="row d-flex align-items-center mb-4">
+
+                            <!--Grid column-->
+                            <div class="text-center mb-3 col-md-12">
+                                <button type="button" class="btn btn-success btn-block btn-rounded z-depth-1">Sign up</button>
+                            </div>
+                            <!--Grid column-->
+
+                        </div>
+                        <!--Grid row-->
+                        <!--Grid row-->
+                        <div class="row">
+
+                            <!--Grid column-->
+                            <div class="col-md-12">
+                                <p class="font-small white-text d-flex justify-content-end">
+                                    Have an account? <a href="#" class="green-text ml-1 font-weight-bold">
+                                        Log in
+                                    </a>
+                                </p>
+                            </div>
+                            <!--Grid column-->
+
+                        </div>
+                        <!--Grid row-->
+
+                    </div>
+                </div>
+            </div>
+            <!--/.Content-->
+        </div>
+    </div>
+    <!-- Modal -->
+
     <script src="/Material/assets/js/core/jquery.min.js"></script>
     <script src="/Material/assets/js/core/popper.min.js"></script>
     <script src="/Material/assets/js/core/bootstrap-material-design.min.js"></script>
     <script src="/Material/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
     <!-- Plugin for the momentJs  -->
     <script src="/Material/assets/js/plugins/moment.min.js"></script>
+
+
+
     <script src="~/Material/assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
-    <!--  Plugin for Sweet Alert -->
     <script src="/Material/assets/js/plugins/sweetalert2.js"></script>
-    <!-- Forms Validations Plugin -->
     <script src="/Material/assets/js/plugins/jquery.validate.min.js"></script>
-    <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
     <script src="/Material/assets/js/plugins/jquery.bootstrap-wizard.js"></script>
-    <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
     <script src="/Material/assets/js/plugins/bootstrap-selectpicker.js"></script>
-    <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
     <script src="/Material/assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
-    <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
     <script src="/Material/assets/js/plugins/jquery.dataTables.min.js"></script>
-    <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
     <script src="/Material/assets/js/plugins/bootstrap-tagsinput.js"></script>
-    <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
     <script src="/Material/assets/js/plugins/jasny-bootstrap.min.js"></script>
-    <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
     <script src="/Material/assets/js/plugins/fullcalendar.min.js"></script>
-    <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
     <script src="/Material/assets/js/plugins/jquery-jvectormap.js"></script>
-    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
     <script src="/Material/assets/js/plugins/nouislider.min.js"></script>
-    <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
-    <!-- Library for adding dinamically elements -->
     <script src="/Material/assets/js/plugins/arrive.min.js"></script>
-    <!--  Google Maps Plugin    -->
-    @*<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>*@
-    <!-- Chartist JS -->
     <script src="/Material/assets/js/plugins/chartist.min.js"></script>
-    <!--  Notifications Plugin    -->
     <script src="/Material/assets/js/plugins/bootstrap-notify.js"></script>
-    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="/Material/assets/js/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
-    <!-- Material Dashboard DEMO methods, don't include it in your project! -->
     <script src="/Material/assets/demo/demo.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         $(document).ready(function () {
             $().ready(function () {
@@ -358,11 +468,13 @@
             // Javascript method's body can be found in assets/js/demos.js
             md.initDashboardPageCharts();
 
+            var hfSuccessMsg = $("#hfSuccess").val();
+            var hfWarningMsg = $("#hfWarning").val();
+            if (hfSuccessMsg !== '' || hfWarningMsg !== '') {
+                document.getElementById('btnShowPopup').click();
+            }
+
         });</script>
-    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         $(function () {
             $(".datepicker").datepicker({
@@ -397,5 +509,4 @@
         });
     </script>
 </body>
-
 </html>

@@ -7,8 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CT.Service.VehicleService
 {
@@ -23,7 +21,6 @@ namespace CT.Service.VehicleService
                 Log.Info("@VehicleName" + VehicleEntity.VehicleName);
                 Log.Info("@StockID" + VehicleEntity.StockID);
                 Log.Info("@Description" + VehicleEntity.Description);
-                Log.Info("@IsDealClosed" + VehicleEntity.IsDealClosed);
                 Log.Info("Store Proc Name : USP_CT_SaveVehicle");
                 Log.Info("----Info InsertVehicle method end----");
                 DynamicParameters param = new DynamicParameters();
@@ -32,7 +29,6 @@ namespace CT.Service.VehicleService
                 param.Add("@VehicleName", VehicleEntity.VehicleName);
                 param.Add("@StockID", VehicleEntity.StockID);
                 param.Add("@Description", VehicleEntity.Description);
-                param.Add("@IsDealClosed", VehicleEntity.IsDealClosed);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
                 entity.GenericErrorInfo = GetSingleItem<GenericErrorInfo>(CommandType.StoredProcedure, VehicleLiterals.SaveVehicle, param);
@@ -63,7 +59,6 @@ namespace CT.Service.VehicleService
                 Log.Info("@VehicleName" + VehicleEntity.VehicleName);
                 Log.Info("@StockID" + VehicleEntity.StockID);
                 Log.Info("@Description" + VehicleEntity.Description);
-                Log.Info("@IsDealClosed" + VehicleEntity.IsDealClosed);
                 Log.Info("Store Proc Name : USP_CT_UpdateVehicle");
                 Log.Info("----Info UpdateVehicle method end----");
                 DynamicParameters param = new DynamicParameters();
@@ -73,8 +68,6 @@ namespace CT.Service.VehicleService
                 param.Add("@VehicleName", VehicleEntity.VehicleName);
                 param.Add("@StockID", VehicleEntity.StockID);
                 param.Add("@Description", VehicleEntity.Description);
-                param.Add("@IsDealClosed", VehicleEntity.IsDealClosed);
-                param.Add("@IsActive", VehicleEntity.IsActive);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
                 entity.GenericErrorInfo = GetSingleItem<GenericErrorInfo>(CommandType.StoredProcedure, VehicleLiterals.UpdateVehicle, param);
@@ -147,7 +140,7 @@ namespace CT.Service.VehicleService
                     param.Add("@VehicleID", VehicleEntity.ID);
                     param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                     param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
-                    var vehcile = GetMultipleList(CommandType.StoredProcedure, VehicleLiterals.GetVehicleByID, param,
+                    List<object> vehcile = GetMultipleList(CommandType.StoredProcedure, VehicleLiterals.GetVehicleByID, param,
                         x => x.Read<VehicleEntity>().FirstOrDefault(),
                         x => x.Read<VehicleDetailEntity>().FirstOrDefault(),
                         x => x.Read<VehicleImageEntity>().ToList(),
@@ -170,7 +163,7 @@ namespace CT.Service.VehicleService
                 param1.Add("@RoleID", VehicleEntity.RoleID);
                 param1.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param1.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
-                var list = GetItems<FuelTypeEntity>(CommandType.StoredProcedure, CommonLiterals.GetFuelType, param1).Select(x => new Combo { ID = x.ID, Value = x.Type }).ToList();
+                List<Combo> list = GetItems<FuelTypeEntity>(CommandType.StoredProcedure, CommonLiterals.GetFuelType, param1).Select(x => new Combo { ID = x.ID, Value = x.Type }).ToList();
                 if (entity.VehicleEntity == null)
                     entity.VehicleEntity = new VehicleEntity();
                 entity.VehicleEntity.FuelTypeList = list;
@@ -296,15 +289,15 @@ namespace CT.Service.VehicleService
                 param.Add("@UserID", VehicleEntity.UserID);
                 param.Add("@RoleID", VehicleEntity.RoleID);
                 param.Add("@VehicleID", VehicleEntity.ID);
-                param.Add("@IsRCavailable" , VehicleEntity.DocumentDetail.IsRCavailable);
-                param.Add("@Hypothication" , VehicleEntity.DocumentDetail.Hypothication);
-                param.Add("@IsNOCavailable" , VehicleEntity.DocumentDetail.IsNOCavailable);
-                param.Add("@NoOfOwners" , VehicleEntity.DocumentDetail.NoOfOwners);
-                param.Add("@NoOfKeys" , VehicleEntity.DocumentDetail.NoOfKeys);
-                param.Add("@IsInsuranceAvailable" , VehicleEntity.DocumentDetail.IsInsuranceAvailable);
-                param.Add("@IsComprehensive" , VehicleEntity.DocumentDetail.IsComprehensive);
-                param.Add("@IsThirdParty" , VehicleEntity.DocumentDetail.IsThirdParty);
-                param.Add("@InsuranceExpiryDate" , VehicleEntity.DocumentDetail.InsuranceExpiryDate);
+                param.Add("@IsRCavailable", VehicleEntity.DocumentDetail.IsRCavailable);
+                param.Add("@Hypothication", VehicleEntity.DocumentDetail.Hypothication);
+                param.Add("@IsNOCavailable", VehicleEntity.DocumentDetail.IsNOCavailable);
+                param.Add("@NoOfOwners", VehicleEntity.DocumentDetail.NoOfOwners);
+                param.Add("@NoOfKeys", VehicleEntity.DocumentDetail.NoOfKeys);
+                param.Add("@IsInsuranceAvailable", VehicleEntity.DocumentDetail.IsInsuranceAvailable);
+                param.Add("@IsComprehensive", VehicleEntity.DocumentDetail.IsComprehensive);
+                param.Add("@IsThirdParty", VehicleEntity.DocumentDetail.IsThirdParty);
+                param.Add("@InsuranceExpiryDate", VehicleEntity.DocumentDetail.InsuranceExpiryDate);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
                 entity.GenericErrorInfo = GetSingleItem<GenericErrorInfo>(CommandType.StoredProcedure, VehicleLiterals.AddVehicleDocument, param);
@@ -349,15 +342,15 @@ namespace CT.Service.VehicleService
                 param.Add("@UserID", VehicleEntity.UserID);
                 param.Add("@RoleID", VehicleEntity.RoleID);
                 param.Add("@VehicleID", VehicleEntity.ID);
-                param.Add("@Engine" , VehicleEntity.TechnicalDetail.Engine);
-                param.Add("@Body" , VehicleEntity.TechnicalDetail.Body);
-                param.Add("@SuspensionSteeringSystem" , VehicleEntity.TechnicalDetail.SuspensionSteeringSystem);
-                param.Add("@Transmission" , VehicleEntity.TechnicalDetail.Transmission);
-                param.Add("@Electrical" , VehicleEntity.TechnicalDetail.Electrical);
-                param.Add("@AirCondition" , VehicleEntity.TechnicalDetail.AirCondition);
-                param.Add("@Brakes" , VehicleEntity.TechnicalDetail.Brakes);
-                param.Add("@TyresCondition" , VehicleEntity.TechnicalDetail.TyresCondition);
-                param.Add("@OtherInformation" , VehicleEntity.TechnicalDetail.OtherInformation);
+                param.Add("@Engine", VehicleEntity.TechnicalDetail.Engine);
+                param.Add("@Body", VehicleEntity.TechnicalDetail.Body);
+                param.Add("@SuspensionSteeringSystem", VehicleEntity.TechnicalDetail.SuspensionSteeringSystem);
+                param.Add("@Transmission", VehicleEntity.TechnicalDetail.Transmission);
+                param.Add("@Electrical", VehicleEntity.TechnicalDetail.Electrical);
+                param.Add("@AirCondition", VehicleEntity.TechnicalDetail.AirCondition);
+                param.Add("@Brakes", VehicleEntity.TechnicalDetail.Brakes);
+                param.Add("@TyresCondition", VehicleEntity.TechnicalDetail.TyresCondition);
+                param.Add("@OtherInformation", VehicleEntity.TechnicalDetail.OtherInformation);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
                 entity.GenericErrorInfo = GetSingleItem<GenericErrorInfo>(CommandType.StoredProcedure, VehicleLiterals.AddVehicleTechnical, param);
@@ -381,7 +374,7 @@ namespace CT.Service.VehicleService
         public BaseEntity AddVehicleImages(VehicleEntity VehicleEntity)
         {
             BaseEntity entity = new BaseEntity();
-            foreach (var item in VehicleEntity.VehicleImage)
+            foreach (VehicleImageEntity item in VehicleEntity.VehicleImage)
             {
                 entity = AddVehicleImage(item);
             }
