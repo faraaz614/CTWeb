@@ -12,17 +12,17 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 	BEGIN TRY 
-if exists(select UserName from CT_TRAN_User where ID = @UserID and RoleID = @RoleID) and (@RoleID = 1)
-	 begin --if
-		SET  @Status = 1;
-			Select ID,RoleID,FirstName,LastName,UserName from CT_TRAN_User where IsActive = 1;
+		if exists(select UserName from CT_TRAN_User where ID = @UserID and RoleID = @RoleID) and (@RoleID = 1)
+		begin --if
+			SET  @Status = 1;
+			Select ID,RoleID,FirstName,LastName,UserName,IsActive from CT_TRAN_User;
 			set @Message = dbo.UDF_CT_SuccessMessage('')
 		end--if
-else
- begin
- set @Status = 0;
- set @Message = dbo.UDF_CT_SuccessMessage('denied')
- end
+		else
+		begin
+			set @Status = 0;
+			set @Message = dbo.UDF_CT_SuccessMessage('denied')
+		end
 	END TRY	
 	BEGIN CATCH
 		SET  @Status = 0;   

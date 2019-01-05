@@ -21,6 +21,7 @@
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="/Material/assets/demo/demo.css" rel="stylesheet" />
     <link href="~/Material/assets/css/material-dashboard.css" rel="stylesheet" />
+    <link href="~/Material/assets/css/switch.css" rel="stylesheet" />
 </head>
 <body class="">
     @if (TempData[CT.Web.Common.CommonUtility.Success.ToString()] != null)
@@ -486,26 +487,67 @@
             });
 
             $(".closebutton").click(function () {
-            var $this = $(this);
-            var vehicleID = $this.next("img").attr("data-vehicleID");
-            var imagename = $this.next("img").attr("data-imagename");
-            $.ajax({
-                type: "POST",
-                url: "@Url.Action("DeleteVehicleImage","Vehicle")",
-                data: { ImageName: imagename, vehicleID: vehicleID },
-                success: function (data) {
-                    if (data) {
-                        $this.parent().remove();
-                    }
-                    else {
+                var $this = $(this);
+                var vehicleID = $this.next("img").attr("data-vehicleID");
+                var imagename = $this.next("img").attr("data-imagename");
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("DeleteVehicleImage","Vehicle")",
+                    data: { ImageName: imagename, vehicleID: vehicleID },
+                    success: function (data) {
+                        if (data) {
+                            $this.parent().remove();
+                        }
+                        else {
+                            alert('Error Occurred. Please reload and try again.');
+                        }
+                    },
+                    error: function () {
                         alert('Error Occurred. Please reload and try again.');
                     }
-                },
-                error: function () {
-                    alert('Error Occurred. Please reload and try again.');
-                }
+                });
             });
-        });
+
+            $(".closedeal").on("click", function (e) {
+                e.preventDefault();
+                var id = $(this).data("carid");
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("CloseDeal","Vehicle")",
+                    data: { vehicleID: id },
+                    success: function (data) {
+                        if (data == 0) {
+                            window.location.reload();
+                        }
+                        else {
+                            alert('Error Occurred. Please reload and try again.');
+                        }
+                    },
+                    error: function () {
+                        alert('Error Occurred. Please reload and try again.');
+                    }
+                });
+            });
+
+            $(".dealerstatus").on("click", function () {
+                var id = $(this).data("dealerid");
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("DeleteDealer", "Dealer")",
+                    data: { dealerID: id },
+                    success: function (data) {
+                        if (data == 1) {
+                            window.location.reload();
+                        }
+                        else {
+                            alert('Error Occurred. Please reload and try again.');
+                        }
+                    },
+                    error: function () {
+                        alert('Error Occurred. Please reload and try again.');
+                    }
+                });
+            });
         });
     </script>
 </body>

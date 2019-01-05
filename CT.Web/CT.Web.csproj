@@ -190,6 +190,7 @@
     <Content Include="Material\assets\css\material-dashboard.min.css" />
     <Content Include="Material\assets\css\mdb.css" />
     <Content Include="Material\assets\css\style.min.css" />
+    <Content Include="Material\assets\css\switch.css" />
     <Content Include="Material\assets\demo\demo.css" />
     <Content Include="Material\assets\demo\demo.js" />
     <Content Include="Material\assets\demo\docs.css" />

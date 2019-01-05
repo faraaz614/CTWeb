@@ -29,6 +29,9 @@
                                     Username
                                 </th>
                                 <th>
+                                    Active/InActive
+                                </th>
+                                <th>
                                     Action
                                 </th>
                             </tr>
@@ -49,9 +52,12 @@
                                     <td>
                                         @dealer.UserName
                                     </td>
+                                    <td>
+                                        <input type="checkbox" id="@dealer.ID" name="set-name" data-dealerid="@dealer.ID" class="switch-input dealerstatus" @(dealer.IsActive ? "checked" : string.Empty)>
+                                        <label for="@dealer.ID" class="switch-label"><span class="toggle--on">Active</span><span class="toggle--off">InActive</span></label>
+                                    </td>
                                     <td class="text-primary">
                                         <a href="@Url.Action("AddDealer", "Dealer",new { dealerID = dealer.ID })" class="btn btn-unique btn-rounded btn-sm my-0">Edit</a>
-                                        <a href="@Url.Action("DeleteDealer", "Dealer",new { dealerID = dealer.ID })" class="btn btn-danger btn-rounded btn-sm my-0">Delete</a>
                                     </td>
                                 </tr>
                             }

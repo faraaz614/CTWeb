@@ -121,6 +121,39 @@ namespace CT.Service.VehicleService
             }
         }
 
+        public BaseEntity CloseDeal(VehicleEntity VehicleEntity)
+        {
+            BaseEntity entity = new BaseEntity();
+            try
+            {
+                Log.Info("----Info CloseDeal method start----");
+                Log.Info("@VehicleID" + VehicleEntity.ID);
+                Log.Info("Store Proc Name : USP_CT_DeleteVehicleByID");
+                Log.Info("----Info CloseDeal method end----");
+                //DynamicParameters param = new DynamicParameters();
+                //param.Add("@UserID", VehicleEntity.UserID);
+                //param.Add("@RoleID", VehicleEntity.RoleID);
+                //param.Add("@VehicleID", VehicleEntity.ID);
+                //param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                //param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
+                //entity.GenericErrorInfo = GetSingleItem<GenericErrorInfo>(CommandType.StoredProcedure, VehicleLiterals.DeleteVehicleByID, param);
+                //entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
+                //entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
+                Log.Info("----Info CloseDeal method Exit----");
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                entity.ResponseStatus.Status = 0;
+                entity.ResponseStatus.Message = ex.Message;
+                Log.Error("Error in CloseDeal Method");
+                Log.Error("Error occured time : " + DateTime.UtcNow);
+                Log.Error("Error message : " + ex.Message);
+                Log.Error("Error StackTrace : " + ex.StackTrace);
+                return entity;
+            }
+        }
+
         public BaseVehicleEntity GetVehicleByID(VehicleEntity VehicleEntity)
         {
             BaseVehicleEntity entity = new BaseVehicleEntity();

@@ -105,10 +105,10 @@ namespace CT.Web.Controllers
 
         public ActionResult DeleteDealer(long dealerID = 0)
         {
+            BaseEntity dataInfo = new BaseEntity();
             if (dealerID > 0)
             {
                 UserEntity model = new UserEntity { RoleID = User.RoleId, UserID = User.UserId, ID = dealerID };
-                BaseEntity dataInfo = new BaseEntity();
                 if (model.ID > 0)
                     dataInfo = new UserService().DeleteDealerByID(model);
                 if (dataInfo.ResponseStatus.Status == 1)
@@ -118,7 +118,7 @@ namespace CT.Web.Controllers
                 else
                     TempData[CT.Web.Common.CommonUtility.Error.ToString()] = dataInfo.ResponseStatus.Message;
             }
-            return RedirectToAction("Index");
+            return Json(dataInfo.ResponseStatus.Status);
         }
 
         public ActionResult BID()

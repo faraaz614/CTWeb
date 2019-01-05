@@ -39,6 +39,7 @@ namespace CT.Common.Entities
         public string StockID { get; set; }
         public string ImageName { get; set; }
         public string Description { get; set; }
+        public string Model { get; set; }
         public bool IsActive { get; set; }
         public bool IsDealClosed { get; set; }
         public bool IsDelete { get; set; }

@@ -71,6 +71,24 @@ namespace CT.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult CloseDeal(long vehicleID = 0)
+        {
+            BaseEntity dataInfo = new BaseEntity();
+            if (vehicleID > 0)
+            {
+                VehicleEntity model = new VehicleEntity { RoleID = User.RoleId, UserID = User.UserId, ID = vehicleID };
+                if (model.ID > 0)
+                    dataInfo = new VehicleService().CloseDeal(model);
+                if (dataInfo.ResponseStatus.Status == 1)
+                {
+                    TempData[CT.Web.Common.CommonUtility.Success.ToString()] = dataInfo.ResponseStatus.Message;
+                }
+                else
+                    TempData[CT.Web.Common.CommonUtility.Error.ToString()] = dataInfo.ResponseStatus.Message;
+            }
+            return Json(dataInfo.ResponseStatus.Status);
+        }
+
         [HttpPost]
         public ActionResult AddVehicleImages(VehicleEntity model, HttpPostedFileBase[] files)
         {

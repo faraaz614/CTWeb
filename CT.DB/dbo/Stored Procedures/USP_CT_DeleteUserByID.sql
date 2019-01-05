@@ -10,10 +10,8 @@ BEGIN
 	SET NOCOUNT ON;
 	BEGIN TRY 
 		SET  @Status = 1;
-
-		Update CT_TRAN_User set IsActive = 0,CreatedOn = GETDATE() where ID = @UserID;
-
-		SET @Message = dbo.UDF_CT_SuccessMessage('delete') ;
+		Update CT_TRAN_User set IsActive = ~IsActive,CreatedOn = GETDATE() where ID = @UserID;
+		SET @Message = dbo.UDF_CT_SuccessMessage('update');
 	END TRY	
 	BEGIN CATCH     
 		SET  @Status = 0;   
