@@ -231,11 +231,11 @@ namespace CT.Service.UserService
             try
             {
                 Log.Info("----Info GetBIDS method start----");
-                Log.Info("@UserID" + userEntity.ID);
+                Log.Info("@UserID" + userEntity.UserID);
                 Log.Info("@RoleID" + userEntity.RoleID);
                 Log.Info("Store Proc Name : USP_CT_GetBids");
                 DynamicParameters param = new DynamicParameters();
-                param.Add("@UserID", userEntity.ID);
+                param.Add("@UserID", userEntity.UserID);
                 param.Add("@RoleID", userEntity.RoleID);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
@@ -263,12 +263,12 @@ namespace CT.Service.UserService
             try
             {
                 Log.Info("----Info ViewBID method start----");
-                Log.Info("@UserID" + vehicleEntity.ID);
+                Log.Info("@UserID" + vehicleEntity.UserID);
                 Log.Info("@RoleID" + vehicleEntity.RoleID);
                 Log.Info("@VehicleID" + vehicleEntity.VehicleID);
                 Log.Info("Store Proc Name : USP_CT_ViewBID");
                 DynamicParameters param = new DynamicParameters();
-                param.Add("@UserID", vehicleEntity.ID);
+                param.Add("@UserID", vehicleEntity.UserID);
                 param.Add("@RoleID", vehicleEntity.RoleID);
                 param.Add("@VehicleID", vehicleEntity.VehicleID);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);

@@ -39,7 +39,7 @@ namespace CT.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                if (file != null && file.ContentLength > 0)
+                if (file != null && file.ContentLength > 0 && ValidateImageExtension(Path.GetExtension(file.FileName)))
                 {
                     try
                     {
@@ -103,50 +103,40 @@ namespace CT.Web.Controllers
             return View(model);
         }
 
-        public async Task<ActionResult> DeleteDealer(long dealerID = 0)
+        public ActionResult DeleteDealer(long dealerID = 0)
         {
-            ViewData["UserDeleted"] = "";
             if (dealerID > 0)
             {
-                UserEntity model = new UserEntity { RoleID = 1, ID = dealerID };
-                CTApiResponse cTApiResponse = await Post<UserEntity>("/User/DeleteDealerByID", model);
-                if (cTApiResponse.IsSuccess)
+                UserEntity model = new UserEntity { RoleID = User.RoleId, UserID = User.UserId, ID = dealerID };
+                BaseEntity dataInfo = new BaseEntity();
+                if (model.ID > 0)
+                    dataInfo = new UserService().DeleteDealerByID(model);
+                if (dataInfo.ResponseStatus.Status == 1)
                 {
-                    BaseEntity baseEntity = JsonConvert.DeserializeObject<BaseEntity>(Convert.ToString(cTApiResponse.Data));
-                    if (baseEntity.ResponseStatus.Status == 1)
-                    {
-                        ViewData["UserDeleted"] = "Deleted";
-                    }
+                    TempData[CT.Web.Common.CommonUtility.Success.ToString()] = dataInfo.ResponseStatus.Message;
                 }
+                else
+                    TempData[CT.Web.Common.CommonUtility.Error.ToString()] = dataInfo.ResponseStatus.Message;
             }
             return RedirectToAction("Index");
         }
 
-        public async Task<ActionResult> BID()
+        public ActionResult BID()
         {
-            BaseVehicleBIDEntity baseVehicleEntity = new BaseVehicleBIDEntity();
-            UserEntity userEntity = new UserEntity { RoleID = 1, ID = 1 };
-            CTApiResponse data = await Post("/User/GetBIDS", userEntity);
-            if (data.IsSuccess)
-            {
-                baseVehicleEntity = JsonConvert.DeserializeObject<BaseVehicleBIDEntity>(Convert.ToString(data.Data));
-            }
+            UserEntity model = new UserEntity { RoleID = User.RoleId, UserID = User.UserId };
+            BaseVehicleBIDEntity baseVehicleEntity = new UserService().GetBIDS(model);
             return View(baseVehicleEntity);
         }
 
-        public async Task<ActionResult> ViewBID(long VehicleID)
+        public ActionResult ViewBID(long VehicleID)
         {
-            BaseVehicleBIDEntity baseVehicleBIDEntity = new BaseVehicleBIDEntity();
             if (VehicleID > 0)
             {
-                VehicleBIDEntity vehicleBIDEntity = new VehicleBIDEntity { RoleID = 1, ID = 1, VehicleID = VehicleID };
-                CTApiResponse cTApiResponse = await Post("/User/ViewBID", vehicleBIDEntity);
-                if (cTApiResponse.IsSuccess)
-                {
-                    baseVehicleBIDEntity = JsonConvert.DeserializeObject<BaseVehicleBIDEntity>(Convert.ToString(cTApiResponse.Data));
-                }
+                VehicleBIDEntity vehicleBIDEntity = new VehicleBIDEntity { RoleID = User.RoleId, ID = User.UserId, VehicleID = VehicleID };
+                BaseVehicleBIDEntity baseVehicleBIDEntity = new UserService().ViewBID(vehicleBIDEntity);
+                return View(baseVehicleBIDEntity);
             }
-            return View(baseVehicleBIDEntity);
+            return RedirectToAction("BID");
         }
     }
 }

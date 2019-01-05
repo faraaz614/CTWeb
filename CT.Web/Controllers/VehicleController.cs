@@ -1,9 +1,9 @@
 ﻿using CT.Common.Common;
 using CT.Common.Entities;
 using CT.Service.VehicleService;
-using ImageResizer;
 using Newtonsoft.Json;
 using System;
+using System.Configuration;
 using System.IO;
 using System.Threading.Tasks;
 using System.Web;
@@ -53,65 +53,22 @@ namespace CT.Web.Controllers
             return View(model);
         }
 
-        public async Task<ActionResult> DeleteVehicleByID(long vechileID = 0)
+        public ActionResult DeleteVehicleByID(long vechileID = 0)
         {
-            ViewData["VehicleDeleted"] = "";
             if (vechileID > 0)
             {
-                VehicleEntity model = new VehicleEntity { RoleID = 1, UserID = 1, ID = vechileID };
-                CTApiResponse cTApiResponse = await Post("/Vehicle/DeleteVehicleByID", model);
-                if (cTApiResponse.IsSuccess)
+                VehicleEntity model = new VehicleEntity { RoleID = User.RoleId, UserID = User.UserId, ID = vechileID };
+                BaseEntity dataInfo = new BaseEntity();
+                if (model.ID > 0)
+                    dataInfo = new VehicleService().DeleteVehicleByID(model);
+                if (dataInfo.ResponseStatus.Status == 1)
                 {
-                    BaseEntity baseEntity = JsonConvert.DeserializeObject<BaseEntity>(Convert.ToString(cTApiResponse.Data));
-                    if (baseEntity.ResponseStatus.Status == 1)
-                    {
-                        ViewData["VehicleDeleted"] = "Deleted";
-                    }
+                    TempData[CT.Web.Common.CommonUtility.Success.ToString()] = dataInfo.ResponseStatus.Message;
                 }
+                else
+                    TempData[CT.Web.Common.CommonUtility.Error.ToString()] = dataInfo.ResponseStatus.Message;
             }
             return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> AddVehicleDetails(VehicleEntity model)
-        {
-            if (model.ID > 0)
-            {
-                CTApiResponse cTApiResponse = await Post("/Vehicle/AddVehicleDetails", model);
-                if (cTApiResponse.IsSuccess)
-                {
-                    return RedirectToAction("Index");
-                }
-            }
-            return View(model);
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> AddVehicleDocument(VehicleEntity model)
-        {
-            if (model.ID > 0)
-            {
-                CTApiResponse cTApiResponse = await Post("/Vehicle/AddVehicleDocument", model);
-                if (cTApiResponse.IsSuccess)
-                {
-                    return RedirectToAction("Index");
-                }
-            }
-            return View(model);
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> AddVehicleTechnical(VehicleEntity model)
-        {
-            if (model.ID > 0)
-            {
-                CTApiResponse cTApiResponse = await Post("/Vehicle/AddVehicleTechnical", model);
-                if (cTApiResponse.IsSuccess)
-                {
-                    return RedirectToAction("Index");
-                }
-            }
-            return View(model);
         }
 
         [HttpPost]
@@ -121,7 +78,7 @@ namespace CT.Web.Controllers
             {
                 foreach (HttpPostedFileBase file in files)
                 {
-                    if (file != null && file.ContentLength > 0)
+                    if (file != null && file.ContentLength > 0 && ValidateImageExtension(Path.GetExtension(file.FileName)))
                     {
                         try
                         {
@@ -149,7 +106,7 @@ namespace CT.Web.Controllers
                 if (dataInfo.ResponseStatus.Status == 1)
                 {
                     TempData[CT.Web.Common.CommonUtility.Success.ToString()] = dataInfo.ResponseStatus.Message;
-                    return View("AddVehicle", new { vehicleId = model.ID });
+                    return RedirectToAction("AddVehicle", new { vechileID = model.ID });
                 }
                 else
                     TempData[CT.Web.Common.CommonUtility.Error.ToString()] = dataInfo.ResponseStatus.Message;
@@ -158,17 +115,86 @@ namespace CT.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> DeleteVehicleImage(string ImageName, string vehicleID)
+        public ActionResult DeleteVehicleImage(string ImageName, string vehicleID)
         {
             if (!string.IsNullOrEmpty(ImageName) && !string.IsNullOrEmpty(vehicleID))
             {
-                CTApiResponse cTApiResponse = await Post("/Vehicle/DeleteVehicleImage", new VehicleImageEntity { VehicleID = Convert.ToInt64(vehicleID), ImageName = ImageName });
-                if (cTApiResponse.IsSuccess)
+                VehicleImageEntity model = new VehicleImageEntity { RoleID = User.RoleId, UserID = User.UserId, VehicleID = Convert.ToInt64(vehicleID), ImageName = ImageName };
+                BaseEntity dataInfo = new BaseEntity();
+                if (model.VehicleID > 0)
+                    dataInfo = new VehicleService().DeleteVehicleImage(model);
+                if (dataInfo.ResponseStatus.Status == 1)
                 {
+                    TempData[CT.Web.Common.CommonUtility.Success.ToString()] = dataInfo.ResponseStatus.Message;
                     return Json(true);
                 }
+                else
+                    TempData[CT.Web.Common.CommonUtility.Error.ToString()] = dataInfo.ResponseStatus.Message;
             }
             return Json(false);
+        }
+
+        [HttpPost]
+        public ActionResult AddVehicleDetails(VehicleEntity model)
+        {
+            if (model.ID > 0)
+            {
+                model.RoleID = User.RoleId;
+                model.UserID = User.UserId;
+                BaseEntity dataInfo = new BaseEntity();
+                if (model.ID > 0)
+                    dataInfo = new VehicleService().AddVehicleDetails(model);
+                if (dataInfo.ResponseStatus.Status == 1)
+                {
+                    TempData[CT.Web.Common.CommonUtility.Success.ToString()] = dataInfo.ResponseStatus.Message;
+                    return RedirectToAction("AddVehicle", new { vechileID = model.ID });
+                }
+                else
+                    TempData[CT.Web.Common.CommonUtility.Error.ToString()] = dataInfo.ResponseStatus.Message;
+            }
+            return RedirectToAction("AddVehicle", new { vechileID = model.ID });
+        }
+
+        [HttpPost]
+        public ActionResult AddVehicleDocument(VehicleEntity model)
+        {
+            if (model.ID > 0)
+            {
+                model.RoleID = User.RoleId;
+                model.UserID = User.UserId;
+                BaseEntity dataInfo = new BaseEntity();
+                if (model.ID > 0)
+                    dataInfo = new VehicleService().AddVehicleDocument(model);
+                if (dataInfo.ResponseStatus.Status == 1)
+                {
+                    TempData[CT.Web.Common.CommonUtility.Success.ToString()] = dataInfo.ResponseStatus.Message;
+                    return RedirectToAction("AddVehicle", new { vechileID = model.ID });
+                }
+                else
+                    TempData[CT.Web.Common.CommonUtility.Error.ToString()] = dataInfo.ResponseStatus.Message;
+            }
+            return RedirectToAction("AddVehicle", new { vechileID = model.ID });
+        }
+
+        [HttpPost]
+        public ActionResult AddVehicleTechnical(VehicleEntity model)
+        {
+            if (model.ID > 0)
+            {
+                model.RoleID = User.RoleId;
+                model.UserID = User.UserId;
+                BaseEntity dataInfo = new BaseEntity();
+                if (model.ID > 0)
+                    dataInfo = new VehicleService().AddVehicleTechnical(model);
+                if (dataInfo.ResponseStatus.Status == 1)
+                {
+                    TempData[CT.Web.Common.CommonUtility.Success.ToString()] = dataInfo.ResponseStatus.Message;
+                    return RedirectToAction("AddVehicle", new { vechileID = model.ID });
+                }
+                else
+                    TempData[CT.Web.Common.CommonUtility.Error.ToString()] = dataInfo.ResponseStatus.Message;
+            }
+            return RedirectToAction("AddVehicle", new { vechileID = model.ID });
         }
     }
 }

@@ -473,6 +473,8 @@ C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb-master\CT.Web\obj\D
 C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb-master\CT.Web\obj\Debug\CT.Web.csproj.CoreCompileInputs.cache
 C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb-master\CT.Web\obj\Debug\CT.Web.dll
 C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb-master\CT.Web\obj\Debug\CT.Web.pdb
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Web\obj\Debug\CT.Web.csprojResolveAssemblyReference.cache
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Web\obj\Debug\CT.Web.csproj.CoreCompileInputs.cache
 C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Web\bin\ApplicationInsights.config
 C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Web\bin\CT.Web.dll.config
 C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Web\bin\CT.Web.dll
@@ -570,7 +572,5 @@ C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Web\bin\Microsof
 C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Web\bin\Microsoft.AI.Web.xml
 C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Web\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Web\bin\log4net.xml
-C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Web\obj\Debug\CT.Web.csprojResolveAssemblyReference.cache
-C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Web\obj\Debug\CT.Web.csproj.CoreCompileInputs.cache
 C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Web\obj\Debug\CT.Web.dll
 C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Web\obj\Debug\CT.Web.pdb

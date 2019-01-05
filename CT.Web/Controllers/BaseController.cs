@@ -18,6 +18,7 @@ namespace CT.Web.Controllers
     public class BaseController : Controller
     {
         string apival = ConfigurationManager.AppSettings["ApiUrl"];
+        string extensions = ConfigurationManager.AppSettings["extensions"];
 
         protected virtual new CustomPrincipal User
         {
@@ -204,6 +205,11 @@ namespace CT.Web.Controllers
 
                 throw;
             }
+        }
+
+        public bool ValidateImageExtension(string ext)
+        {
+            return extensions.Contains(ext);
         }
     }
 }
