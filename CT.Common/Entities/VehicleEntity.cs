@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CT.Common.Entities
 {
@@ -33,13 +30,11 @@ namespace CT.Common.Entities
 
         public long ID { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "*Vehicle Name Required")]
         [StringLength(150)]
-        [MinLength(6, ErrorMessage = "Minimum length should be 6 characters")]
         public string VehicleName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "*Vehicle StockID Required")]
         [StringLength(150)]
-        [MinLength(6, ErrorMessage = "Minimum length should be 6 characters")]
         public string StockID { get; set; }
         public string ImageName { get; set; }
         public string Description { get; set; }

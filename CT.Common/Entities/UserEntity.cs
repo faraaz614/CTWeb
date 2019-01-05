@@ -21,24 +21,19 @@ namespace CT.Common.Common
         [StringLength(500)]
         public string ProfilePic { get; set; }
 
-        [Required]
-        [StringLength(150)]
-        [MinLength(6, ErrorMessage = "Minimum length should be 6 characters")]
+        [Required(ErrorMessage ="*Fisrt Name required")]
+        [StringLength(150)]        
         public string FirstName { get; set; }
 
-        [Required]
-        [StringLength(150)]
-        [MinLength(6, ErrorMessage = "Minimum length should be 6 characters")]
+        [StringLength(150)]        
         public string LastName { get; set; }
 
-        [Required]
-        [StringLength(150)]
-        [MinLength(6, ErrorMessage = "Minimum length should be 6 characters")]
+        [Required(ErrorMessage = "*User Name required")]
+        [StringLength(150)]        
         public string UserName { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        [MinLength(6, ErrorMessage = "Minimum length should be 6 characters")]
+        [Required(ErrorMessage = "*Password required")]
+        [StringLength(50)]        
         public string Password { get; set; }
 
         public bool IsActive { get; set; }

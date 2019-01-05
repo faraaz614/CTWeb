@@ -97,5 +97,15 @@
     <Build Include="dbo\Stored Procedures\USP_CT_Login.sql" />
     <Build Include="dbo\Stored Procedures\USP_CT_SaveVehicleImage.sql" />
     <Build Include="dbo\Stored Procedures\USP_CT_DeleteVehicleImage.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_Update_VehicleDocumentDetail.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_SaveVehicleDocumentDetail.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_Save_VehicleBID.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_Save_Vechile_TechnicalDetails.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_Save_Vechile_Details.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_Insert_VehicleImage.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_Insert_Update_Vehicle.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_Delete_VehicleImage.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_delete_VehicleDocumentDetail.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_DeActive_Delete_Close_Vehicle.sql" />
   </ItemGroup>
 </Project>

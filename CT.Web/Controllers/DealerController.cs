@@ -1,10 +1,9 @@
 ﻿using CT.Common.Common;
 using CT.Common.Entities;
+using CT.Service.UserService;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -13,43 +12,34 @@ namespace CT.Web.Controllers
 {
     public class DealerController : BaseController
     {
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            BaseUserEntity dealerslist = new BaseUserEntity();
-            UserEntity userEntity = new UserEntity { RoleID = 1, ID = 1 };
-            CTApiResponse cTApiResponse = await Post<UserEntity>("/User/GetDealers", userEntity);
-            if (cTApiResponse.IsSuccess)
-            {
-                dealerslist = JsonConvert.DeserializeObject<BaseUserEntity>(Convert.ToString(cTApiResponse.Data));
-            }
-            return View(dealerslist);
+            BaseUserEntity dealers = new UserService().GetDealers(User.UserId, User.RoleId);
+            return View(dealers);
         }
 
-        public async Task<ActionResult> AddDealer(long dealerID = 0)
+        public ActionResult AddDealer(long dealerID = 0)
         {
             UserEntity model = new UserEntity();
+            UserService userService = new UserService();
             if (dealerID > 0)
             {
-                model = new UserEntity { RoleID = 1, ID = dealerID };
-                CTApiResponse cTApiResponse = await Post<UserEntity>("/User/GetDealerByID", model);
-                if (cTApiResponse.IsSuccess)
-                {
-                    BaseUserEntity baseUserEntity = JsonConvert.DeserializeObject<BaseUserEntity>(Convert.ToString(cTApiResponse.Data));
-                    model = baseUserEntity.UserEntity;
-                }
+                BaseUserEntity data = userService.GetDealerByID(new UserEntity() { ID = dealerID, UserID = User.UserId, RoleID = User.RoleId });
+                if (data != null)
+                    model = data.UserEntity;
             }
             return View(model);
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddDealer(UserEntity model, HttpPostedFileBase file)
+        public ActionResult AddDealer(UserEntity model, HttpPostedFileBase file)
         {
             if (ModelState.ContainsKey("ID"))
                 ModelState["ID"].Errors.Clear();
 
             if (ModelState.IsValid)
             {
-                if (file.ContentLength > 0)
+                if (file != null && file.ContentLength > 0)
                 {
                     try
                     {
@@ -57,19 +47,58 @@ namespace CT.Web.Controllers
                         file.SaveAs(Path.Combine(Server.MapPath("~/Images/Original/"), model.ProfilePic));
                         resizeImage(Server.MapPath("~/Images/450250/"), Server.MapPath("~/Images/Original/"), model.ProfilePic, 450, 250, 450, 250);
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         return View(model);
                     }
                 }
-                
-                model.RoleID = User.RoleId;
-                model.UserID = User.UserId;
-                CTApiResponse cTApiResponse = await Post<UserEntity>("/User/InsertUpdateDealer", model);
-                if (cTApiResponse.IsSuccess)
+
+                UserService userService = new UserService();
+                BaseEntity userInfo = new BaseEntity();
+                if (model.ID == 0)
                 {
+                    userInfo = userService.InsertDealer(new UserEntity()
+                    {
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        UserName = model.UserName,
+                        Password = model.Password,
+                        UserID = User.UserId,
+                        RoleID = 3,
+                        ProfilePic = model.ProfilePic
+                    });
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(model.ProfilePic))
+                    {
+                        BaseUserEntity info = userService.GetDealerByID(new UserEntity()
+                        {
+                            ID = model.ID,
+                            UserID = User.UserId,
+                            RoleID = User.RoleId
+                        });
+                        model.ProfilePic = info.UserEntity.ProfilePic;
+                    }
+                    userInfo = userService.UpdateDealer(new UserEntity()
+                    {
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        UserName = model.UserName,
+                        Password = model.Password,
+                        UserID = User.UserId,
+                        RoleID = User.RoleId,
+                        ID = model.ID,
+                        ProfilePic = model.ProfilePic
+                    });
+                }
+                if (userInfo.ResponseStatus.Status == 1)
+                {
+                    TempData[CT.Web.Common.CommonUtility.Success.ToString()] = userInfo.ResponseStatus.Message;
                     return RedirectToAction("Index");
                 }
+                else
+                    TempData[CT.Web.Common.CommonUtility.Error.ToString()] = userInfo.ResponseStatus.Message;
             }
             return View(model);
         }

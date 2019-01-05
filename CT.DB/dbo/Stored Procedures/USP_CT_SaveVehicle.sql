@@ -1,16 +1,10 @@
-﻿-- =============================================
--- Author:		faraaz
--- Create date: <12/17/2018>
--- Description:	<SaveVechile>
--- =============================================
-CREATE PROCEDURE [dbo].[USP_CT_SaveVehicle]
+﻿CREATE PROCEDURE [dbo].[USP_CT_SaveVehicle]
 (
 @UserID bigint,
 @RoleID int,
 @VehicleName nvarchar(150),
 @StockID nvarchar(50),
 @Description nvarchar(150) = null,
-@IsDealClosed bit,
 @Status int out,
 @Message nvarchar(500) out
 )
@@ -21,10 +15,10 @@ BEGIN
 	SET NOCOUNT ON;
 	BEGIN TRY
 		SET  @Status = 1;  
-		If not exists(SELECT * FROM CT_TRAN_Vehicle WHERE VehicleName = @VehicleName and StockID = @StockID and IsActive = 1)
+		If not exists(SELECT * FROM CT_TRAN_Vehicle WHERE StockID = @StockID and IsActive = 1)
 			begin
-				INSERT INTO CT_TRAN_Vehicle(VehicleName,StockID,Description,IsDealClosed,IsActive,IsDelete,CreatedOn,CreatedBy,ModifiedOn,ModifiedBy)
-				SELECT @VehicleName,@StockID,@Description,@IsDealClosed,1,0,GETDATE(),@UserID,GETDATE(),@UserID;
+				INSERT INTO CT_TRAN_Vehicle(VehicleName,StockID,Description,IsDealClosed,IsActive,IsDelete,CreatedOn,CreatedBy)
+				SELECT @VehicleName,@StockID,@Description,0,1,0,GETDATE(),@UserID;
 				SET @Message = dbo.UDF_CT_SuccessMessage('insert') ;
 			end
 		else
