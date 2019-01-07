@@ -1,15 +1,13 @@
 ﻿<!DOCTYPE html>
 @{
-                /**/
-
-                string ControllerName = ViewContext.RouteData.Values["controller"].ToString();
-                string ActionName = ViewContext.RouteData.Values["action"].ToString();
+    string ControllerName = ViewContext.RouteData.Values["controller"].ToString();
+    string ActionName = ViewContext.RouteData.Values["action"].ToString();
 }
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <link rel="apple-touch-icon" sizes="76x76" href="/Material/assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="/Material/assets/img/favicon.png">
+    <link rel="icon" href="http://cartimez.in/wp-content/uploads/2018/07/cropped-cartimez-logo-icon-1-32x32.png" sizes="32x32">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>
         CAR TIMEZ Dashboard
@@ -89,9 +87,6 @@
 
             <input type="hidden" id="hfSuccess" value="@TempData[CT.Web.Common.CommonUtility.Success.ToString()]" />
             <input type="hidden" id="hfWarning" value="@TempData[CT.Web.Common.CommonUtility.Error.ToString()]" />
-            <a href="#" id="btnShowPopup" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#successMessage">
-            </a>
-
             <div class="logo">
                 <a href="http://cartimez.in/" class="simple-text logo-normal">
                     <img src="http://cartimez.in/wp-content/uploads/2018/07/cartimez-logo-new.png" style="width: 235px;" title="Home" alt="Logo">
@@ -353,7 +348,7 @@
         </div>
     </div>
     <!-- Modal -->
-
+    <a href="#" id="btnShowPopup" style="display:none;" data-toggle="modal" data-target="#successMessage"></a>
     <script src="~/Material/assets/js/core/jquery.min.js"></script>
     <script src="~/Material/assets/js/core/popper.min.js"></script>
     <script src="~/Material/assets/js/core/bootstrap-material-design.min.js"></script>
@@ -387,7 +382,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         $(document).ready(function () {
-		$("#btnShowPopup").hide();
+            $("#btnShowPopup").hide();
             $().ready(function () {
                 $sidebar = $('.sidebar');
                 //$('.mdb_upload').mdb_upload();
@@ -470,7 +465,7 @@
     <script>
         $(document).ready(function () {
             // Javascript method's body can be found in assets/js/demos.js
-           // md.initDashboardPageCharts();
+            // md.initDashboardPageCharts();
 
             var hfSuccessMsg = $("#hfSuccess").val();
             var hfWarningMsg = $("#hfWarning").val();
