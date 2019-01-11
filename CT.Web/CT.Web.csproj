@@ -184,6 +184,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\450250\noimage.PNG" />
+    <Content Include="Images\login-bg.jpg" />
     <Content Include="Images\Original\noimage.PNG" />
     <Content Include="Material\assets\css\material-dashboard-rtl.css" />
     <Content Include="Material\assets\css\material-dashboard.css" />
