@@ -16,11 +16,12 @@ namespace CT.APIService.Controllers
         {
             _loginService = new LoginService();
         }
-
-        [HttpPost]
-        public IHttpActionResult Login(UserEntity user)
+        
+        [HttpGet]
+        public IHttpActionResult Login(string UserName, string Password)
         {
             return RunInSafe(()=> {
+                UserEntity user = new UserEntity { UserName = UserName, Password = Password };
                 var data = _loginService.Login(user);
                 cTApiResponse.Data = data;
                 cTApiResponse.IsSuccess = true;

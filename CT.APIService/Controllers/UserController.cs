@@ -33,61 +33,74 @@ namespace CT.APIService.Controllers
                 return Ok(cTApiResponse);
             });
         }
-
-        [HttpPost]
-        public IHttpActionResult DeleteDealerByID(UserEntity model)
+        
+        public IHttpActionResult DeleteDealerByID(int DealerID, int RoleID)
         {
             return RunInSafe(() =>
             {
+                UserEntity model = new UserEntity { ID = DealerID, RoleID = RoleID };
                 var data = _userService.DeleteDealerByID(model);
                 cTApiResponse.Data = data;
                 cTApiResponse.IsSuccess = true;
                 return Ok(cTApiResponse);
             });
         }
-
-        [HttpPost]
-        public IHttpActionResult GetDealerByID(UserEntity model)
+        
+        public IHttpActionResult GetDealerByID(int DealerID, int UserID, int RoleID)
         {
             return RunInSafe(() =>
             {
+                UserEntity model = new UserEntity { ID = DealerID, UserID = UserID, RoleID = RoleID };
                 var data = _userService.GetDealerByID(model);
                 cTApiResponse.Data = data;
                 cTApiResponse.IsSuccess = true;
                 return Ok(cTApiResponse);
             });
         }
-
-        [HttpPost]
-        public IHttpActionResult GetDealers(UserEntity model)
+        
+        public IHttpActionResult GetDealers(int UserID, int RoleID)
         {
             return RunInSafe(() =>
             {
+                UserEntity model = new UserEntity { ID = UserID, RoleID = RoleID };
                 var data = _userService.GetDealers(model);
                 cTApiResponse.Data = data;
                 cTApiResponse.IsSuccess = true;
                 return Ok(cTApiResponse);
             });
         }
-
-        [HttpPost]
-        public IHttpActionResult GetBIDS(UserEntity userEntity)
+        
+        public IHttpActionResult GetBIDS(int UserID, int RoleID)
         {
             return RunInSafe(() =>
             {
-                var data = _userService.GetBIDS(userEntity);
+                UserEntity model = new UserEntity { UserID = UserID, RoleID = RoleID };
+                var data = _userService.GetBIDS(model);
+                cTApiResponse.Data = data;
+                cTApiResponse.IsSuccess = true;
+                return Ok(cTApiResponse);
+            });
+        }
+        
+        [HttpGet]
+        public IHttpActionResult ViewBID(int VehicleID, int UserID, int RoleID)
+        {
+            return RunInSafe(() =>
+            {
+                VehicleBIDEntity vehicleEntity = new VehicleBIDEntity { VehicleID = VehicleID, UserID = UserID, RoleID = RoleID };
+                var data = _userService.ViewBID(vehicleEntity);
                 cTApiResponse.Data = data;
                 cTApiResponse.IsSuccess = true;
                 return Ok(cTApiResponse);
             });
         }
 
-        [HttpPost]
-        public IHttpActionResult ViewBID(VehicleBIDEntity vehicleEntity)
+        public IHttpActionResult GetBIDSByUserID(int UserID, int RoleID)
         {
             return RunInSafe(() =>
             {
-                var data = _userService.ViewBID(vehicleEntity);
+                UserEntity model = new UserEntity { UserID = UserID, RoleID = RoleID };
+                var data = _userService.GetBIDSByUserID(model);
                 cTApiResponse.Data = data;
                 cTApiResponse.IsSuccess = true;
                 return Ok(cTApiResponse);

@@ -33,11 +33,11 @@ namespace CT.APIService.Controllers
             });
         }
 
-        [HttpPost]
-        public IHttpActionResult DeleteVehicleByID(VehicleEntity model)
+        public IHttpActionResult DeleteVehicleByID(int ID, int UserID, int RoleID)
         {
             return RunInSafe(() =>
             {
+                VehicleEntity model = new VehicleEntity { ID = ID, UserID = UserID, RoleID = RoleID };
                 var data = _VehicleService.DeleteVehicleByID(model);
                 cTApiResponse.Data = data;
                 cTApiResponse.IsSuccess = true;
@@ -45,11 +45,11 @@ namespace CT.APIService.Controllers
             });
         }
 
-        [HttpPost]
-        public IHttpActionResult GetVehicleByID(VehicleEntity model)
+        public IHttpActionResult GetVehicleByID(int ID, int UserID, int RoleID)
         {
             return RunInSafe(() =>
             {
+                VehicleEntity model = new VehicleEntity { ID = ID, UserID = UserID, RoleID = RoleID };
                 var data = _VehicleService.GetVehicleByID(model);
                 cTApiResponse.Data = data;
                 cTApiResponse.IsSuccess = true;
@@ -57,11 +57,11 @@ namespace CT.APIService.Controllers
             });
         }
 
-        [HttpPost]
-        public IHttpActionResult GetVehicles(VehicleEntity model)
+        public IHttpActionResult GetVehicles(int UserID, int RoleID)
         {
             return RunInSafe(() =>
             {
+                VehicleEntity model = new VehicleEntity { UserID = UserID, RoleID = RoleID };
                 var data = _VehicleService.GetVehicles(model);
                 cTApiResponse.Data = data;
                 cTApiResponse.IsSuccess = true;
@@ -121,13 +121,26 @@ namespace CT.APIService.Controllers
             });
         }
 
-        [HttpPost]
-        public IHttpActionResult DeleteVehicleImage(VehicleImageEntity model)
+        public IHttpActionResult DeleteVehicleImage(string ImageName, int VehicleID, int UserID, int RoleID)
         {
             return RunInSafe(() =>
             {
+                VehicleImageEntity model = new VehicleImageEntity { ImageName = ImageName, VehicleID = VehicleID, UserID = UserID, RoleID = RoleID };
                 BaseEntity data = new BaseEntity();
                 data = _VehicleService.DeleteVehicleImage(model);
+                cTApiResponse.Data = data;
+                cTApiResponse.IsSuccess = true;
+                return Ok(cTApiResponse);
+            });
+        }
+
+        public IHttpActionResult CloseDeal(int ID, int UserID, int RoleID)
+        {
+            return RunInSafe(() =>
+            {
+                VehicleEntity model = new VehicleEntity { ID = ID, UserID = UserID, RoleID = RoleID };
+                BaseEntity data = new BaseEntity();
+                data = _VehicleService.CloseDeal(model);
                 cTApiResponse.Data = data;
                 cTApiResponse.IsSuccess = true;
                 return Ok(cTApiResponse);

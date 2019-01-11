@@ -305,5 +305,37 @@ namespace CT.Service.UserService
                 return entity;
             }
         }
+
+        public BaseVehicleBIDEntity GetBIDSByUserID(UserEntity userEntity)
+        {
+            BaseVehicleBIDEntity entity = new BaseVehicleBIDEntity();
+            try
+            {
+                Log.Info("----Info GetBIDSByUserID method start----");
+                Log.Info("@UserID" + userEntity.UserID);
+                Log.Info("@RoleID" + userEntity.RoleID);
+                Log.Info("Store Proc Name : USP_CT_GetBids");
+                DynamicParameters param = new DynamicParameters();
+                param.Add("@UserID", userEntity.UserID);
+                param.Add("@RoleID", userEntity.RoleID);
+                param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
+                entity.ListBids = GetItems<VehicleBIDEntity>(CommandType.StoredProcedure, UserLiterals.GetBids, param).AsList<VehicleBIDEntity>();
+                entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
+                entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
+                Log.Info("----Info GetBIDSByUserID method Exit----");
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                entity.ResponseStatus.Status = 0;
+                entity.ResponseStatus.Message = ex.Message;
+                Log.Error("Error in GetBIDSByUserID Method");
+                Log.Error("Error occured time : " + DateTime.UtcNow);
+                Log.Error("Error message : " + ex.Message);
+                Log.Error("Error StackTrace : " + ex.StackTrace);
+                return entity;
+            }
+        }
     }
 }

@@ -1,1 +1,1 @@
-﻿Data Source=DESKTOP-OIDUUGD\SQLEXPRESS;Initial Catalog=CTAdmin;Integrated Security=SSPI;
+﻿Data Source=DESKTOP-673SM2S;Initial Catalog=CTAdmin;Integrated Security=SSPI;
