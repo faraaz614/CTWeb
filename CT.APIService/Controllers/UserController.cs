@@ -95,7 +95,7 @@ namespace CT.APIService.Controllers
             });
         }
 
-        public IHttpActionResult GetBIDSByUserID(int UserID, int RoleID)
+        public IHttpActionResult GetBIDSByUserID(int VehicleID, int UserID, int RoleID)
         {
             return RunInSafe(() =>
             {

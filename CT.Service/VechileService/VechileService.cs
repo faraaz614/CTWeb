@@ -178,7 +178,8 @@ namespace CT.Service.VehicleService
                         x => x.Read<VehicleDetailEntity>().FirstOrDefault(),
                         x => x.Read<VehicleImageEntity>().ToList(),
                         x => x.Read<DocumentDetailEntity>().FirstOrDefault(),
-                        x => x.Read<TechnicalDetailEntity>().FirstOrDefault());
+                        x => x.Read<TechnicalDetailEntity>().FirstOrDefault(),
+                        x => x.Read<VehicleBIDEntity>().ToList());
                     entity.VehicleEntity = (VehicleEntity)vehcile[0];
                     if (entity.VehicleEntity != null)
                     {
@@ -186,6 +187,7 @@ namespace CT.Service.VehicleService
                         entity.VehicleEntity.VehicleImage = (List<VehicleImageEntity>)vehcile[2];
                         entity.VehicleEntity.DocumentDetail = (DocumentDetailEntity)vehcile[3];
                         entity.VehicleEntity.TechnicalDetail = (TechnicalDetailEntity)vehcile[4];
+                        entity.VehicleEntity.VehicleBIDs = (List<VehicleBIDEntity>)vehcile[5];
                     }
                     entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
                     entity.ResponseStatus.Message = param.Get<dynamic>("@Message");

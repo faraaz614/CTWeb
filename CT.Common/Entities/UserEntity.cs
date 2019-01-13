@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Configuration;
 
 namespace CT.Common.Common
 {
@@ -44,6 +45,10 @@ namespace CT.Common.Common
         public bool IsActive { get; set; }
         public long CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
-        
+
+        public string AppImageUrl
+        {
+            get => ConfigurationManager.AppSettings["imagebase"] + ProfilePic;
+        }
     }
 }

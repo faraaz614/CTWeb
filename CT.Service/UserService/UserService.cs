@@ -306,9 +306,9 @@ namespace CT.Service.UserService
             }
         }
 
-        public BaseVehicleBIDEntity GetBIDSByUserID(UserEntity userEntity)
+        public BaseVehicleEntity GetBIDSByUserID(UserEntity userEntity)
         {
-            BaseVehicleBIDEntity entity = new BaseVehicleBIDEntity();
+            BaseVehicleEntity entity = new BaseVehicleEntity();
             try
             {
                 Log.Info("----Info GetBIDSByUserID method start----");
@@ -320,7 +320,7 @@ namespace CT.Service.UserService
                 param.Add("@RoleID", userEntity.RoleID);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
-                entity.ListBids = GetItems<VehicleBIDEntity>(CommandType.StoredProcedure, UserLiterals.GetBids, param).AsList<VehicleBIDEntity>();
+                entity.ListVehicles = GetItems<VehicleEntity>(CommandType.StoredProcedure, UserLiterals.GetBIDSByUserID, param).ToList();
                 entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
                 entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
                 Log.Info("----Info GetBIDSByUserID method Exit----");

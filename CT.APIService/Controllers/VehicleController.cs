@@ -50,7 +50,11 @@ namespace CT.APIService.Controllers
             return RunInSafe(() =>
             {
                 VehicleEntity model = new VehicleEntity { ID = ID, UserID = UserID, RoleID = RoleID };
-                var data = _VehicleService.GetVehicleByID(model);
+                BaseVehicleEntity data = _VehicleService.GetVehicleByID(model);
+                if (data != null && data.VehicleEntity != null && data.VehicleEntity.VehicleBIDs != null)
+                {
+                    data.VehicleEntity.VehicleBIDs = data.VehicleEntity.VehicleBIDs.Where(x => x.DealerID == UserID).ToList();
+                }
                 cTApiResponse.Data = data;
                 cTApiResponse.IsSuccess = true;
                 return Ok(cTApiResponse);
