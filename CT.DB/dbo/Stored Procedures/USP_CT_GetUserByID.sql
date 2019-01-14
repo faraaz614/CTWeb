@@ -1,4 +1,13 @@
-﻿CREATE PROCEDURE [dbo].[USP_CT_GetUserByID]  
+﻿-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+--declare @statusid int
+--declare @msg varchar(100)
+--exec [USP_CT_GetUserByID] 1,1,1,@statusid out, @msg out
+--select @statusid,@msg
+CREATE PROCEDURE [dbo].[USP_CT_GetUserByID]  
 (  
 @ID bigint,
 @UserID bigint,  

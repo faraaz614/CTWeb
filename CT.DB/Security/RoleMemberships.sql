@@ -1,0 +1,6 @@
+﻿ALTER ROLE [db_owner] ADD MEMBER [IIS APPPOOL\dact];
+
+
+GO
+ALTER ROLE [db_owner] ADD MEMBER [IIS APPPOOL\ct];
+

@@ -2,6 +2,11 @@
 -- Author:		<Author,,Name>
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
+
+--declare @statusid int
+--declare @msg varchar(100)
+--exec [USP_CT_GetVehicleByID] 1,1,1,@statusid out, @msg out
+--select @statusid,@msg
 -- =============================================
 CREATE PROCEDURE [dbo].[USP_CT_GetVehicleByID]
 (
@@ -23,6 +28,7 @@ BEGIN
 		Select * from CT_TRAN_VehicleImage where VehicleID = @VehicleID
 		Select * from CT_TRAN_DocumentDetail where VehicleID = @VehicleID
 		Select * from CT_TRAN_TechnicalDetails where VehicleID = @VehicleID
+		SELECT VehicleID,DealerID,Description,BIDAmount FROM CT_TRAN_VehicleBID where VehicleID = @VehicleID
 		SET @Message = dbo.UDF_CT_SuccessMessage('') ;
 	END TRY	
 	BEGIN CATCH

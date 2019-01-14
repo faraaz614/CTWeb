@@ -7,10 +7,10 @@ create PROCEDURE USP_CT_Save_VehicleBID
 (
 @UserID bigint,
 @RoleID int,
-@VehicleID [bigint] NULL,
-@BIDAmount [decimal](18, 0) NULL,
-@Description [nvarchar](500) NULL,
-@DealerID [bigint] NULL,
+@VehicleID [bigint] =NULL,
+@BIDAmount [decimal](18, 0) =NULL,
+@Description [nvarchar](500)= NULL,
+@DealerID [bigint] =NULL,
 @Status int out,
 @Message nvarchar(500) out
 )

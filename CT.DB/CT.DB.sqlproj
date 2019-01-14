@@ -61,6 +61,7 @@
     <Folder Include="dbo\Tables\" />
     <Folder Include="dbo\Functions\" />
     <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="Security\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\CT_TRAN_VehicleImage.sql" />
@@ -90,8 +91,6 @@
     <Build Include="dbo\Stored Procedures\USP_CT_SaveVehicleDocument.sql" />
     <Build Include="dbo\Stored Procedures\USP_CT_SaveVehicleDetails.sql" />
     <Build Include="dbo\Stored Procedures\USP_CT_SaveBid.sql" />
-    <Build Include="dbo\Stored Procedures\USP_CT_GetBidsByVehicleID.sql" />
-    <Build Include="dbo\Stored Procedures\USP_CT_GetBidsByDealerID.sql" />
     <Build Include="dbo\Stored Procedures\USP_CT_GetBids.sql" />
     <Build Include="dbo\Stored Procedures\USP_CT_ViewBID.sql" />
     <Build Include="dbo\Stored Procedures\USP_CT_Login.sql" />
@@ -107,5 +106,9 @@
     <Build Include="dbo\Stored Procedures\USP_CT_Delete_VehicleImage.sql" />
     <Build Include="dbo\Stored Procedures\USP_CT_delete_VehicleDocumentDetail.sql" />
     <Build Include="dbo\Stored Procedures\USP_CT_DeActive_Delete_Close_Vehicle.sql" />
+    <Build Include="Security\IIS APPPOOL_dact.sql" />
+    <Build Include="Security\IIS APPPOOL_ct.sql" />
+    <Build Include="Security\RoleMemberships.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_GetBIDSByUserID.sql" />
   </ItemGroup>
 </Project>

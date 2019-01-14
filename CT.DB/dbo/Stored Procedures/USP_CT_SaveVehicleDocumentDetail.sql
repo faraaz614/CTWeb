@@ -3,20 +3,20 @@
 -- Create date: <21-dec-2018>
 -- Description:	<Save DocumentDetail>
 -- =============================================
-CREATE PROCEDURE USP_CT_SaveVehicleDocumentDetail
+CREATE PROCEDURE [dbo].[USP_CT_SaveVehicleDocumentDetail]
 (
 @UserID bigint,
 @RoleID int,
-@IsRCavailable [bit] NULL,
-@Hypothication [bit] NULL,
-@IsNOCavailable [bit] NULL,
-@NoOfOwners [int] NULL,
-@NoOfKeys [int] NULL,
-@IsInsuranceAvailable [bit] NULL,
-@IsComprehensive [bit] NULL,
-@IsThirdParty [bit] NULL,
-@InsuranceExpiryDate [date] NULL,
-@VehicleID [bigint] NULL,
+@IsRCavailable [bit]= NULL,
+@Hypothication [bit]= NULL,
+@IsNOCavailable [bit] =NULL,
+@NoOfOwners [int] =NULL,
+@NoOfKeys [int] =NULL,
+@IsInsuranceAvailable [bit] =NULL,
+@IsComprehensive [bit]= NULL,
+@IsThirdParty [bit] =NULL,
+@InsuranceExpiryDate [date] =NULL,
+@VehicleID [bigint]= NULL,
 @Status int out,
 @Message nvarchar(500) out
 )
