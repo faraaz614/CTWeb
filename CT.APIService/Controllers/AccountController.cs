@@ -20,13 +20,9 @@ namespace CT.APIService.Controllers
         [HttpGet]
         public IHttpActionResult Login(string UserName, string Password)
         {
-            return RunInSafe(()=> {
-                UserEntity user = new UserEntity { UserName = UserName, Password = Password };
-                var data = _loginService.Login(user);
-                cTApiResponse.Data = data;
-                cTApiResponse.IsSuccess = true;
-                return Ok(cTApiResponse);
-            });
+            UserEntity user = new UserEntity { UserName = UserName, Password = Password };
+            var data = _loginService.Login(user);
+            return Ok(data);
         }
     }
 }

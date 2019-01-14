@@ -47,30 +47,20 @@ namespace CT.APIService.Controllers
 
         public IHttpActionResult GetVehicleByID(int ID, int UserID, int RoleID)
         {
-            return RunInSafe(() =>
+            VehicleEntity model = new VehicleEntity { ID = ID, UserID = UserID, RoleID = RoleID };
+            BaseVehicleEntity baseVehicleEntity = _VehicleService.GetVehicleByID(model);
+            if (baseVehicleEntity != null && baseVehicleEntity.VehicleEntity != null && baseVehicleEntity.VehicleEntity.VehicleBIDs != null)
             {
-                VehicleEntity model = new VehicleEntity { ID = ID, UserID = UserID, RoleID = RoleID };
-                BaseVehicleEntity data = _VehicleService.GetVehicleByID(model);
-                if (data != null && data.VehicleEntity != null && data.VehicleEntity.VehicleBIDs != null)
-                {
-                    data.VehicleEntity.VehicleBIDs = data.VehicleEntity.VehicleBIDs.Where(x => x.DealerID == UserID).ToList();
-                }
-                cTApiResponse.Data = data;
-                cTApiResponse.IsSuccess = true;
-                return Ok(cTApiResponse);
-            });
+                baseVehicleEntity.VehicleEntity.VehicleBIDs = baseVehicleEntity.VehicleEntity.VehicleBIDs.Where(x => x.DealerID == UserID).ToList();
+            }
+            return Ok(baseVehicleEntity);
         }
 
         public IHttpActionResult GetVehicles(int UserID, int RoleID)
         {
-            return RunInSafe(() =>
-            {
-                VehicleEntity model = new VehicleEntity { UserID = UserID, RoleID = RoleID };
-                var data = _VehicleService.GetVehicles(model);
-                cTApiResponse.Data = data;
-                cTApiResponse.IsSuccess = true;
-                return Ok(cTApiResponse);
-            });
+            VehicleEntity model = new VehicleEntity { UserID = UserID, RoleID = RoleID };
+            var baseVehicleEntity = _VehicleService.GetVehicles(model);
+            return Ok(baseVehicleEntity);
         }
 
         [HttpPost]

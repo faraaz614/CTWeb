@@ -48,14 +48,9 @@ namespace CT.APIService.Controllers
         
         public IHttpActionResult GetDealerByID(int DealerID, int UserID, int RoleID)
         {
-            return RunInSafe(() =>
-            {
-                UserEntity model = new UserEntity { ID = DealerID, UserID = UserID, RoleID = RoleID };
-                var data = _userService.GetDealerByID(model);
-                cTApiResponse.Data = data;
-                cTApiResponse.IsSuccess = true;
-                return Ok(cTApiResponse);
-            });
+            UserEntity model = new UserEntity { ID = DealerID, UserID = UserID, RoleID = RoleID };
+            BaseUserEntity baseUserEntity = _userService.GetDealerByID(model);
+            return Ok(baseUserEntity);
         }
         
         public IHttpActionResult GetDealers(int UserID, int RoleID)
@@ -95,16 +90,11 @@ namespace CT.APIService.Controllers
             });
         }
 
-        public IHttpActionResult GetBIDSByUserID(int VehicleID, int UserID, int RoleID)
+        public IHttpActionResult GetBIDSByUserID(int UserID, int RoleID)
         {
-            return RunInSafe(() =>
-            {
-                UserEntity model = new UserEntity { UserID = UserID, RoleID = RoleID };
-                var data = _userService.GetBIDSByUserID(model);
-                cTApiResponse.Data = data;
-                cTApiResponse.IsSuccess = true;
-                return Ok(cTApiResponse);
-            });
+            UserEntity model = new UserEntity { UserID = UserID, RoleID = RoleID };
+            BaseVehicleEntity baseVehicleEntity = _userService.GetBIDSByUserID(model);
+            return Ok(baseVehicleEntity);
         }
     }
 }
