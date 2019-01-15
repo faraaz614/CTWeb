@@ -19,6 +19,8 @@ namespace CT.Common.Common
     {
         public long ID { get; set; }
 
+        public int RoleID { get; set; }
+
         [StringLength(500)]
         public string ProfilePic { get; set; }
 

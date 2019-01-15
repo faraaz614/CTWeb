@@ -1,5 +1,6 @@
 ﻿using CT.Common.Common;
 using CT.Service.Login;
+using CT.Service.UserService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,8 @@ namespace CT.APIService.Controllers
         {
             UserEntity user = new UserEntity { UserName = UserName, Password = Password };
             var data = _loginService.Login(user);
-            return Ok(data);
+            BaseUserEntity baseUserEntity = new UserService().GetDealerByID(new UserEntity { ID = data.UserID, UserID = data.UserID, RoleID = data.RoleID });
+            return Ok(baseUserEntity);
         }
     }
 }

@@ -337,5 +337,41 @@ namespace CT.Service.UserService
                 return entity;
             }
         }
+
+        public BaseVehicleBIDEntity SaveBIDByUserID(VehicleBIDEntity vehicleEntity)
+        {
+            BaseVehicleBIDEntity entity = new BaseVehicleBIDEntity();
+            try
+            {
+                Log.Info("----Info SaveBIDByUserID method start----");
+                Log.Info("@UserID" + vehicleEntity.UserID);
+                Log.Info("@RoleID" + vehicleEntity.RoleID);
+                Log.Info("@VehicleID" + vehicleEntity.VehicleID);
+                Log.Info("@BIDAmount" + vehicleEntity.BIDAmount);
+                Log.Info("Store Proc Name : USP_CT_SaveBIDByUserID");
+                DynamicParameters param = new DynamicParameters();
+                param.Add("@UserID", vehicleEntity.UserID);
+                param.Add("@RoleID", vehicleEntity.RoleID);
+                param.Add("@VehicleID", vehicleEntity.VehicleID);
+                param.Add("@BIDAmount", vehicleEntity.BIDAmount);
+                param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
+                entity.GenericErrorInfo = GetSingleItem<GenericErrorInfo>(CommandType.StoredProcedure, UserLiterals.SaveBIDByUserID, param);
+                entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
+                entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
+                Log.Info("----Info SaveBIDByUserID method Exit----");
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                entity.ResponseStatus.Status = 0;
+                entity.ResponseStatus.Message = ex.Message;
+                Log.Error("Error in SaveBIDByUserID Method");
+                Log.Error("Error occured time : " + DateTime.UtcNow);
+                Log.Error("Error message : " + ex.Message);
+                Log.Error("Error StackTrace : " + ex.StackTrace);
+                return entity;
+            }
+        }
     }
 }

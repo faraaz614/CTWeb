@@ -110,5 +110,6 @@
     <Build Include="Security\IIS APPPOOL_ct.sql" />
     <Build Include="Security\RoleMemberships.sql" />
     <Build Include="dbo\Stored Procedures\USP_CT_GetBIDSByUserID.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_SaveBIDByUserID.sql" />
   </ItemGroup>
 </Project>

@@ -14,5 +14,6 @@
         public const string GetBIDSByUserID = "USP_CT_GetBIDSByUserID";
         public const string ViewBid = "USP_CT_ViewBID";
         public const string Login = "USP_CT_Login";
+        public const string SaveBIDByUserID = "USP_CT_SaveBIDByUserID";
     }
 }

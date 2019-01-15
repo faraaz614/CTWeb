@@ -96,5 +96,13 @@ namespace CT.APIService.Controllers
             BaseVehicleEntity baseVehicleEntity = _userService.GetBIDSByUserID(model);
             return Ok(baseVehicleEntity);
         }
+
+        [HttpGet]
+        public IHttpActionResult SaveBIDByUserID(int VehicleID, decimal BidAmount,int UserID, int RoleID)
+        {
+            VehicleBIDEntity model = new VehicleBIDEntity { VehicleID = VehicleID, BIDAmount = BidAmount, UserID = UserID, RoleID = RoleID };
+            BaseVehicleBIDEntity baseVehicleBIDEntity = _userService.SaveBIDByUserID(model);
+            return Ok(baseVehicleBIDEntity);
+        }
     }
 }
