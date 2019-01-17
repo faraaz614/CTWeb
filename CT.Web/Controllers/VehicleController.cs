@@ -5,6 +5,9 @@ using Newtonsoft.Json;
 using System;
 using System.Configuration;
 using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -213,6 +216,69 @@ namespace CT.Web.Controllers
                     TempData[CT.Web.Common.CommonUtility.Error.ToString()] = dataInfo.ResponseStatus.Message;
             }
             return RedirectToAction("AddVehicle", new { vechileID = model.ID });
+        }
+
+        public ActionResult SendNotification(string body, string title)
+        {
+            int result = 0;
+            if (String.IsNullOrWhiteSpace(body))
+                body = "Cartimez";
+            if (String.IsNullOrWhiteSpace(title))
+                title = "Cartimez";
+
+            string fcm_url = ConfigurationManager.AppSettings["fcm_url"];
+            string Authorization = ConfigurationManager.AppSettings["Authorization"];
+            string Sender = ConfigurationManager.AppSettings["Sender"];
+
+            WebRequest tRequest = WebRequest.Create(fcm_url);
+            tRequest.Method = "post";
+            //serverKey - Key from Firebase cloud messaging server  
+            tRequest.Headers.Add(string.Format("Authorization: key={0}", Authorization));
+            //Sender Id - From firebase project setting  
+            tRequest.Headers.Add(string.Format("Sender: id={0}", Sender));
+            tRequest.ContentType = "application/json";
+            var payload = new
+            {
+                to = "/topics/cartimez", // or generated token
+                priority = "high",
+                content_available = true,
+                notification = new
+                {
+                    body = body,
+                    title = title,
+                    badge = 1
+                },
+            };
+            string postbody = JsonConvert.SerializeObject(payload).ToString();
+            Byte[] byteArray = Encoding.UTF8.GetBytes(postbody);
+            tRequest.ContentLength = byteArray.Length;
+            using (Stream dataStream = tRequest.GetRequestStream())
+            {
+                dataStream.Write(byteArray, 0, byteArray.Length);
+                using (WebResponse tResponse = tRequest.GetResponse())
+                {
+                    using (Stream dataStreamResponse = tResponse.GetResponseStream())
+                    {
+                        if (dataStreamResponse != null)
+                        {
+                            using (StreamReader tReader = new StreamReader(dataStreamResponse))
+                            {
+                                String sResponseFromServer = tReader.ReadToEnd();
+                                if (sResponseFromServer.Contains("message_id"))
+                                {
+                                    result = 1;
+                                    TempData[CT.Web.Common.CommonUtility.Success.ToString()] = "Notifications sent.";
+                                }
+                                else
+                                {
+                                    TempData[CT.Web.Common.CommonUtility.Error.ToString()] = "Error Occurred.";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return Json(result);
         }
     }
 }
