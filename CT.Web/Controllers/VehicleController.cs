@@ -218,17 +218,12 @@ namespace CT.Web.Controllers
             return RedirectToAction("AddVehicle", new { vechileID = model.ID });
         }
 
-        public ActionResult SendNotification(string body, string title)
+        public ActionResult SendNotification(long vehicleID, string body)
         {
-            int result = 0;
-            if (String.IsNullOrWhiteSpace(body))
-                body = "Cartimez";
-            if (String.IsNullOrWhiteSpace(title))
-                title = "Cartimez";
-
             string fcm_url = ConfigurationManager.AppSettings["fcm_url"];
             string Authorization = ConfigurationManager.AppSettings["Authorization"];
             string Sender = ConfigurationManager.AppSettings["Sender"];
+            string title = ConfigurationManager.AppSettings["NotificationTitle"];
 
             WebRequest tRequest = WebRequest.Create(fcm_url);
             tRequest.Method = "post";
@@ -266,7 +261,15 @@ namespace CT.Web.Controllers
                                 String sResponseFromServer = tReader.ReadToEnd();
                                 if (sResponseFromServer.Contains("message_id"))
                                 {
-                                    result = 1;
+                                    NotificationEntity notificationEntity = new NotificationEntity
+                                    {
+                                        UserID = User.UserId,
+                                        RoleID = User.RoleId,
+                                        VehicleID = vehicleID,
+                                        Body = body,
+                                        Title = title                                        
+                                    };
+                                    BaseEntity baseEntity = new VehicleService().AddNotification(notificationEntity);
                                     TempData[CT.Web.Common.CommonUtility.Success.ToString()] = "Notifications sent.";
                                 }
                                 else
@@ -278,7 +281,7 @@ namespace CT.Web.Controllers
                     }
                 }
             }
-            return Json(result);
+            return RedirectToAction("Index");
         }
     }
 }

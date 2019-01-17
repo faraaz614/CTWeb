@@ -489,5 +489,44 @@ namespace CT.Service.VehicleService
                 return entity;
             }
         }
+
+        public BaseEntity AddNotification(NotificationEntity notificationEntity)
+        {
+            BaseEntity entity = new BaseEntity();
+            try
+            {
+                Log.Info("----Info AddNotification method start----");
+                Log.Info("@UserID" + notificationEntity.UserID);
+                Log.Info("@RoleID" + notificationEntity.RoleID);
+                Log.Info("@VehicleID" + notificationEntity.VehicleID);
+                Log.Info("@Body" + notificationEntity.Body);
+                Log.Info("@Title" + notificationEntity.Title);
+                Log.Info("Store Proc Name : USP_CT_SaveNotification");
+                Log.Info("----Info AddNotification method end----");
+                DynamicParameters param = new DynamicParameters();
+                param.Add("@UserID", notificationEntity.UserID);
+                param.Add("@RoleID", notificationEntity.RoleID);
+                param.Add("@VehicleID", notificationEntity.VehicleID);
+                param.Add("@Body", notificationEntity.Body);
+                param.Add("@Title", notificationEntity.Title);
+                param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
+                entity.GenericErrorInfo = GetSingleItem<GenericErrorInfo>(CommandType.StoredProcedure, VehicleLiterals.AddNotification, param);
+                entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
+                entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
+                Log.Info("----Info AddNotification method Exit----");
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                entity.ResponseStatus.Status = 0;
+                entity.ResponseStatus.Message = ex.Message;
+                Log.Error("Error in AddNotification Method");
+                Log.Error("Error occured time : " + DateTime.UtcNow);
+                Log.Error("Error message : " + ex.Message);
+                Log.Error("Error StackTrace : " + ex.StackTrace);
+                return entity;
+            }
+        }
     }
 }

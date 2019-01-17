@@ -49,6 +49,7 @@
     <Compile Include="Entities\DocumentDetailEntity.cs" />
     <Compile Include="Entities\FuelTypeEntity.cs" />
     <Compile Include="Entities\GenericErrorInfo.cs" />
+    <Compile Include="Entities\NotificationEntity.cs" />
     <Compile Include="Entities\ResponseStatus.cs" />
     <Compile Include="Entities\RoleEntity.cs" />
     <Compile Include="Entities\TechnicalDetailEntity.cs" />

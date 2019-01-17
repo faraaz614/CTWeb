@@ -23,6 +23,10 @@ else if (@ReturnType = 'vehicleexists')
 	begin
 	SET @Message='Vehicle with Stock ID is already exists';
 	end
+else if (@ReturnType = 'bidexists')
+	begin
+	SET @Message='BID already placed.';
+	end
 else if (@ReturnType = 'delete')
 	begin
 	SET @Message='Record Deleted Successfully';

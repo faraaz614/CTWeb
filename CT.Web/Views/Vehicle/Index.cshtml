@@ -57,9 +57,13 @@
                                         @vehicle.Model
                                     </td>
                                     <td>
-                                        @Html.Raw(vehicle.IsDealClosed ? "Closed" : "<a href='#' data-carid='"+vehicle.ID+"' class='btn btn-unique btn-rounded btn-sm my-0 closedeal'>Close</a>")
+                                        @Html.Raw(vehicle.IsDealClosed ? "Closed" : "<a href='#' data-carid='" + vehicle.ID + "' class='btn btn-unique btn-rounded btn-sm my-0 closedeal'>Close</a>")
                                     </td>
                                     <td>
+                                        @if (vehicle.NotificationVID == null)
+                                        {
+                                            <a href="@Url.Action("SendNotification", "Vehicle", new { vehicleID = vehicle.ID, body = vehicle.VehicleName + Environment.NewLine + vehicle.Model })" class="btn btn-unique btn-rounded btn-sm my-0">Send Notification</a>
+                                        }                                        
                                         <a href="@Url.Action("AddVehicle", "Vehicle", new { vechileID = vehicle.ID })" class="btn btn-unique btn-rounded btn-sm my-0">Edit</a>
                                     </td>
                                     <td>
@@ -89,7 +93,7 @@
                 </div>
             </div>
         </div>
-       
+
     </div>
     <div>
         <div class="row">

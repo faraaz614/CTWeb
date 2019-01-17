@@ -546,27 +546,6 @@
                     }
                 });
             });
-
-            $(".sendnotifications").on("click", function () {
-                var titletxt = $("#notificationtitle").val();
-                var bodytxt = $("#notificationbody").val();
-                $.ajax({
-                    type: "POST",
-                    url: "@Url.Action("SendNotification", "Vehicle")",
-                    data: { body: bodytxt, title: titletxt },
-                    success: function (data) {
-                        if (data == 1) {
-                            window.location.reload();
-                        }
-                        else {
-                            alert('Error Occurred. Please reload and try again.');
-                        }
-                    },
-                    error: function () {
-                        alert('Error Occurred. Please reload and try again.');
-                    }
-                });
-            });
         });
     </script>
 </body>

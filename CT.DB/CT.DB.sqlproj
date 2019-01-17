@@ -111,5 +111,7 @@
     <Build Include="Security\RoleMemberships.sql" />
     <Build Include="dbo\Stored Procedures\USP_CT_GetBIDSByUserID.sql" />
     <Build Include="dbo\Stored Procedures\USP_CT_SaveBIDByUserID.sql" />
+    <Build Include="dbo\Tables\CT_TRAN_Notification.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_SaveNotification.sql" />
   </ItemGroup>
 </Project>

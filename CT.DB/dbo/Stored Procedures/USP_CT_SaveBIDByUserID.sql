@@ -3,7 +3,7 @@
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE USP_CT_SaveBIDByUserID
+CREATE PROCEDURE [dbo].[USP_CT_SaveBIDByUserID]
 (
 @UserID bigint,
 @RoleID int,
@@ -27,7 +27,7 @@ BEGIN
 			end
 		else
 			begin
-				SET @Message = dbo.UDF_CT_SuccessMessage('denied');
+				SET @Message = dbo.UDF_CT_SuccessMessage('bidexists');
 				SET  @Status = 0;  
 			end
 	END TRY

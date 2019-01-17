@@ -44,6 +44,7 @@ namespace CT.Common.Entities
         public bool IsActive { get; set; }
         public bool IsDealClosed { get; set; }
         public bool IsDelete { get; set; }
+        public long? NotificationVID { get; set; }
         public long CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
         public long ModifiedBy { get; set; }
