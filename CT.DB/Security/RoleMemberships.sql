@@ -4,3 +4,7 @@
 GO
 ALTER ROLE [db_owner] ADD MEMBER [IIS APPPOOL\ct];
 
+
+GO
+ALTER ROLE [db_owner] ADD MEMBER [IIS APPPOOL\cartimez];
+

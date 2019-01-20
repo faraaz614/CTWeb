@@ -113,5 +113,6 @@
     <Build Include="dbo\Stored Procedures\USP_CT_SaveBIDByUserID.sql" />
     <Build Include="dbo\Tables\CT_TRAN_Notification.sql" />
     <Build Include="dbo\Stored Procedures\USP_CT_SaveNotification.sql" />
+    <Build Include="Security\IIS APPPOOL_cartimez.sql" />
   </ItemGroup>
 </Project>

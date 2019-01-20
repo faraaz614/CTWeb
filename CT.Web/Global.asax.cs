@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -27,15 +28,23 @@ namespace CT.Web
             if (authCookie == null) return;
             if (authCookie != null && !String.IsNullOrEmpty(authCookie.Value))
             {
-                FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
-                CustomPrincipalSerializeModel serializeModel = JsonConvert.DeserializeObject<CustomPrincipalSerializeModel>(authTicket.UserData);
-                CustomPrincipal newUser = new CustomPrincipal(authTicket.Name);
-                newUser.UserId = serializeModel.UserId;
-                newUser.UserName = serializeModel.UserName;
-                newUser.ProfileName = serializeModel.ProfileName;
-                newUser.RoleId = serializeModel.RoleId;
-                newUser.ProfilePicture = serializeModel.ProfilePicture;
-                HttpContext.Current.User = newUser;
+                try
+                {
+                    FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+                    CustomPrincipalSerializeModel serializeModel = JsonConvert.DeserializeObject<CustomPrincipalSerializeModel>(authTicket.UserData);
+                    CustomPrincipal newUser = new CustomPrincipal(authTicket.Name);
+                    newUser.UserId = serializeModel.UserId;
+                    newUser.UserName = serializeModel.UserName;
+                    newUser.ProfileName = serializeModel.ProfileName;
+                    newUser.RoleId = serializeModel.RoleId;
+                    newUser.ProfilePicture = serializeModel.ProfilePicture;
+                    HttpContext.Current.User = newUser;
+                }
+                catch (CryptographicException)
+                {
+                    FormsAuthentication.SignOut();
+                }
+                
             }
 
         }

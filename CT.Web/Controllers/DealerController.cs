@@ -88,6 +88,7 @@ namespace CT.Web.Controllers
                         Password = model.Password,
                         UserID = User.UserId,
                         RoleID = User.RoleId,
+                        IsActive = model.IsActive,
                         ID = model.ID,
                         ProfilePic = model.ProfilePic
                     });

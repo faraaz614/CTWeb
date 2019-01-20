@@ -16,7 +16,7 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 	BEGIN TRY 
-		if exists(select UserName from CT_TRAN_User where ID = @UserID and RoleID = @RoleID) and (@RoleID = 1)
+		if exists(select UserName from CT_TRAN_User where ID = @UserID and RoleID = @RoleID) 
 		begin --if
 			SET  @Status = 1;
 			Select * from 

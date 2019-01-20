@@ -63,6 +63,7 @@ namespace CT.Service.UserService
                 Log.Info("@LastName" + userEntity.LastName);
                 Log.Info("@UserName" + userEntity.UserName);
                 Log.Info("@Password" + userEntity.Password);
+                Log.Info("@IsActive" + userEntity.IsActive);
                 Log.Info("@ProfilePic" + userEntity.ProfilePic);
                 Log.Info("Store Proc Name : USP_CT_UpdateUser");
                 Log.Info("----Info UpdateDealer method end----");
@@ -74,6 +75,7 @@ namespace CT.Service.UserService
                 param.Add("@RoleID", userEntity.RoleID);
                 param.Add("@UserName", userEntity.UserName);
                 param.Add("@Password", userEntity.Password);
+                param.Add("@IsActive", userEntity.IsActive);
                 param.Add("@ProfilePic", userEntity.ProfilePic);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);

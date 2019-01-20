@@ -20,7 +20,7 @@ BEGIN
  SET NOCOUNT ON;  
  BEGIN TRY   
   SET  @Status = 1;  
-  Select * from [CT_TRAN_User] where ID = @ID and IsActive = 1;  
+  Select * from [CT_TRAN_User] where ID = @ID;  
   SET @Message = dbo.UDF_CT_SuccessMessage('') ;  
  END TRY   
  BEGIN CATCH  

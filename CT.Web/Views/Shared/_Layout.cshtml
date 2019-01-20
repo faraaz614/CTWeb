@@ -546,6 +546,15 @@
                     }
                 });
             });
+
+            $(".editdealerstatus").on("click", function () {
+                if ($("#IsActive").val() == "True") {
+                    $("#IsActive").val("False");
+                }
+                else {
+                    $("#IsActive").val("True");
+                }
+            });
         });
     </script>
 </body>

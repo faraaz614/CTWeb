@@ -7,7 +7,8 @@
 @LastName nvarchar(150) = null,  
 @UserName nvarchar(150),  
 @Password nvarchar(50),  
-@ProfilePic nvarchar(500) = null,  
+@ProfilePic nvarchar(500) = null,
+@IsActive bit,
 @Status int out,  
 @Message nvarchar(500) out  
 )  
@@ -17,7 +18,7 @@ BEGIN
  BEGIN TRY   
   SET  @Status = 1;  
   Update CT_TRAN_User set ProfilePic = @ProfilePic,FirstName = @FirstName,LastName = @LastName,  
-  [Password] = @Password,ModifiedOn = GETDATE(),ModifiedBy = @UserID
+  [Password] = @Password,IsActive = @IsActive,ModifiedOn = GETDATE(),ModifiedBy = @UserID
   where ID = @ID;  
   SET @Message = dbo.UDF_CT_SuccessMessage('update') ;  
  END TRY   

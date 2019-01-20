@@ -25,27 +25,27 @@ namespace CT.APIService.Controllers
         {
             BaseEntity data = new BaseEntity();
 
-            var httpRequest = HttpContext.Current.Request;
+            //var httpRequest = HttpContext.Current.Request;
 
-            foreach (string files in httpRequest.Files)
-            {
-                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created);
-                var file = httpRequest.Files[files];
+            //foreach (string files in httpRequest.Files)
+            //{
+            //    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created);
+            //    var file = httpRequest.Files[files];
 
-                if (file != null && file.ContentLength > 0 && ValidateImageExtension(Path.GetExtension(file.FileName)))
-                {
-                    try
-                    {
-                        model.ProfilePic = DateTime.Now.Ticks.ToString() + Path.GetExtension(file.FileName);
-                        file.SaveAs(Path.Combine(HttpContext.Current.Server.MapPath("~/Images/Original/"), model.ProfilePic));
-                        resizeImage(HttpContext.Current.Server.MapPath("~/Images/450250/"), HttpContext.Current.Server.MapPath("~/Images/Original/"), model.ProfilePic, 450, 250, 450, 250);
-                    }
-                    catch (Exception)
-                    {
+            //    if (file != null && file.ContentLength > 0 && ValidateImageExtension(Path.GetExtension(file.FileName)))
+            //    {
+            //        try
+            //        {
+            //            model.ProfilePic = DateTime.Now.Ticks.ToString() + Path.GetExtension(file.FileName);
+            //            file.SaveAs(Path.Combine(HttpContext.Current.Server.MapPath("~/Images/Original/"), model.ProfilePic));
+            //            resizeImage(HttpContext.Current.Server.MapPath("~/Images/450250/"), HttpContext.Current.Server.MapPath("~/Images/Original/"), model.ProfilePic, 450, 250, 450, 250);
+            //        }
+            //        catch (Exception)
+            //        {
 
-                    }
-                }
-            }
+            //        }
+            //    }
+            //}
 
             if (model.ID > 0)
                 data = _userService.UpdateDealer(model);
