@@ -20,17 +20,13 @@ namespace CT.APIService.Controllers
         [HttpPost]
         public IHttpActionResult InsertUpdateVehicle(VehicleEntity model)
         {
-            return RunInSafe(() =>
-            {
-                BaseEntity data = new BaseEntity();
-                if (model.ID > 0)
-                    data = _VehicleService.UpdateVehicle(model);
-                else
-                    data = _VehicleService.InsertVehicle(model);
-                cTApiResponse.Data = data;
-                cTApiResponse.IsSuccess = true;
-                return Ok(cTApiResponse);
-            });
+            BaseEntity data = new BaseEntity();
+            if (model.ID > 0)
+                data = _VehicleService.UpdateVehicle(model);
+            else
+                data = _VehicleService.InsertVehicle(model);
+
+            return Ok(data);
         }
 
         public IHttpActionResult DeleteVehicleByID(int ID, int UserID, int RoleID)

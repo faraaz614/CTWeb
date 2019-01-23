@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
+using System.Web;
 
 namespace CT.Common.Common
 {
@@ -17,6 +18,11 @@ namespace CT.Common.Common
     }
     public class UserEntity : BaseEntity
     {
+        public UserEntity()
+        {
+
+        }
+
         public long ID { get; set; }
 
         public int RoleID { get; set; }
@@ -47,6 +53,8 @@ namespace CT.Common.Common
         public bool IsActive { get; set; }
         public long CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
+
+        public HttpPostedFileBase Image { get; set; }        
 
         public string AppImageUrl
         {
