@@ -28,7 +28,7 @@ namespace CT.APIService.Controllers
         }
 
         [HttpPost]
-        public async Task<IHttpActionResult> InsertUpdateDealer()
+        public IHttpActionResult InsertUpdateDealer()
         {
             BaseEntity data = new BaseEntity();
             try
@@ -38,11 +38,12 @@ namespace CT.APIService.Controllers
                     throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
                 }
 
-                var provider = await Request.Content.ReadAsMultipartAsync<InMemoryMultipartFormDataStreamProvider>(new InMemoryMultipartFormDataStreamProvider());
+                var provider = Request.Content.ReadAsMultipartAsync<InMemoryMultipartFormDataStreamProvider>(new InMemoryMultipartFormDataStreamProvider()).Result;
                 //access form data  
                 NameValueCollection formData = provider.FormData;
                 var formDictionary = formData.AllKeys.Where(p => formData[p] != "null").ToDictionary(p => p, p => formData[p]);
                 string json = JsonConvert.SerializeObject(formDictionary);
+                WriteLog(json);
                 var model = JsonConvert.DeserializeObject<UserEntity>(json);
                 //access files  
                 IList<HttpContent> files = provider.Files;
@@ -50,7 +51,7 @@ namespace CT.APIService.Controllers
                 var thisFileName = file1.Headers.ContentDisposition.FileName.Trim('\"');
                 string filename = DateTime.Now.Ticks.ToString() + Path.GetExtension(thisFileName);
                 string path = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~/Images/Original/"), filename);
-                Stream input = await file1.ReadAsStreamAsync();
+                Stream input = file1.ReadAsStreamAsync().Result;
                 using (Stream file = File.OpenWrite(path))
                 {
                     input.CopyTo(file);
@@ -66,10 +67,12 @@ namespace CT.APIService.Controllers
             }
             catch (Exception ex)
             {
-                return Ok(ex.Message + ex.InnerException);
+                WriteLog(ex.Message.ToString() + ex.InnerException.ToString());
+                return Json(ex.Message + ex.InnerException);
             }
             var result = JsonConvert.SerializeObject(data);
-            return Ok(result);
+            WriteLog(result);
+            return Json(data);
         }
 
         public IHttpActionResult DeleteDealerByID(int DealerID, int RoleID)
@@ -137,63 +140,5 @@ namespace CT.APIService.Controllers
             BaseVehicleBIDEntity baseVehicleBIDEntity = _userService.SaveBIDByUserID(model);
             return Ok(baseVehicleBIDEntity);
         }
-
-        //[HttpPost]
-        //public async Task<IHttpActionResult> InsertUpdateDealer()
-        //{
-        //    if (!Request.Content.IsMimeMultipartContent())
-        //    {
-        //        throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
-        //    }
-
-        //    var provider = await Request.Content.ReadAsMultipartAsync<InMemoryMultipartFormDataStreamProvider>(new InMemoryMultipartFormDataStreamProvider());
-        //    NameValueCollection formData = provider.FormData;
-        //    IList<HttpContent> files = provider.Files;
-
-        //    BaseEntity data = new BaseEntity();
-        //    UserEntity model = new UserEntity();
-        //    //foreach (string kvp in formData.AllKeys)
-        //    //{
-        //    //    PropertyInfo pi = model.GetType().GetProperty(kvp, BindingFlags.Public | BindingFlags.Instance);
-        //    //    if (pi != null)
-        //    //    {
-        //    //        pi.SetValue(model, formData[kvp], null);
-        //    //    }
-        //    //}
-        //    var formDictionary = formData.AllKeys.Where(p => formData[p] != "null").ToDictionary(p => p, p => formData[p]);
-        //    string json = JsonConvert.SerializeObject(formDictionary);
-        //    model = JsonConvert.DeserializeObject<UserEntity>(json);
-
-        //    var httpRequest = HttpContext.Current.Request;
-        //    if (httpRequest.Files.Count < 1)
-        //    {
-        //        Request.CreateResponse(HttpStatusCode.BadRequest);
-        //    }
-
-        //    foreach (string httpfile in httpRequest.Files)
-        //    {
-        //        var file = httpRequest.Files[httpfile];
-        //        if (file != null && file.ContentLength > 0 && ValidateImageExtension(Path.GetExtension(file.FileName)))
-        //        {
-        //            try
-        //            {
-        //                model.ProfilePic = DateTime.Now.Ticks.ToString() + Path.GetExtension(file.FileName);
-        //                file.SaveAs(Path.Combine(HttpContext.Current.Server.MapPath("~/Images/Original/"), model.ProfilePic));
-        //                resizeImage(HttpContext.Current.Server.MapPath("~/Images/450250/"), HttpContext.Current.Server.MapPath("~/Images/Original/"), model.ProfilePic, 450, 250, 450, 250);
-        //            }
-        //            catch (Exception)
-        //            {
-
-        //            }
-        //        }
-        //    }
-
-        //    if (model.ID > 0)
-        //        data = _userService.UpdateDealer(model);
-        //    else
-        //        data = _userService.InsertDealer(model);
-
-        //    return Ok(data);
-        //}
     }
 }

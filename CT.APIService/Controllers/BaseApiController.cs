@@ -4,6 +4,8 @@ using System.Configuration;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.IO;
+using System.Text;
 using System.Web.Http;
 
 namespace CT.APIService.Controllers
@@ -64,7 +66,7 @@ namespace CT.APIService.Controllers
                 System.Drawing.Imaging.ImageCodecInfo[] info = ImageCodecInfo.GetImageEncoders();
                 EncoderParameters encoderParameters;
                 encoderParameters = new EncoderParameters(1);
-                encoderParameters.Param[0] = new EncoderParameter(Encoder.Quality, 100L);
+                encoderParameters.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 100L);
                 thumbnail.Save(newpath + originalFilename, info[1], encoderParameters);
             }
             catch (Exception ex)
@@ -76,6 +78,16 @@ namespace CT.APIService.Controllers
         public bool ValidateImageExtension(string ext)
         {
             return extensions.Contains(ext);
+        }
+
+        public void WriteLog(string log)
+        {
+            string path = System.Web.Hosting.HostingEnvironment.MapPath("~/Images/Original/") + "log.txt";
+            StringBuilder sb = new StringBuilder();
+            sb.Append("------------" + Environment.NewLine);
+            sb.Append(log + Environment.NewLine);
+            sb.Append("------------" + Environment.NewLine);
+            File.AppendAllText(path, sb.ToString());
         }
     }
 }

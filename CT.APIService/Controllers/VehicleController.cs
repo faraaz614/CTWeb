@@ -1,9 +1,15 @@
-﻿using CT.Common.Common;
+﻿using CT.APIService.Models;
+using CT.Common.Common;
 using CT.Common.Entities;
 using CT.Service.VehicleService;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 
@@ -18,15 +24,53 @@ namespace CT.APIService.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult InsertUpdateVehicle(VehicleEntity model)
+        public IHttpActionResult InsertUpdateVehicle()
         {
             BaseEntity data = new BaseEntity();
-            if (model.ID > 0)
-                data = _VehicleService.UpdateVehicle(model);
-            else
-                data = _VehicleService.InsertVehicle(model);
+            try
+            {
+                if (!Request.Content.IsMimeMultipartContent())
+                {
+                    throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+                }
 
-            return Ok(data);
+                var provider = Request.Content.ReadAsMultipartAsync<InMemoryMultipartFormDataStreamProvider>(new InMemoryMultipartFormDataStreamProvider()).Result;
+                //access form data  
+                NameValueCollection formData = provider.FormData;
+                var formDictionary = formData.AllKeys.Where(p => formData[p] != "null").ToDictionary(p => p, p => formData[p]);
+                string json = JsonConvert.SerializeObject(formDictionary);
+                WriteLog(json);
+                var model = JsonConvert.DeserializeObject<VehicleEntity>(json);
+
+                if (model.ID > 0)
+                    data = _VehicleService.UpdateVehicle(model);
+                else
+                    data = _VehicleService.InsertVehicle(model);
+
+                //access files  
+                IList<HttpContent> files = provider.Files;
+                HttpContent file1 = files[0];
+                var thisFileName = file1.Headers.ContentDisposition.FileName.Trim('\"');
+                string filename = DateTime.Now.Ticks.ToString() + Path.GetExtension(thisFileName);
+                string path = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~/Images/Original/"), filename);
+                Stream input = file1.ReadAsStreamAsync().Result;
+                using (Stream file = File.OpenWrite(path))
+                {
+                    input.CopyTo(file);
+                    file.Close();
+                }
+                resizeImage(System.Web.Hosting.HostingEnvironment.MapPath("~/Images/450250/"), System.Web.Hosting.HostingEnvironment.MapPath("~/Images/Original/"), filename, 450, 250, 450, 250);
+                model.VehicleImage.Add(new VehicleImageEntity { ImageName = filename, VehicleID = model.ID });
+                data = _VehicleService.AddVehicleImages(model);
+            }
+            catch (Exception ex)
+            {
+                WriteLog(ex.Message.ToString() + ex.InnerException.ToString());
+                return Json(ex.Message + ex.InnerException);
+            }
+            var result = JsonConvert.SerializeObject(data);
+            WriteLog(result);
+            return Json(data);
         }
 
         public IHttpActionResult DeleteVehicleByID(int ID, int UserID, int RoleID)
