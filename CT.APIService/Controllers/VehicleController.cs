@@ -39,9 +39,8 @@ namespace CT.APIService.Controllers
                 NameValueCollection formData = provider.FormData;
                 var formDictionary = formData.AllKeys.Where(p => formData[p] != "null").ToDictionary(p => p, p => formData[p]);
                 string json = JsonConvert.SerializeObject(formDictionary);
-                WriteLog(json);
                 var model = JsonConvert.DeserializeObject<VehicleEntity>(json);
-
+                WriteLog(json);
                 if (model.ID > 0)
                     data = _VehicleService.UpdateVehicle(model);
                 else
@@ -49,28 +48,30 @@ namespace CT.APIService.Controllers
 
                 //access files  
                 IList<HttpContent> files = provider.Files;
-                HttpContent file1 = files[0];
-                var thisFileName = file1.Headers.ContentDisposition.FileName.Trim('\"');
-                string filename = DateTime.Now.Ticks.ToString() + Path.GetExtension(thisFileName);
-                string path = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~/Images/Original/"), filename);
-                Stream input = file1.ReadAsStreamAsync().Result;
-                using (Stream file = File.OpenWrite(path))
+                foreach (var carimage in files)
                 {
-                    input.CopyTo(file);
-                    file.Close();
+                    HttpContent file1 = carimage;
+                    var thisFileName = file1.Headers.ContentDisposition.FileName.Trim('\"');
+                    string filename = DateTime.Now.Ticks.ToString() + Path.GetExtension(thisFileName);
+                    string path = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~/Images/Original/"), filename);
+                    Stream input = file1.ReadAsStreamAsync().Result;
+                    using (Stream file = File.OpenWrite(path))
+                    {
+                        input.CopyTo(file);
+                        file.Close();
+                    }
+                    resizeImage(System.Web.Hosting.HostingEnvironment.MapPath("~/Images/450250/"), System.Web.Hosting.HostingEnvironment.MapPath("~/Images/Original/"), filename, 450, 250, 450, 250);
+                    model.VehicleImage.Add(new VehicleImageEntity { ImageName = filename, VehicleID = model.ID });
+                    data = _VehicleService.AddVehicleImages(model);
                 }
-                resizeImage(System.Web.Hosting.HostingEnvironment.MapPath("~/Images/450250/"), System.Web.Hosting.HostingEnvironment.MapPath("~/Images/Original/"), filename, 450, 250, 450, 250);
-                model.VehicleImage.Add(new VehicleImageEntity { ImageName = filename, VehicleID = model.ID });
-                data = _VehicleService.AddVehicleImages(model);
+                return Json(data);
             }
             catch (Exception ex)
             {
-                WriteLog(ex.Message.ToString() + ex.InnerException.ToString());
-                return Json(ex.Message + ex.InnerException);
+                string error = ex.Message + (ex.InnerException != null ? ex.InnerException.Message : string.Empty);
+                WriteLog(error);
+                return Json(error);
             }
-            var result = JsonConvert.SerializeObject(data);
-            WriteLog(result);
-            return Json(data);
         }
 
         public IHttpActionResult DeleteVehicleByID(int ID, int UserID, int RoleID)
