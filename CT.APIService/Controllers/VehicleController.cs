@@ -40,7 +40,6 @@ namespace CT.APIService.Controllers
                 var formDictionary = formData.AllKeys.Where(p => formData[p] != "null").ToDictionary(p => p, p => formData[p]);
                 string json = JsonConvert.SerializeObject(formDictionary);
                 var model = JsonConvert.DeserializeObject<VehicleEntity>(json);
-                WriteLog(json);
                 if (model.ID > 0)
                     data = _VehicleService.UpdateVehicle(model);
                 else

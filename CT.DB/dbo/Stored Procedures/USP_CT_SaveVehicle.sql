@@ -15,7 +15,7 @@ BEGIN
 	SET NOCOUNT ON;
 	BEGIN TRY
 		SET  @Status = 1;  
-		If not exists(SELECT * FROM CT_TRAN_Vehicle WHERE StockID = @StockID and IsActive = 1)
+		If not exists(SELECT * FROM CT_TRAN_Vehicle WHERE VehicleName = @VehicleName and StockID = @StockID and IsActive = 1)
 			begin
 				INSERT INTO CT_TRAN_Vehicle(VehicleName,StockID,Description,IsDealClosed,IsActive,IsDelete,CreatedOn,CreatedBy)
 				SELECT @VehicleName,@StockID,@Description,0,1,0,GETDATE(),@UserID;
