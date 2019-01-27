@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -18,6 +19,7 @@ namespace CT.APIService.Controllers
     public class VehicleController : BaseApiController
     {
         VehicleService _VehicleService = null;
+        
         public VehicleController()
         {
             _VehicleService = new VehicleService();
@@ -52,14 +54,14 @@ namespace CT.APIService.Controllers
                     HttpContent file1 = carimage;
                     var thisFileName = file1.Headers.ContentDisposition.FileName.Trim('\"');
                     string filename = DateTime.Now.Ticks.ToString() + Path.GetExtension(thisFileName);
-                    string path = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~/Images/Original/"), filename);
+                    string path = Path.Combine(pathOriginal, filename);
                     Stream input = file1.ReadAsStreamAsync().Result;
                     using (Stream file = File.OpenWrite(path))
                     {
                         input.CopyTo(file);
                         file.Close();
                     }
-                    resizeImage(System.Web.Hosting.HostingEnvironment.MapPath("~/Images/450250/"), System.Web.Hosting.HostingEnvironment.MapPath("~/Images/Original/"), filename, 450, 250, 450, 250);
+                    resizeImage(path450250, pathOriginal, filename, 450, 250, 450, 250);
                     model.VehicleImage.Add(new VehicleImageEntity { ImageName = filename, VehicleID = model.ID });
                     data = _VehicleService.AddVehicleImages(model);
                 }
@@ -67,7 +69,7 @@ namespace CT.APIService.Controllers
             }
             catch (Exception ex)
             {
-                string error = ex.Message + (ex.InnerException != null ? ex.InnerException.Message : string.Empty);
+                string error = ex.Message + (ex.InnerException != null ? ex.InnerException.Message : string.Empty) + ex.StackTrace;
                 WriteLog(error);
                 return Json(error);
             }

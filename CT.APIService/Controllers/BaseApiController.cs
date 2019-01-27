@@ -14,6 +14,8 @@ namespace CT.APIService.Controllers
     {
         public readonly CTApiResponse cTApiResponse;
         string extensions = ConfigurationManager.AppSettings["extensions"];
+        public string pathOriginal = System.Web.Hosting.HostingEnvironment.MapPath("~/Images/Original/").Replace(@"\ctapi", string.Empty);
+        public string path450250 = System.Web.Hosting.HostingEnvironment.MapPath("~/Images/450250/").Replace(@"\ctapi", string.Empty);
 
         public BaseApiController()
         {
@@ -67,11 +69,21 @@ namespace CT.APIService.Controllers
                 EncoderParameters encoderParameters;
                 encoderParameters = new EncoderParameters(1);
                 encoderParameters.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 100L);
-                thumbnail.Save(newpath + originalFilename, info[1], encoderParameters);
+                //thumbnail.Save(newpath + originalFilename, info[1], encoderParameters);
+                using (MemoryStream memory = new MemoryStream())
+                {
+                    using (FileStream fs = new FileStream(newpath + originalFilename, FileMode.Create, FileAccess.ReadWrite))
+                    {
+                        thumbnail.Save(memory, ImageFormat.Jpeg);
+                        byte[] bytes = memory.ToArray();
+                        fs.Write(bytes, 0, bytes.Length);
+                    }
+                }
             }
             catch (Exception ex)
             {
-                throw;
+                string error = ex.Message + (ex.InnerException != null ? ex.InnerException.Message : string.Empty) + ex.StackTrace;
+                WriteLog(error);
             }
         }
 
