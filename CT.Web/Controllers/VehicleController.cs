@@ -16,10 +16,15 @@ namespace CT.Web.Controllers
 {
     public class VehicleController : BaseController
     {
-        public ActionResult Index()
+        public ActionResult Index(string SearchText)
         {
-            BaseVehicleEntity data = new VehicleService().GetVehicles(new VehicleEntity() { UserID = User.UserId, RoleID = User.RoleId });
-            return View(data);
+            BaseVehicleEntity list = new BaseVehicleEntity();
+            list.SearchText = SearchText;
+            if (!String.IsNullOrWhiteSpace(list.SearchText) && list.SearchText != "Search ...")
+                list = new VehicleService().GetVehicles(new VehicleEntity() { UserID = User.UserId, RoleID = User.RoleId, SearchText = list.SearchText });
+            else
+                list = new VehicleService().GetVehicles(new VehicleEntity() { UserID = User.UserId, RoleID = User.RoleId });
+            return View(list);
         }
 
         public ActionResult AddVehicle(long vechileID = 0)

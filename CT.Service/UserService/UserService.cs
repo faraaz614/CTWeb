@@ -163,7 +163,7 @@ namespace CT.Service.UserService
             }
         }
 
-        public BaseUserEntity GetDealers(long userID, int roleID)
+        public BaseUserEntity GetDealers(long userID, int roleID, string SearchText = null)
         {
             BaseUserEntity entity = new BaseUserEntity();
             try
@@ -175,6 +175,7 @@ namespace CT.Service.UserService
                 DynamicParameters param = new DynamicParameters();
                 param.Add("@UserID", userID);
                 param.Add("@RoleID", roleID);
+                param.Add("@SearchText", SearchText);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
                 entity.ListUsers = GetItems<UserEntity>(CommandType.StoredProcedure, UserLiterals.GetUsers, param).AsList<UserEntity>();

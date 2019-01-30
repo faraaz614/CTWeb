@@ -1,30 +1,47 @@
-﻿<div>
-    <div>
-        <div class="mr-auto pl-2">
-            <span class="d-none d-md-inline-block">
+﻿@model CT.Common.Common.BaseUserEntity
 
-                <!-- Dynamic content wrapper -->
-                <span id="dynamicContentWrapper-mainNavbar" class="dynamic-content">
-                    <a alt="Dynamic: Subscribe" id="navbar-jquery-dynamic-newsletter" class="btn btn-primary btn-sm my-0" href="@Url.Action("AddDealer","Dealer")" role="button">
-                        <span class="d-none d-lg-inline-block mr-1">Add dealer</span>
-                    </a>
-                </span>
+<div class="row">
+    <div class="col-8">
+        <div>
+            <div>
+                <div class="mr-auto pl-2">
+                    <span class="d-none d-md-inline-block">
 
-                <a id="navbar-category-gettingstarted-jquery" class="btn btn-info btn-sm my-0 waves-effect waves-light" href="#" role="button">
-                    <span class="d-none d-lg-inline-block mr-1">Activate dealer</span>
-                    <i class="fa fa-download"></i>
-                </a>
-                <a id="navbar-category-tutorial-jquery" class="btn btn-info btn-sm my-0 waves-effect waves-light" href="#" role="button">
-                    <span class="d-none d-lg-inline-block mr-1">CLose deal</span>
-                    <i class="fa fa-graduation-cap"></i>
-                </a>
-                <span id="dynamicContentWrapper-mainNavbar3" class="dynamic-content"><a id="navbar-jquery-category-pro" class="btn btn-unique btn-sm my-0" href="#" role="button"><span class="d-none d-lg-inline-block mr-1">Go Pro</span><i class="fa fa-diamond"></i></a></span>
-                <a id="navbar-category-bundle-jquery" class="btn btn-indigo btn-sm my-0 waves-effect waves-light" href="#" role="button">
-                    <span class="badge red">New</span>
-                    <span class="d-none d-lg-inline-block mr-1">Open New deal</span>
-                    <i class="fa fa-gift"></i>
-                </a>
-            </span>
+                        <!-- Dynamic content wrapper -->
+                        <span id="dynamicContentWrapper-mainNavbar" class="dynamic-content">
+                            <a alt="Dynamic: Subscribe" id="navbar-jquery-dynamic-newsletter" class="btn btn-primary btn-sm my-0" href="@Url.Action("AddDealer","Dealer")" role="button">
+                                <span class="d-none d-lg-inline-block mr-1">Add dealer</span>
+                            </a>
+                        </span>
+
+                        <a id="navbar-category-gettingstarted-jquery" class="btn btn-info btn-sm my-0 waves-effect waves-light" href="#" role="button">
+                            <span class="d-none d-lg-inline-block mr-1">Activate dealer</span>
+                            <i class="fa fa-download"></i>
+                        </a>
+                        <a id="navbar-category-tutorial-jquery" class="btn btn-info btn-sm my-0 waves-effect waves-light" href="#" role="button">
+                            <span class="d-none d-lg-inline-block mr-1">CLose deal</span>
+                            <i class="fa fa-graduation-cap"></i>
+                        </a>
+                        <span id="dynamicContentWrapper-mainNavbar3" class="dynamic-content"><a id="navbar-jquery-category-pro" class="btn btn-unique btn-sm my-0" href="#" role="button"><span class="d-none d-lg-inline-block mr-1">Go Pro</span><i class="fa fa-diamond"></i></a></span>
+                        <a id="navbar-category-bundle-jquery" class="btn btn-indigo btn-sm my-0 waves-effect waves-light" href="#" role="button">
+                            <span class="badge red">New</span>
+                            <span class="d-none d-lg-inline-block mr-1">Open New deal</span>
+                            <i class="fa fa-gift"></i>
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div>
+            @using (Html.BeginForm("Index", "Dealer", FormMethod.Post, new { @class = "form-group form-inline float-right" }))
+            {
+                <div>
+                    @Html.TextBoxFor(x => x.SearchText, new { @class = "form-control", @placeholder = "Search ..." })
+                    <input class="btn btn-primary btn-sm my-0" type="submit" value="Search">
+                </div>
+            }
         </div>
     </div>
 </div>

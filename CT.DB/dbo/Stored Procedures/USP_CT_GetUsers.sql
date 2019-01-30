@@ -3,6 +3,7 @@
 --select @st st,@msg msg
 CREATE PROCEDURE [dbo].[USP_CT_GetUsers]
 (
+@SearchText nvarchar(150) = NULL,
 @UserID bigint,
 @RoleID int,
 @Status int out,
@@ -15,7 +16,13 @@ BEGIN
 		if exists(select UserName from CT_TRAN_User where ID = @UserID and RoleID = @RoleID) and (@RoleID = 1)
 		begin --if
 			SET  @Status = 1;
-			Select ID,RoleID,FirstName,LastName,UserName,IsActive from CT_TRAN_User;
+			Declare @SQLQuery nvarchar(1000);
+			set @SQLQuery = N'Select ID,RoleID,FirstName,LastName,UserName,IsActive from CT_TRAN_User';
+			if (@SearchText is not null and @SearchText != '')
+			begin
+				set @SQLQuery += ' where UserName like ''%' + @SearchText + '%''';
+			end
+			EXECUTE sp_executesql @SQLQuery
 			set @Message = dbo.UDF_CT_SuccessMessage('')
 		end--if
 		else

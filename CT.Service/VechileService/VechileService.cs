@@ -229,6 +229,7 @@ namespace CT.Service.VehicleService
                 DynamicParameters param = new DynamicParameters();
                 param.Add("@UserID", VehicleEntity.UserID);
                 param.Add("@RoleID", VehicleEntity.RoleID);
+                param.Add("@SearchText", VehicleEntity.SearchText);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
                 entity.ListVehicles = GetItems<VehicleEntity>(CommandType.StoredProcedure, VehicleLiterals.GetVehicles, param).ToList();
