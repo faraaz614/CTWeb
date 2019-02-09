@@ -98,9 +98,9 @@ namespace CT.APIService.Controllers
             return Ok(baseUserEntity);
         }
 
-        public IHttpActionResult GetDealers(int UserID, int RoleID)
+        public IHttpActionResult GetDealers(int UserID, int RoleID, string SearchText, int PageNo = 1)
         {
-            UserEntity model = new UserEntity { ID = UserID, RoleID = RoleID };
+            UserEntity model = new UserEntity { UserID = UserID, RoleID = RoleID, SearchText = SearchText, PageNo = PageNo, PageSize = 10 };
             var data = _userService.GetDealers(model);
             return Ok(data);
         }
@@ -130,9 +130,9 @@ namespace CT.APIService.Controllers
             });
         }
 
-        public IHttpActionResult GetBIDSByUserID(int UserID, int RoleID)
+        public IHttpActionResult GetBIDSByUserID(int UserID, int RoleID, string SearchText, int PageNo = 1)
         {
-            UserEntity model = new UserEntity { UserID = UserID, RoleID = RoleID };
+            UserEntity model = new UserEntity { UserID = UserID, RoleID = RoleID, SearchText = SearchText, PageNo = PageNo, PageSize = 10 };
             BaseVehicleEntity baseVehicleEntity = _userService.GetBIDSByUserID(model);
             return Ok(baseVehicleEntity);
         }

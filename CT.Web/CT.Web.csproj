@@ -443,6 +443,7 @@
     <Content Include="Views\Dealer\ViewBID.cshtml" />
     <Content Include="Views\Dealer\_DealerTabs.cshtml" />
     <Content Include="Views\Vehicle\_VehicleTabs.cshtml" />
+    <Content Include="Views\Shared\_paging.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

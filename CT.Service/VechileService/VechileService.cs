@@ -223,18 +223,31 @@ namespace CT.Service.VehicleService
             BaseVehicleEntity entity = new BaseVehicleEntity();
             try
             {
+                int skip = 0;
+                int take = 0;
+                skip = (VehicleEntity.PageNo - 1) * VehicleEntity.PageSize;
+                take = VehicleEntity.PageSize;
                 Log.Info("----Info GetVehicles method start----");
                 Log.Info("Store Proc Name : USP_CT_GetVehicles");
                 Log.Info("----Info GetVehicles method end----");
                 DynamicParameters param = new DynamicParameters();
+                param.Add("@Skip", skip);
+                param.Add("@Take", take);
                 param.Add("@UserID", VehicleEntity.UserID);
                 param.Add("@RoleID", VehicleEntity.RoleID);
                 param.Add("@SearchText", VehicleEntity.SearchText);
+                param.Add("@Total", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
                 entity.ListVehicles = GetItems<VehicleEntity>(CommandType.StoredProcedure, VehicleLiterals.GetVehicles, param).ToList();
+                entity.PageTotal = param.Get<dynamic>("@Total");
                 entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
                 entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
+                entity.SearchText = VehicleEntity.SearchText;
+                entity.PageNo = VehicleEntity.PageNo;
+                entity.PageSize = VehicleEntity.PageSize;
+                entity.Action = VehicleEntity.Action;
+                entity.Controller = VehicleEntity.Controller;
                 Log.Info("----Info GetVehicles method Exit----");
                 return entity;
             }

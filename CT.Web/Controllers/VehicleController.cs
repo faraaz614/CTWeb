@@ -16,14 +16,19 @@ namespace CT.Web.Controllers
 {
     public class VehicleController : BaseController
     {
-        public ActionResult Index(string SearchText)
+        public ActionResult Index(string SearchText, int PageNo = 1, int PageSize = 4)
         {
-            BaseVehicleEntity list = new BaseVehicleEntity();
-            list.SearchText = SearchText;
-            if (!String.IsNullOrWhiteSpace(list.SearchText) && list.SearchText != "Search ...")
-                list = new VehicleService().GetVehicles(new VehicleEntity() { UserID = User.UserId, RoleID = User.RoleId, SearchText = list.SearchText });
-            else
-                list = new VehicleService().GetVehicles(new VehicleEntity() { UserID = User.UserId, RoleID = User.RoleId });
+            VehicleEntity vehicleEntity = new VehicleEntity
+            {
+                Action = "Index",
+                Controller = "Vehicle",
+                UserID = User.UserId,
+                RoleID = User.RoleId,
+                PageNo = PageNo,
+                PageSize = PageSize,
+                SearchText = SearchText
+            };
+            BaseVehicleEntity list = new VehicleService().GetVehicles(vehicleEntity);
             return View(list);
         }
 
@@ -272,7 +277,7 @@ namespace CT.Web.Controllers
                                         RoleID = User.RoleId,
                                         VehicleID = vehicleID,
                                         Body = body,
-                                        Title = title                                        
+                                        Title = title
                                     };
                                     BaseEntity baseEntity = new VehicleService().AddNotification(notificationEntity);
                                     TempData[CT.Web.Common.CommonUtility.Success.ToString()] = "Notifications sent.";

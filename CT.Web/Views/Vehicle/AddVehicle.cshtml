@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var fuellist = Model.FuelTypeList.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Value }).ToList();
 }
-@Html.Partial("~/Views/Vehicle/_VehicleTabs.cshtml")
+
 <hr />
 <div id="accordion">
     <h3>Add Car</h3>

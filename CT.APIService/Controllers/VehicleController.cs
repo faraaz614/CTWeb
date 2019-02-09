@@ -19,7 +19,7 @@ namespace CT.APIService.Controllers
     public class VehicleController : BaseApiController
     {
         VehicleService _VehicleService = null;
-        
+
         public VehicleController()
         {
             _VehicleService = new VehicleService();
@@ -98,9 +98,9 @@ namespace CT.APIService.Controllers
             return Ok(baseVehicleEntity);
         }
 
-        public IHttpActionResult GetVehicles(int UserID, int RoleID)
+        public IHttpActionResult GetVehicles(int UserID, int RoleID, string SearchText, int PageNo = 1)
         {
-            VehicleEntity model = new VehicleEntity { UserID = UserID, RoleID = RoleID };
+            VehicleEntity model = new VehicleEntity { UserID = UserID, RoleID = RoleID, SearchText = SearchText, PageNo = PageNo, PageSize = 10 };
             var baseVehicleEntity = _VehicleService.GetVehicles(model);
             return Ok(baseVehicleEntity);
         }

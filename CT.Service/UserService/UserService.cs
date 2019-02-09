@@ -163,56 +163,37 @@ namespace CT.Service.UserService
             }
         }
 
-        public BaseUserEntity GetDealers(long userID, int roleID, string SearchText = null)
-        {
-            BaseUserEntity entity = new BaseUserEntity();
-            try
-            {
-                Log.Info("----Info GetUsers method start----");
-                Log.Info("@UserID" + userID);
-                Log.Info("@RoleID" + roleID);
-                Log.Info("Store Proc Name : USP_CT_GetUsers");
-                DynamicParameters param = new DynamicParameters();
-                param.Add("@UserID", userID);
-                param.Add("@RoleID", roleID);
-                param.Add("@SearchText", SearchText);
-                param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
-                param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
-                entity.ListUsers = GetItems<UserEntity>(CommandType.StoredProcedure, UserLiterals.GetUsers, param).AsList<UserEntity>();
-                entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
-                entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
-                Log.Info("----Info GetUsers method Exit----");
-                return entity;
-            }
-            catch (Exception ex)
-            {
-                entity.ResponseStatus.Status = 0;
-                entity.ResponseStatus.Message = ex.Message;
-                Log.Error("Error in GetUsers Method");
-                Log.Error("Error occured time : " + DateTime.UtcNow);
-                Log.Error("Error message : " + ex.Message);
-                Log.Error("Error StackTrace : " + ex.StackTrace);
-                return entity;
-            }
-        }
-
         public BaseUserEntity GetDealers(UserEntity userEntity)
         {
             BaseUserEntity entity = new BaseUserEntity();
             try
             {
+                int skip = 0;
+                int take = 0;
+                skip = (userEntity.PageNo - 1) * userEntity.PageSize;
+                take = userEntity.PageSize;
                 Log.Info("----Info GetUsers method start----");
-                Log.Info("@UserID" + userEntity.ID);
+                Log.Info("@UserID" + userEntity.UserID);
                 Log.Info("@RoleID" + userEntity.RoleID);
                 Log.Info("Store Proc Name : USP_CT_GetUsers");
                 DynamicParameters param = new DynamicParameters();
-                param.Add("@UserID", userEntity.ID);
+                param.Add("@Skip", skip);
+                param.Add("@Take", take);
+                param.Add("@UserID", userEntity.UserID);
                 param.Add("@RoleID", userEntity.RoleID);
+                param.Add("@SearchText", userEntity.SearchText);
+                param.Add("@Total", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
                 entity.ListUsers = GetItems<UserEntity>(CommandType.StoredProcedure, UserLiterals.GetUsers, param).AsList<UserEntity>();
+                entity.PageTotal = param.Get<dynamic>("@Total");
                 entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
                 entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
+                entity.SearchText = userEntity.SearchText;
+                entity.PageNo = userEntity.PageNo;
+                entity.PageSize = userEntity.PageSize;
+                entity.Action = userEntity.Action;
+                entity.Controller = userEntity.Controller;
                 Log.Info("----Info GetUsers method Exit----");
                 return entity;
             }
@@ -227,7 +208,7 @@ namespace CT.Service.UserService
                 return entity;
             }
         }
-
+        
         public BaseVehicleBIDEntity GetBIDS(UserEntity userEntity)
         {
             BaseVehicleBIDEntity entity = new BaseVehicleBIDEntity();
@@ -314,18 +295,32 @@ namespace CT.Service.UserService
             BaseVehicleEntity entity = new BaseVehicleEntity();
             try
             {
+                int skip = 0;
+                int take = 0;
+                skip = (userEntity.PageNo - 1) * userEntity.PageSize;
+                take = userEntity.PageSize;
                 Log.Info("----Info GetBIDSByUserID method start----");
                 Log.Info("@UserID" + userEntity.UserID);
                 Log.Info("@RoleID" + userEntity.RoleID);
-                Log.Info("Store Proc Name : USP_CT_GetBids");
+                Log.Info("Store Proc Name : USP_CT_GetBIDSByUserID");
                 DynamicParameters param = new DynamicParameters();
+                param.Add("@Skip", skip);
+                param.Add("@Take", take);
                 param.Add("@UserID", userEntity.UserID);
                 param.Add("@RoleID", userEntity.RoleID);
+                param.Add("@SearchText", userEntity.SearchText);
+                param.Add("@Total", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
                 entity.ListVehicles = GetItems<VehicleEntity>(CommandType.StoredProcedure, UserLiterals.GetBIDSByUserID, param).ToList();
+                entity.PageTotal = param.Get<dynamic>("@Total");
                 entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
                 entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
+                entity.SearchText = userEntity.SearchText;
+                entity.PageNo = userEntity.PageNo;
+                entity.PageSize = userEntity.PageSize;
+                entity.Action = userEntity.Action;
+                entity.Controller = userEntity.Controller;
                 Log.Info("----Info GetBIDSByUserID method Exit----");
                 return entity;
             }

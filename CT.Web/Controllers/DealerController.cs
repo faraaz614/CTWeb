@@ -12,14 +12,19 @@ namespace CT.Web.Controllers
 {
     public class DealerController : BaseController
     {
-        public ActionResult Index(string SearchText)
+        public ActionResult Index(string SearchText, int PageNo = 1, int PageSize = 4)
         {
-            BaseUserEntity dealers = new BaseUserEntity();
-            dealers.SearchText = SearchText;
-            if (!String.IsNullOrWhiteSpace(dealers.SearchText) && dealers.SearchText != "Search ...")
-                dealers = new UserService().GetDealers(User.UserId, User.RoleId, dealers.SearchText);
-            else
-                dealers = new UserService().GetDealers(User.UserId, User.RoleId);
+            UserEntity userEntity = new UserEntity
+            {
+                Action = "Index",
+                Controller = "Dealer",
+                UserID = User.UserId,
+                RoleID = User.RoleId,
+                PageNo = PageNo,
+                PageSize = PageSize,
+                SearchText = SearchText
+            };
+            BaseUserEntity dealers = new UserService().GetDealers(userEntity);
             return View(dealers);
         }
 

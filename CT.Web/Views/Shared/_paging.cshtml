@@ -1,0 +1,54 @@
+﻿@{
+    double total = Math.Ceiling(Convert.ToDouble(Model.PageTotal) / Convert.ToDouble(Model.PageSize));
+}
+<style>
+    .middle {
+        position: relative;
+        display: block;
+        padding: 0.5rem 0.75rem;
+        margin-left: 0;
+        line-height: 1.25;
+        color: black;
+        background-color: transparent;
+        border: 0 solid #dee2e6;
+    }
+</style>
+<input type="hidden" id="Controller" value="@Model.Controller" />
+<input type="hidden" id="Action" value="@Model.Action" />
+<input type="hidden" id="SearchText" value="@Model.SearchText" />
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item middle">
+            Page size :
+        </li>
+        <li class="page-item">
+            <select class="browser-default custom-select pagesize">
+                <option value="4" @(Model.PageSize == 4 ? "selected" : string.Empty)>4</option>
+                <option value="10" @(Model.PageSize == 10 ? "selected" : string.Empty)>10</option>
+                <option value="50" @(Model.PageSize == 50 ? "selected" : string.Empty)>50</option>
+            </select>
+        </li>
+        @*<li class="page-item"><a class="page-link" href="#">First</a></li>*@
+        @for (int i = 1; i <= total; i++)
+        {
+            <li class="page-item @(i == Model.PageNo ? "disabled" : string.Empty)">
+                <a class="page-link" href="@Url.Action(Model.Action, Model.Controller,new { SearchText = Model.SearchText, PageNo = i, PageSize = Model.PageSize })">
+                    @i
+                </a>
+            </li>
+        }
+        @*<li class="page-item"><a class="page-link" href="#">Last</a></li>*@
+    </ul>
+</nav>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    $(function () {
+        $(".pagesize").change(function () {
+            var controller = $("#Controller").val();
+            var action = $("#Action").val();
+            var searchtext = $("#SearchText").val();
+            var pagesize = $(this).val();
+            window.location = "../" + controller + "/" + action + "?SearchText=" + searchtext + "&PageNo=1&PageSize=" + pagesize;
+        });
+    })
+</script>
