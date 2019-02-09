@@ -371,5 +371,41 @@ namespace CT.Service.UserService
                 return entity;
             }
         }
+
+        public BaseVehicleBIDEntity CloseBID(VehicleBIDEntity vehicleEntity)
+        {
+            BaseVehicleBIDEntity entity = new BaseVehicleBIDEntity();
+            try
+            {
+                Log.Info("----Info CloseBID method start----");
+                Log.Info("@UserID" + vehicleEntity.UserID);
+                Log.Info("@RoleID" + vehicleEntity.RoleID);
+                Log.Info("@VehicleID" + vehicleEntity.VehicleID);
+                Log.Info("@BIDAmount" + vehicleEntity.BIDAmount);
+                Log.Info("Store Proc Name : USP_CT_DeActive_Delete_Close_Vehicle");
+                DynamicParameters param = new DynamicParameters();
+                param.Add("@UserID", vehicleEntity.UserID);
+                param.Add("@RoleID", vehicleEntity.RoleID);
+                param.Add("@VehicleID", vehicleEntity.VehicleID);
+                param.Add("@Action", 2);//(1 deactivate,2 close deal,3 delete)
+                param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
+                entity.GenericErrorInfo = GetSingleItem<GenericErrorInfo>(CommandType.StoredProcedure, UserLiterals.Deactive_Delete_Close_Vehicle, param);
+                entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
+                entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
+                Log.Info("----Info CloseBID method Exit----");
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                entity.ResponseStatus.Status = 0;
+                entity.ResponseStatus.Message = ex.Message;
+                Log.Error("Error in CloseBID Method");
+                Log.Error("Error occured time : " + DateTime.UtcNow);
+                Log.Error("Error message : " + ex.Message);
+                Log.Error("Error StackTrace : " + ex.StackTrace);
+                return entity;
+            }
+        }
     }
 }

@@ -143,11 +143,21 @@ namespace CT.Web.Controllers
         {
             if (VehicleID > 0)
             {
-                VehicleBIDEntity vehicleBIDEntity = new VehicleBIDEntity { RoleID = User.RoleId, ID = User.UserId, VehicleID = VehicleID };
+                VehicleBIDEntity vehicleBIDEntity = new VehicleBIDEntity { RoleID = User.RoleId, UserID = User.UserId, VehicleID = VehicleID };
                 BaseVehicleBIDEntity baseVehicleBIDEntity = new UserService().ViewBID(vehicleBIDEntity);
                 return View(baseVehicleBIDEntity);
             }
             return RedirectToAction("BID");
+        }
+
+        public ActionResult CloseBID(long VehicleID)
+        {
+            if (VehicleID > 0)
+            {
+                VehicleBIDEntity vehicleBIDEntity = new VehicleBIDEntity { RoleID = User.RoleId, UserID = User.UserId, VehicleID = VehicleID };
+                BaseVehicleBIDEntity baseVehicleBIDEntity = new UserService().CloseBID(vehicleBIDEntity);
+            }
+            return RedirectToAction("ViewBID", new { VehicleID = VehicleID });
         }
     }
 }

@@ -15,5 +15,6 @@
         public const string ViewBid = "USP_CT_ViewBID";
         public const string Login = "USP_CT_Login";
         public const string SaveBIDByUserID = "USP_CT_SaveBIDByUserID";
+        public const string Deactive_Delete_Close_Vehicle = "USP_CT_DeActive_Delete_Close_Vehicle";
     }
 }
