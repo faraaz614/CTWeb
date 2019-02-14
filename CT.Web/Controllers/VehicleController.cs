@@ -131,18 +131,24 @@ namespace CT.Web.Controllers
                     }
                 }
 
-                model.RoleID = User.RoleId;
-                model.UserID = User.UserId;
-                BaseEntity dataInfo = new VehicleService().AddVehicleImages(model);
-                if (dataInfo.ResponseStatus.Status == 1)
+                if (model.VehicleImage.Count > 0)
                 {
-                    TempData[CT.Web.Common.CommonUtility.Success.ToString()] = dataInfo.ResponseStatus.Message;
+                    model.RoleID = User.RoleId;
+                    model.UserID = User.UserId;
+                    BaseEntity dataInfo = new VehicleService().AddVehicleImages(model);
+                    if (dataInfo.ResponseStatus.Status == 1)
+                        TempData[CT.Web.Common.CommonUtility.Success.ToString()] = dataInfo.ResponseStatus.Message;
+                    else
+                        TempData[CT.Web.Common.CommonUtility.Error.ToString()] = dataInfo.ResponseStatus.Message;
                     return RedirectToAction("AddVehicle", new { vechileID = model.ID });
                 }
                 else
-                    TempData[CT.Web.Common.CommonUtility.Error.ToString()] = dataInfo.ResponseStatus.Message;
+                {
+                    TempData[CT.Web.Common.CommonUtility.Error.ToString()] = "Please upload Image(s).";
+                    return RedirectToAction("AddVehicle", new { vechileID = model.ID });
+                }
             }
-            return View(model);
+            return RedirectToAction("Index");
         }
 
         [HttpPost]

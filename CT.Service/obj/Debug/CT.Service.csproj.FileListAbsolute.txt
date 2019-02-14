@@ -34,3 +34,17 @@ C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\obj\Debu
 C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\obj\Debug\CT.Service.csproj.CoreCompileInputs.cache
 C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\obj\Debug\CT.Service.dll
 C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\obj\Debug\CT.Service.pdb
+D:\Project Rafeeq\cartimez web\CTWeb\CT.Service\bin\Debug\CT.Service.dll.config
+D:\Project Rafeeq\cartimez web\CTWeb\CT.Service\bin\Debug\CT.Service.dll
+D:\Project Rafeeq\cartimez web\CTWeb\CT.Service\bin\Debug\CT.Service.pdb
+D:\Project Rafeeq\cartimez web\CTWeb\CT.Service\bin\Debug\CT.Common.dll
+D:\Project Rafeeq\cartimez web\CTWeb\CT.Service\bin\Debug\Dapper.dll
+D:\Project Rafeeq\cartimez web\CTWeb\CT.Service\bin\Debug\log4net.dll
+D:\Project Rafeeq\cartimez web\CTWeb\CT.Service\bin\Debug\CT.Common.pdb
+D:\Project Rafeeq\cartimez web\CTWeb\CT.Service\bin\Debug\Dapper.xml
+D:\Project Rafeeq\cartimez web\CTWeb\CT.Service\bin\Debug\log4net.xml
+D:\Project Rafeeq\cartimez web\CTWeb\CT.Service\obj\Debug\CT.Service.csprojAssemblyReference.cache
+D:\Project Rafeeq\cartimez web\CTWeb\CT.Service\obj\Debug\CT.Service.csproj.CoreCompileInputs.cache
+D:\Project Rafeeq\cartimez web\CTWeb\CT.Service\obj\Debug\CT.Service.csproj.CopyComplete
+D:\Project Rafeeq\cartimez web\CTWeb\CT.Service\obj\Debug\CT.Service.dll
+D:\Project Rafeeq\cartimez web\CTWeb\CT.Service\obj\Debug\CT.Service.pdb
