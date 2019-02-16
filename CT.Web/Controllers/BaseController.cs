@@ -209,7 +209,7 @@ namespace CT.Web.Controllers
 
         public bool ValidateImageExtension(string ext)
         {
-            return extensions.Contains(ext);
+            return extensions.Contains(ext.ToLower());
         }
     }
 }
