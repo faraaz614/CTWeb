@@ -18,7 +18,7 @@ namespace CT.Common.Entities
         public bool IsInsuranceAvailable { get; set; }
         public bool IsComprehensive { get; set; }
         public bool IsThirdParty { get; set; }
-        public DateTime InsuranceExpiryDate { get; set; }
+        public string InsuranceExpiryDate { get; set; }
         public long VehicleID { get; set; }
         public long CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }

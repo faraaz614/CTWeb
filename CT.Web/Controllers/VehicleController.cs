@@ -16,7 +16,7 @@ namespace CT.Web.Controllers
 {
     public class VehicleController : BaseController
     {
-        public ActionResult Index(string SearchText, int PageNo = 1, int PageSize = 4)
+        public ActionResult Index(string SearchText, int PageNo = 1, int PageSize = 10)
         {
             VehicleEntity vehicleEntity = new VehicleEntity
             {

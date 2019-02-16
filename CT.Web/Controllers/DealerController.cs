@@ -12,7 +12,7 @@ namespace CT.Web.Controllers
 {
     public class DealerController : BaseController
     {
-        public ActionResult Index(string SearchText, int PageNo = 1, int PageSize = 4)
+        public ActionResult Index(string SearchText, int PageNo = 1, int PageSize = 10)
         {
             UserEntity userEntity = new UserEntity
             {
@@ -46,6 +46,9 @@ namespace CT.Web.Controllers
         {
             if (ModelState.ContainsKey("ID"))
                 ModelState["ID"].Errors.Clear();
+
+            if (model.ID > 0)
+                ModelState["UserName"].Errors.Clear();
 
             if (ModelState.IsValid)
             {
