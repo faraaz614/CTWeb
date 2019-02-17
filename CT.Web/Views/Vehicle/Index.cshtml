@@ -57,7 +57,8 @@
                                         @vehicle.Model
                                     </td>
                                     <td>
-                                        @Html.Raw(vehicle.IsDealClosed ? "Closed" : "<a href='#' data-carid='" + vehicle.ID + "' class='btn btn-unique btn-rounded btn-sm my-0 closedeal'>Close</a>")
+                                        @*@Html.Raw(vehicle.IsDealClosed ? "Closed" : "<a href='#' data-carid='" + vehicle.ID + "' class='btn btn-unique btn-rounded btn-sm my-0 closedeal'>Close</a>")*@
+                                        @(vehicle.IsDealClosed ? "Closed" : "Open")
                                     </td>
                                     <td>
                                         @if (vehicle.NotificationVID == null)

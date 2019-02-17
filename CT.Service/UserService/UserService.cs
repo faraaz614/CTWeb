@@ -388,6 +388,7 @@ namespace CT.Service.UserService
                 param.Add("@RoleID", vehicleEntity.RoleID);
                 param.Add("@VehicleID", vehicleEntity.VehicleID);
                 param.Add("@Action", 2);//(1 deactivate,2 close deal,3 delete)
+                param.Add("@BidID", vehicleEntity.BidID);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
                 entity.GenericErrorInfo = GetSingleItem<GenericErrorInfo>(CommandType.StoredProcedure, UserLiterals.Deactive_Delete_Close_Vehicle, param);

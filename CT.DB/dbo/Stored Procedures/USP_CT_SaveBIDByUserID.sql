@@ -19,17 +19,9 @@ BEGIN
 	SET NOCOUNT ON;
 	BEGIN TRY
 		SET  @Status = 1;  
-		If not exists(SELECT * FROM CT_TRAN_VehicleBID WHERE DealerID = @UserID and VehicleID = @VehicleID)
-			begin
-				INSERT INTO CT_TRAN_VehicleBID (VehicleID,BIDAmount,DealerID,Description,CreatedOn,ModifiedOn)
-				SELECT @VehicleID,@BIDAmount,@UserID,null,GETDATE(),GETDATE();
-				SET @Message = dbo.UDF_CT_SuccessMessage('insert');
-			end
-		else
-			begin
-				SET @Message = dbo.UDF_CT_SuccessMessage('bidexists');
-				SET  @Status = 0;  
-			end
+		INSERT INTO CT_TRAN_VehicleBID (VehicleID,BIDAmount,DealerID,Description,CreatedOn,ModifiedOn)
+		SELECT @VehicleID,@BIDAmount,@UserID,null,GETDATE(),GETDATE();
+		SET @Message = dbo.UDF_CT_SuccessMessage('insert');
 	END TRY
 	BEGIN CATCH     
 		SET  @Status = 0;   

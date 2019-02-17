@@ -3,7 +3,7 @@
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE [USP_CT_SaveVehicleDocument]
+CREATE PROCEDURE [dbo].[USP_CT_SaveVehicleDocument]
 (
 @UserID bigint,
 @RoleID int,
@@ -16,7 +16,7 @@ CREATE PROCEDURE [USP_CT_SaveVehicleDocument]
 @IsInsuranceAvailable bit,
 @IsComprehensive bit,
 @IsThirdParty bit,
-@InsuranceExpiryDate date,
+@InsuranceExpiryDate varchar(150),
 @Status int out,
 @Message nvarchar(500) out
 )

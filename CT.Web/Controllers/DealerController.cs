@@ -153,11 +153,11 @@ namespace CT.Web.Controllers
             return RedirectToAction("BID");
         }
 
-        public ActionResult CloseBID(long VehicleID)
+        public ActionResult CloseBID(long VehicleID, long BidID)
         {
             if (VehicleID > 0)
             {
-                VehicleBIDEntity vehicleBIDEntity = new VehicleBIDEntity { RoleID = User.RoleId, UserID = User.UserId, VehicleID = VehicleID };
+                VehicleBIDEntity vehicleBIDEntity = new VehicleBIDEntity { RoleID = User.RoleId, UserID = User.UserId, VehicleID = VehicleID, BidID = BidID };
                 BaseVehicleBIDEntity baseVehicleBIDEntity = new UserService().CloseBID(vehicleBIDEntity);
             }
             return RedirectToAction("ViewBID", new { VehicleID = VehicleID });

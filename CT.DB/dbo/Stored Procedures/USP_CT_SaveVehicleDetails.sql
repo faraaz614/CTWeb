@@ -11,7 +11,7 @@ CREATE PROCEDURE [dbo].[USP_CT_SaveVehicleDetails]
 @Make varchar(150),
 @Model varchar(150),
 @Variant varchar(150),
-@YearOfManufacturing date,
+@YearOfManufacturing varchar(150),
 @FuelTypeID int,
 @Kilometers int,
 @Transmission varchar(150),

@@ -50,7 +50,7 @@
                                     @if (!Model.VehicleEntity.IsDealClosed)
                                     {
                                         <td>
-                                            <a href="@Url.Action("CloseBID","Dealer",new { VehicleID = Model.VehicleEntity.ID })" class="btn btn-success btn-rounded btn-sm my-0">Close</a>
+                                            <a href="@Url.Action("CloseBID","Dealer",new { VehicleID = Model.VehicleEntity.ID, BidID = bid.ID })" class="btn btn-success btn-rounded btn-sm my-0">Close</a>
                                         </td>
                                     }
                                 </tr>

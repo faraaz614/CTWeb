@@ -4,12 +4,13 @@
 -- Create date: <21-dec-2018>
 -- Description:	<deactivate/delete/closedeal Vechicle>
 -- =============================================
-CREATE PROCEDURE USP_CT_DeActive_Delete_Close_Vehicle
+CREATE PROCEDURE [dbo].[USP_CT_DeActive_Delete_Close_Vehicle]
 (
 @UserID bigint,
 @RoleID int,
 @VehicleID bigint,
 @Action int,--(1 deactivate,2 close deal,3 delete)
+@BidID int = NULL,
 @Status int out,
 @Message nvarchar(500) out
 )
@@ -27,7 +28,7 @@ BEGIN
 		END
 	ELSE IF(@Action = 2)
 	 BEGIN
-		UPDATE CT_TRAN_Vehicle SET IsDealClosed = 1 WHERE ID= @VehicleID
+		UPDATE CT_TRAN_Vehicle SET IsDealClosed = 1, BidID = @BidID WHERE ID= @VehicleID
 		SET  @Status = 1;
 		SET @Message = 'Vehicle Deal closed successfully';
 		END

@@ -3,7 +3,7 @@
     [Make]                NVARCHAR (150) NULL,
     [Model]               NVARCHAR (150) NULL,
     [Variant]             NVARCHAR (150) NULL,
-    [YearOfManufacturing] DATE           NULL,
+    [YearOfManufacturing] NVARCHAR (150) NULL,
     [FuelTypeID]          INT            NULL,
     [VehicleID]           BIGINT         NULL,
     [Kilometers]          INT            NULL,
@@ -17,4 +17,6 @@
     CONSTRAINT [FK_CT_TRAN_VehicleDetail_CT_SYS_FuelType] FOREIGN KEY ([FuelTypeID]) REFERENCES [dbo].[CT_SYS_FuelType] ([ID]),
     CONSTRAINT [FK_CT_TRAN_VehicleDetail_CT_TRAN_Vehicle] FOREIGN KEY ([VehicleID]) REFERENCES [dbo].[CT_TRAN_Vehicle] ([ID])
 );
+
+
 

@@ -197,6 +197,7 @@ namespace CT.Web.Controllers
         {
             if (model.ID > 0)
             {
+                model.DocumentDetail.IsThirdParty = model.DocumentDetail.IsComprehensive ? false : true;
                 model.RoleID = User.RoleId;
                 model.UserID = User.UserId;
                 BaseEntity dataInfo = new BaseEntity();

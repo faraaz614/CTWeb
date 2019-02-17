@@ -25,7 +25,7 @@ BEGIN
 		If not exists(SELECT * FROM CT_TRAN_User WHERE UserName = @UserName and IsActive = 1)
 			begin
 				INSERT INTO CT_TRAN_User (RoleID,ProfilePic,FirstName,LastName,UserName,[Password],IsActive,CreatedBy,CreatedOn)
-				SELECT @RoleID,@ProfilePic,@FirstName,@LastName,@UserName,@Password,1,@UserID,GETDATE();
+				SELECT 3,@ProfilePic,@FirstName,@LastName,@UserName,@Password,1,@UserID,GETDATE();
 				SET @Message = dbo.UDF_CT_SuccessMessage('insert') ;
 			end
 		else

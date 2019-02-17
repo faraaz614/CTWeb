@@ -461,21 +461,16 @@
 
                 });
             });
-        });</script>
+        });
+    </script>
     <script>
-        $(document).ready(function () {
-            // Javascript method's body can be found in assets/js/demos.js
-            // md.initDashboardPageCharts();
-
+        $(function () {
             var hfSuccessMsg = $("#hfSuccess").val();
             var hfWarningMsg = $("#hfWarning").val();
             if (hfSuccessMsg !== '' || hfWarningMsg !== '') {
                 document.getElementById('btnShowPopup').click();
             }
 
-        });</script>
-    <script>
-        $(function () {
             $(".datepicker").datepicker({
                 dateFormat: 'yy/mm/dd'
             });
@@ -484,6 +479,7 @@
                 heightStyle: "content"
             });
 
+            //Delete Vehicle Image
             $(".closebutton").click(function () {
                 var $this = $(this);
                 var vehicleID = $this.next("img").attr("data-vehicleID");
@@ -506,6 +502,7 @@
                 });
             });
 
+            //Close Deal
             $(".closedeal").on("click", function (e) {
                 e.preventDefault();
                 var id = $(this).data("carid");
@@ -527,6 +524,7 @@
                 });
             });
 
+            //Delete Dealer
             $(".dealerstatus").on("click", function () {
                 var id = $(this).data("dealerid");
                 $.ajax({
@@ -554,6 +552,12 @@
                 else {
                     $("#IsActive").val("True");
                 }
+            });
+
+            //Document Details
+            $(".docdetail").on("click", function () {
+                var name = $(this).attr("name");
+                $('input[name="DocumentDetail.' + name + '"]').val($(this).val());
             });
         });
     </script>

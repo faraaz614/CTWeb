@@ -31,6 +31,7 @@ namespace CT.Common.Entities
         public long DealerID { get; set; }
         public string DealerName { get; set; }
         public bool IsDealClosed { get; set; }
+        public long BidID { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime ModifiedOn { get; set; }
     }

@@ -1,7 +1,8 @@
 ﻿-- =============================================
--- Author:		<Author,,Name>
--- Create date: <Create Date,,>
--- Description:	<Description,,>
+--declare @status int
+--declare @message varchar(150)
+--exec [USP_CT_ViewBID] 1, 1, 2, @status out, @message out
+--select @status, @message
 -- =============================================
 CREATE PROCEDURE [dbo].[USP_CT_ViewBID]
 (
@@ -19,14 +20,19 @@ BEGIN
 	BEGIN TRY 
 		SET  @Status = 1;
 		Select ID,VehicleName,StockID,Description,IsActive,IsDealClosed from [CT_TRAN_Vehicle] where ID = @VehicleID and IsDelete = 0 and IsActive = 1;
-		Select * from CT_TRAN_VehicleDetail where VehicleID = @VehicleID
-		Select * from CT_TRAN_VehicleImage where VehicleID = @VehicleID
-		Select * from CT_TRAN_DocumentDetail where VehicleID = @VehicleID
-		Select * from CT_TRAN_TechnicalDetails where VehicleID = @VehicleID
-		Select bid.ID,veh.VehicleName,veh.StockID,usr.UserName as DealerName,bid.BIDAmount from CT_TRAN_VehicleBID bid
+		Select * from CT_TRAN_VehicleDetail where VehicleID = @VehicleID;
+		Select * from CT_TRAN_VehicleImage where VehicleID = @VehicleID;
+		Select * from CT_TRAN_DocumentDetail where VehicleID = @VehicleID;
+		Select * from CT_TRAN_TechnicalDetails where VehicleID = @VehicleID;
+		with cte as
+		(Select bid.ID,veh.VehicleName,veh.StockID,usr.UserName as DealerName,bid.BIDAmount,bid.CreatedOn,
+		ROW_NUMBER() over (partition by bid.DealerID order by bid.CreatedOn desc) as ron
+		from CT_TRAN_VehicleBID bid
 		join CT_TRAN_Vehicle veh on bid.VehicleID = veh.ID
 		join CT_TRAN_User usr on bid.DealerID = usr.ID
-		where VehicleID = @VehicleID and usr.IsActive = 1 order by BIDAmount desc
+		where VehicleID = @VehicleID and usr.IsActive = 1) 
+		select ID,VehicleName,StockID,DealerName,BIDAmount from cte
+		where ron = 1;
 		SET @Message = dbo.UDF_CT_SuccessMessage('') ;
 	END TRY	
 	BEGIN CATCH

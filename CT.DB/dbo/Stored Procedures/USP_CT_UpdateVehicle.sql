@@ -21,11 +21,11 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 	BEGIN TRY 
-		If not exists(SELECT * FROM CT_TRAN_Vehicle WHERE VehicleName = @VehicleName and StockID = @StockID and IsActive = 1)
+		If exists(SELECT * FROM CT_TRAN_Vehicle WHERE VehicleName = @VehicleName and StockID = @StockID and IsActive = 1)
 			begin
 				SET  @Status = 1;
-				Update CT_TRAN_Vehicle set VehicleName = @VehicleName, StockID = @StockID, Description = @Description, 
-				ModifiedBy = @UserID, ModifiedOn = GETDATE() where ID = @VehicleID;
+				Update CT_TRAN_Vehicle set Description = @Description,ModifiedBy = @UserID, 
+				ModifiedOn = GETDATE() where ID = @VehicleID;
 				SET @Message = dbo.UDF_CT_SuccessMessage('update') ;
 			end
 		else
