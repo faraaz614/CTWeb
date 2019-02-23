@@ -47,6 +47,10 @@ else if (@ReturnType = 'inactiveuser')
 	begin
 	SET @Message='Password wrong or use is not active';
 	end
+else if (@ReturnType = 'dealclosed')
+	begin
+	SET @Message='Deal is closed for this car';
+	end
 else
     begin
 	SET @Message='Operation Successfull';

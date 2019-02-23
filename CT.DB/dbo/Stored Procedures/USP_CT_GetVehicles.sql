@@ -28,11 +28,17 @@ BEGIN
 			SET  @Total = 0;
 
 			set @SQLQuery = 'Select * from 
-			(Select v.ID,v.VehicleName,v.StockID,v.Description,v.IsDealClosed,vi.ImageName,vd.Model,n.VehicleID as NotificationVID,ROW_NUMBER() over(partition by v.id order by v.id) as rowno
+			(Select v.ID,v.VehicleName,v.StockID,v.Description,v.IsDealClosed,vi.ImageName,
+			vd.Make,vd.Model,vd.Variant,vd.YearOfManufacturing,vd.Kilometers,vd.Transmission,vd.RegistrationNo,fl.Type,
+			dt.IsRCavailable,dt.Hypothication,dt.IsNOCavailable,dt.NoOfOwners,dt.NoOfKeys,dt.IsInsuranceAvailable,dt.IsComprehensive,
+			dt.IsThirdParty,dt.InsuranceExpiryDate,
+			n.VehicleID as NotificationVID,ROW_NUMBER() over(partition by v.id order by v.id) as rowno
 			from CT_TRAN_Vehicle v
 			left outer join CT_TRAN_VehicleDetail vd on v.ID = vd.VehicleID
 			left outer join CT_TRAN_VehicleImage vi on v.ID = vi.VehicleID
 			left outer join CT_TRAN_Notification n on v.ID = n.VehicleID
+			left outer join CT_SYS_FuelType fl on vd.FuelTypeID = fl.ID
+			left outer join CT_TRAN_DocumentDetail dt on v.ID = dt.VehicleID
 			where v.IsActive = 1 and v.IsDelete = 0) a
 			where a.rowno = 1 ';
 
