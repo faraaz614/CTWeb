@@ -40,7 +40,6 @@ namespace CT.Common.Entities
         public string StockID { get; set; }
         public string ImageName { get; set; }
         public string Description { get; set; }
-        public string Model { get; set; }
         public bool IsActive { get; set; }
         public bool IsDealClosed { get; set; }
         public bool IsDelete { get; set; }
@@ -49,6 +48,24 @@ namespace CT.Common.Entities
         public DateTime CreatedOn { get; set; }
         public long ModifiedBy { get; set; }
         public DateTime ModifiedOn { get; set; }
+
+        public string Make { get; set; }
+        public string Model { get; set; }
+        public string Variant { get; set; }
+        public string YearOfManufacturing { get; set; }
+        public int Kilometers { get; set; }
+        public string Transmission { get; set; }
+        public string RegistrationNo { get; set; }
+        public string Type { get; set; }
+        public bool IsRCavailable { get; set; }
+        public bool Hypothication { get; set; }
+        public bool IsNOCavailable { get; set; }
+        public int NoOfOwners { get; set; }
+        public int NoOfKeys { get; set; }
+        public bool IsInsuranceAvailable { get; set; }
+        public bool IsComprehensive { get; set; }
+        public bool IsThirdParty { get; set; }
+        public string InsuranceExpiryDate { get; set; }
 
         public DocumentDetailEntity DocumentDetail { get; set; }
         public TechnicalDetailEntity TechnicalDetail { get; set; }

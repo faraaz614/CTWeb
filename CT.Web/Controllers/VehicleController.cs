@@ -260,6 +260,10 @@ namespace CT.Web.Controllers
                     title = title,
                     badge = 1
                 },
+                data = new
+                {
+                    list = User.Identity.Name, 
+                },
             };
             string postbody = JsonConvert.SerializeObject(payload).ToString();
             Byte[] byteArray = Encoding.UTF8.GetBytes(postbody);
