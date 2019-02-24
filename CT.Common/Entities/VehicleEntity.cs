@@ -66,6 +66,7 @@ namespace CT.Common.Entities
         public bool IsComprehensive { get; set; }
         public bool IsThirdParty { get; set; }
         public string InsuranceExpiryDate { get; set; }
+        public decimal BIDAmount { get; set; }
 
         public DocumentDetailEntity DocumentDetail { get; set; }
         public TechnicalDetailEntity TechnicalDetail { get; set; }
