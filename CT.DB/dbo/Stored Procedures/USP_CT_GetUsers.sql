@@ -34,7 +34,7 @@ BEGIN
 			set @CountQuery = REPLACE(@SQLQuery,'ID,RoleID,FirstName,LastName,UserName,IsActive','@Total = COUNT(*)')
 			EXECUTE sp_executesql @CountQuery, @Params = N'@Total INT OUTPUT', @Total = @Total OUTPUT
 
-			set @SQLQuery += ' ORDER BY ID OFFSET '+ CONVERT(varchar(10), @Skip) +' ROWS FETCH NEXT '+ CONVERT(varchar(10), @Take) +' ROWS ONLY;';
+			set @SQLQuery += ' ORDER BY ID DESC OFFSET '+ CONVERT(varchar(10), @Skip) +' ROWS FETCH NEXT '+ CONVERT(varchar(10), @Take) +' ROWS ONLY;';
 			EXECUTE sp_executesql @SQLQuery
 			set @Message = dbo.UDF_CT_SuccessMessage('')
 		end--if

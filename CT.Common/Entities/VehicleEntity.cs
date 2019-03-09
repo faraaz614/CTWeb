@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace CT.Common.Entities
 {
@@ -21,6 +22,11 @@ namespace CT.Common.Entities
     {
         public VehicleEntity()
         {
+            BidDurationList = new List<SelectListItem>
+            {
+                new SelectListItem { Text = "30 minutes", Value = "30", Selected = true },
+                new SelectListItem { Text = "60 minutes", Value = "60" }
+            };
             DocumentDetail = new DocumentDetailEntity();
             TechnicalDetail = new TechnicalDetailEntity();
             VehicleDetail = new VehicleDetailEntity();
@@ -44,6 +50,8 @@ namespace CT.Common.Entities
         public bool IsDealClosed { get; set; }
         public bool IsDelete { get; set; }
         public long? NotificationVID { get; set; }
+        public int BidDurationID { get; set; }
+        public List<SelectListItem> BidDurationList { get; set; }
         public long CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
         public long ModifiedBy { get; set; }

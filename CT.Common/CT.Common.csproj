@@ -36,6 +36,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\CT.Web\bin\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Common\Combo.cs" />
     <Compile Include="Common\CTApiResponse.cs" />
+    <Compile Include="Common\VehicleStatus.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\DocumentDetailEntity.cs" />
     <Compile Include="Entities\FuelTypeEntity.cs" />

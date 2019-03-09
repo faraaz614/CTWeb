@@ -6,6 +6,8 @@
     [LastName]   NVARCHAR (150) NULL,
     [UserName]   NVARCHAR (150) NULL,
     [Password]   NVARCHAR (50)  NULL,
+    [Mobile]     VARCHAR (50)   NULL,
+    [Mobile2]    VARCHAR (50)   NULL,
     [IsActive]   BIT            NULL,
     [CreatedBy]  BIGINT         NULL,
     [CreatedOn]  DATETIME       NULL,
@@ -15,6 +17,8 @@
     CONSTRAINT [FK_CT_TRAN_User_CT_SYS_Role] FOREIGN KEY ([RoleID]) REFERENCES [dbo].[CT_SYS_Role] ([ID]),
     CONSTRAINT [IX_CT_TRAN_User] UNIQUE NONCLUSTERED ([ID] ASC)
 );
+
+
 
 
 

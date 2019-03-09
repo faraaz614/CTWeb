@@ -48,7 +48,7 @@ namespace CT.Web.Controllers
                 ModelState["ID"].Errors.Clear();
 
             if (model.ID > 0)
-                ModelState["UserName"].Errors.Clear();
+                ModelState["Mobile"].Errors.Clear();
 
             if (ModelState.IsValid)
             {
@@ -78,6 +78,8 @@ namespace CT.Web.Controllers
                         Password = model.Password,
                         UserID = User.UserId,
                         RoleID = 3,
+                        Mobile = model.Mobile,
+                        Mobile2 = model.Mobile2,
                         ProfilePic = model.ProfilePic
                     });
                 }
@@ -102,6 +104,8 @@ namespace CT.Web.Controllers
                         UserID = User.UserId,
                         RoleID = User.RoleId,
                         IsActive = model.IsActive,
+                        Mobile = model.Mobile,
+                        Mobile2 = model.Mobile2,
                         ID = model.ID,
                         ProfilePic = model.ProfilePic
                     });
@@ -157,7 +161,14 @@ namespace CT.Web.Controllers
         {
             if (VehicleID > 0)
             {
-                VehicleBIDEntity vehicleBIDEntity = new VehicleBIDEntity { RoleID = User.RoleId, UserID = User.UserId, VehicleID = VehicleID, BidID = BidID };
+                VehicleBIDEntity vehicleBIDEntity = new VehicleBIDEntity
+                {
+                    RoleID = User.RoleId,
+                    UserID = User.UserId,
+                    VehicleID = VehicleID,
+                    VechileStatus = (int)VehicleStatus.CloseDeal,
+                    BidID = BidID
+                };
                 BaseVehicleBIDEntity baseVehicleBIDEntity = new UserService().CloseBID(vehicleBIDEntity);
             }
             return RedirectToAction("ViewBID", new { VehicleID = VehicleID });

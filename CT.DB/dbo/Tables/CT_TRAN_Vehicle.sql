@@ -8,6 +8,8 @@
     [IsActive]     BIT            NULL,
     [IsDealClosed] BIT            CONSTRAINT [DF_CT_TRAN_Vehicle_IsClosed] DEFAULT ((0)) NULL,
     [IsDelete]     BIT            NULL,
+    [IsBiddable]   BIT            NULL,
+    [BidTime]      DATETIME       NULL,
     [CreatedOn]    DATETIME       NULL,
     [CreatedBy]    BIGINT         NULL,
     [ModifiedOn]   DATETIME       NULL,
@@ -17,6 +19,8 @@
     CONSTRAINT [FK_CT_TRAN_Vehicle_CT_TRAN_User1] FOREIGN KEY ([ModifiedBy]) REFERENCES [dbo].[CT_TRAN_User] ([ID]),
     CONSTRAINT [FK_CT_TRAN_Vehicle_CT_TRAN_Vehicle1] FOREIGN KEY ([BidID]) REFERENCES [dbo].[CT_TRAN_VehicleBID] ([ID])
 );
+
+
 
 
 

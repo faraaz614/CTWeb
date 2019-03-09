@@ -25,8 +25,6 @@ namespace CT.Common.Common
 
         public long ID { get; set; }
 
-        public int RoleID { get; set; }
-
         [StringLength(500)]
         public string ProfilePic { get; set; }
 
@@ -40,15 +38,21 @@ namespace CT.Common.Common
         [MinLength(6, ErrorMessage = "LastName should be 6 characters")]
         public string LastName { get; set; }
 
-        [Required(ErrorMessage = "UserName is required.")]
-        [StringLength(150)]
-        [MinLength(6, ErrorMessage = "UserName should be 6 characters")]
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "Password is required.")]
         [StringLength(50)]
         [MinLength(6, ErrorMessage = "Password should be 6 characters")]
         public string Password { get; set; }
+
+        [Required(ErrorMessage = "You must provide a phone number")]
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Mobile is not valid")]
+        public string Mobile { get; set; }
+
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Alternate Mobile is not valid")]
+        public string Mobile2 { get; set; }
 
         public bool IsActive { get; set; }
         public long CreatedBy { get; set; }

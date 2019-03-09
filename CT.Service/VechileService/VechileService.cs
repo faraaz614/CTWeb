@@ -29,6 +29,7 @@ namespace CT.Service.VehicleService
                 param.Add("@VehicleName", VehicleEntity.VehicleName);
                 param.Add("@StockID", VehicleEntity.StockID);
                 param.Add("@Description", VehicleEntity.Description);
+                param.Add("@minutes", VehicleEntity.BidDurationID);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
                 entity.GenericErrorInfo = GetSingleItem<GenericErrorInfo>(CommandType.StoredProcedure, VehicleLiterals.SaveVehicle, param);
@@ -68,6 +69,7 @@ namespace CT.Service.VehicleService
                 param.Add("@VehicleName", VehicleEntity.VehicleName);
                 param.Add("@StockID", VehicleEntity.StockID);
                 param.Add("@Description", VehicleEntity.Description);
+                param.Add("@minutes", VehicleEntity.BidDurationID);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
                 entity.GenericErrorInfo = GetSingleItem<GenericErrorInfo>(CommandType.StoredProcedure, VehicleLiterals.UpdateVehicle, param);

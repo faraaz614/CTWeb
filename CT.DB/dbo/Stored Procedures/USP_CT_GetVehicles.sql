@@ -27,20 +27,21 @@ BEGIN
 			SET  @Status = 1;
 			SET  @Total = 0;
 
-			set @SQLQuery = 'Select * from 
-			(Select v.ID,v.VehicleName,v.StockID,v.Description,v.IsDealClosed,vi.ImageName,
-			vd.Make,vd.Model,vd.Variant,vd.YearOfManufacturing,vd.Kilometers,vd.Transmission,vd.RegistrationNo,fl.Type,
-			dt.IsRCavailable,dt.Hypothication,dt.IsNOCavailable,dt.NoOfOwners,dt.NoOfKeys,dt.IsInsuranceAvailable,dt.IsComprehensive,
-			dt.IsThirdParty,dt.InsuranceExpiryDate,n.VehicleID as NotificationVID,vb.BIDAmount,
-			ROW_NUMBER() over(partition by vb.VehicleID order by vb.CreatedOn desc) as rowno 
-			from CT_TRAN_Vehicle v 
-			left outer join CT_TRAN_VehicleDetail vd on v.ID = vd.VehicleID 
-			left outer join CT_TRAN_VehicleImage vi on v.ID = vi.VehicleID 
-			left outer join CT_TRAN_Notification n on v.ID = n.VehicleID 
-			left outer join CT_SYS_FuelType fl on vd.FuelTypeID = fl.ID 
-			left outer join CT_TRAN_DocumentDetail dt on v.ID = dt.VehicleID 
-			left outer join CT_TRAN_VehicleBID vb on v.ID = vb.VehicleID 
-			where v.IsActive = 1 and v.IsDelete = 0) a where a.rowno = 1 ';
+			set @SQLQuery = 'with cte as (select ROW_NUMBER() OVER(partition by CASE WHEN vi.VehicleID IS NOT NULL THEN vi.VehicleID ELSE v.ID END 
+							ORDER BY vb.CreatedOn desc) as VIVID,
+							v.ID,v.IsActive,v.VehicleName,v.ModifiedOn,v.StockID,v.Description,v.IsDealClosed,vi.ImageName,
+							vd.Make,vd.Model,vd.Variant,vd.YearOfManufacturing,vd.Kilometers,vd.Transmission,vd.RegistrationNo,fl.Type,
+							dt.IsRCavailable,dt.Hypothication,dt.IsNOCavailable,dt.NoOfOwners,dt.NoOfKeys,dt.IsInsuranceAvailable,dt.IsComprehensive,
+							dt.IsThirdParty,dt.InsuranceExpiryDate,n.VehicleID as NotificationVID,vb.BIDAmount 
+							from CT_TRAN_Vehicle v 
+							left join CT_TRAN_VehicleDetail vd on v.ID = vd.VehicleID 
+							left join CT_TRAN_VehicleImage vi on v.ID = vi.VehicleID 
+							left outer join CT_TRAN_Notification n on v.ID = n.VehicleID 
+							left outer join CT_SYS_FuelType fl on vd.FuelTypeID = fl.ID 
+							left outer join CT_TRAN_DocumentDetail dt on v.ID = dt.VehicleID 
+							left outer join CT_TRAN_VehicleBID vb on v.ID = vb.VehicleID 
+							where v.IsDelete = 0) 
+							select * from cte where VIVID = 1 ';
 
 			if (@SearchText is not null and @SearchText != '')
 			begin
@@ -50,7 +51,7 @@ BEGIN
 			set @CountQuery = REPLACE(@SQLQuery,'*','@Total = COUNT(*)')
 			EXECUTE sp_executesql @CountQuery, @Params = N'@Total INT OUTPUT', @Total = @Total OUTPUT
 
-			set @SQLQuery += ' ORDER BY ID OFFSET '+ CONVERT(varchar(10), @Skip) +' ROWS FETCH NEXT '+ CONVERT(varchar(10), @Take) +' ROWS ONLY;';
+			set @SQLQuery += ' ORDER BY ModifiedOn desc OFFSET '+ CONVERT(varchar(10), @Skip) +' ROWS FETCH NEXT '+ CONVERT(varchar(10), @Take) +' ROWS ONLY;';
 			EXECUTE sp_executesql @SQLQuery
 			set @Message = dbo.UDF_CT_SuccessMessage('')
 		end--if

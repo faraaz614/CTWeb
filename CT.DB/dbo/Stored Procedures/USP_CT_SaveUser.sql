@@ -11,6 +11,8 @@ CREATE PROCEDURE [dbo].[USP_CT_SaveUser]
 @LastName nvarchar(150) = null,
 @UserName nvarchar(150),
 @Password nvarchar(50),
+@Mobile nvarchar(50),
+@Mobile2 nvarchar(50) = null,
 @ProfilePic nvarchar(500) = null,
 @Status int out,
 @Message nvarchar(500) out
@@ -24,8 +26,8 @@ BEGIN
 		SET  @Status = 1;  
 		If not exists(SELECT * FROM CT_TRAN_User WHERE UserName = @UserName and IsActive = 1)
 			begin
-				INSERT INTO CT_TRAN_User (RoleID,ProfilePic,FirstName,LastName,UserName,[Password],IsActive,CreatedBy,CreatedOn)
-				SELECT 3,@ProfilePic,@FirstName,@LastName,@UserName,@Password,1,@UserID,GETDATE();
+				INSERT INTO CT_TRAN_User (RoleID,ProfilePic,FirstName,LastName,UserName,[Password],Mobile,Mobile2,IsActive,CreatedBy,CreatedOn)
+				SELECT 3,@ProfilePic,@FirstName,@LastName,@UserName,@Password,@Mobile,@Mobile2,1,@UserID,GETDATE();
 				SET @Message = dbo.UDF_CT_SuccessMessage('insert') ;
 			end
 		else

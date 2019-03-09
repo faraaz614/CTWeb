@@ -1,8 +1,4 @@
 ﻿-- =============================================
--- Author:		<Author,,Name>
--- Create date: <Create Date,,>
--- Description:	<Description,,>
-
 --declare @statusid int
 --declare @msg varchar(100)
 --exec [USP_CT_GetVehicleByID] 1,1,1,@statusid out, @msg out
@@ -23,7 +19,7 @@ BEGIN
 	SET NOCOUNT ON;
 	BEGIN TRY 
 		SET  @Status = 1;
-		Select ID,VehicleName,StockID,Description,IsActive,IsDealClosed from [CT_TRAN_Vehicle] where ID = @VehicleID and IsDelete = 0 and IsActive = 1;
+		Select ID,VehicleName,StockID,Description,case when DATEDIFF(MINUTE,GETDATE(),BidTime) > 30 then 60 else 30 end as BidDurationID,IsActive,IsDealClosed from [CT_TRAN_Vehicle] where ID = @VehicleID and IsDelete = 0 and IsActive = 1;
 		Select * from CT_TRAN_VehicleDetail where VehicleID = @VehicleID
 		Select * from CT_TRAN_VehicleImage where VehicleID = @VehicleID
 		Select * from CT_TRAN_DocumentDetail where VehicleID = @VehicleID

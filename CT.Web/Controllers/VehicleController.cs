@@ -1,5 +1,6 @@
 ﻿using CT.Common.Common;
 using CT.Common.Entities;
+using CT.Service.UserService;
 using CT.Service.VehicleService;
 using Newtonsoft.Json;
 using System;
@@ -64,6 +65,27 @@ namespace CT.Web.Controllers
                     TempData[CT.Web.Common.CommonUtility.Error.ToString()] = dataInfo.ResponseStatus.Message;
             }
             return View(model);
+        }
+
+        public ActionResult DeActivateVehicleByID(long vechileID = 0)
+        {
+            BaseVehicleBIDEntity baseVehicleBIDEntity = new BaseVehicleBIDEntity();
+            if (vechileID > 0)
+            {
+                VehicleBIDEntity vehicleBIDEntity = new VehicleBIDEntity
+                {
+                    RoleID = User.RoleId,
+                    UserID = User.UserId,
+                    VechileStatus = (int)VehicleStatus.DeActive,
+                    VehicleID = vechileID
+                };
+                baseVehicleBIDEntity = new UserService().CloseBID(vehicleBIDEntity);
+                if (baseVehicleBIDEntity.ResponseStatus.Status == 1)
+                    TempData[CT.Web.Common.CommonUtility.Success.ToString()] = baseVehicleBIDEntity.ResponseStatus.Message;
+                else
+                    TempData[CT.Web.Common.CommonUtility.Error.ToString()] = baseVehicleBIDEntity.ResponseStatus.Message;
+            }
+            return Json(baseVehicleBIDEntity.ResponseStatus.Status);
         }
 
         public ActionResult DeleteVehicleByID(long vechileID = 0)
@@ -262,7 +284,7 @@ namespace CT.Web.Controllers
                 },
                 data = new
                 {
-                    list = User.Identity.Name, 
+                    list = User.Identity.Name,
                 },
             };
             string postbody = JsonConvert.SerializeObject(payload).ToString();

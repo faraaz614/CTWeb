@@ -41,6 +41,14 @@
                 @Html.TextBoxFor(x => x.Password, new { @class = "form-control mb-2", @required = "required", @minlength = "6" })
             </div>
             <div class="form-group">
+                <label for="Body">Mobile</label>
+                @Html.TextBoxFor(x => x.Mobile, new { @class = "form-control mb-2", @required = "required" })
+            </div>
+            <div class="form-group">
+                <label for="Body">Alternate Mobile</label>
+                @Html.TextBoxFor(x => x.Mobile2, new { @class = "form-control mb-2" })
+            </div>
+            <div class="form-group">
                 <label for="IsActive">Status</label>
                 @Html.HiddenFor(x => x.IsActive)
                 <input type="checkbox" id="@Model.ID" class="switch-input editdealerstatus" @(Model.IsActive ? "checked" : string.Empty)>

@@ -32,6 +32,9 @@
                                     Deal Status
                                 </th>
                                 <th>
+                                    Active/InActive
+                                </th>
+                                <th>
                                     Action
                                 </th>
                                 <th>
@@ -43,34 +46,38 @@
                             @foreach (var vehicle in Model.ListVehicles)
                             {
                                 string image = !String.IsNullOrWhiteSpace(vehicle.ImageName) ? vehicle.ImageName : "noimage.PNG";
-                                <tr>
-                                    <td>
-                                        @vehicle.ID
-                                    </td>
-                                    <td>
-                                        @vehicle.VehicleName
-                                    </td>
-                                    <td>
-                                        @vehicle.StockID
-                                    </td>
-                                    <td>
-                                        @vehicle.Model
-                                    </td>
-                                    <td>
-                                        @*@Html.Raw(vehicle.IsDealClosed ? "Closed" : "<a href='#' data-carid='" + vehicle.ID + "' class='btn btn-unique btn-rounded btn-sm my-0 closedeal'>Close</a>")*@
-                                        @(vehicle.IsDealClosed ? "Closed" : "Open")
-                                    </td>
-                                    <td>
-                                        @if (vehicle.NotificationVID == null)
-                                        {
-                                            <a href="@Url.Action("SendNotification", "Vehicle", new { vehicleID = vehicle.ID, body = vehicle.VehicleName + Environment.NewLine + vehicle.Model })" class="btn btn-unique btn-rounded btn-sm my-0">Send Notification</a>
-                                        }                                        
-                                        <a href="@Url.Action("AddVehicle", "Vehicle", new { vechileID = vehicle.ID })" class="btn btn-unique btn-rounded btn-sm my-0">Edit</a>
-                                    </td>
-                                    <td>
-                                        <img class="card-img-top" alt="" style="height:100px; width:200px;" src="@Url.Content("~/Images/450250/" + image)" />
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>
+                                    @vehicle.ID
+                                </td>
+                                <td>
+                                    @vehicle.VehicleName
+                                </td>
+                                <td>
+                                    @vehicle.StockID
+                                </td>
+                                <td>
+                                    @vehicle.Model
+                                </td>
+                                <td>
+                                    @*@Html.Raw(vehicle.IsDealClosed ? "Closed" : "<a href='#' data-carid='" + vehicle.ID + "' class='btn btn-unique btn-rounded btn-sm my-0 closedeal'>Close</a>")*@
+                                    @(vehicle.IsDealClosed ? "Closed" : "Open")
+                                </td>
+                                <td>
+                                    <input type="checkbox" id="@vehicle.ID" name="set-name" data-vehicleid="@vehicle.ID" class="switch-input vehiclestatus" @(vehicle.IsActive ? "checked" : string.Empty)>
+                                    <label for="@vehicle.ID" class="switch-label"><span class="toggle--on">Active</span><span class="toggle--off">InActive</span></label>
+                                </td>
+                                <td>
+                                    @if (vehicle.NotificationVID == null)
+                                    {
+                                        <a href="@Url.Action("SendNotification", "Vehicle", new { vehicleID = vehicle.ID, body = vehicle.VehicleName + Environment.NewLine + vehicle.Model })" class="btn btn-unique btn-rounded btn-sm my-0">Send Notification</a>
+                                    }
+                                    <a href="@Url.Action("AddVehicle", "Vehicle", new { vechileID = vehicle.ID })" class="btn btn-unique btn-rounded btn-sm my-0">Edit</a>
+                                </td>
+                                <td>
+                                    <img class="card-img-top" alt="" style="height:100px; width:200px;" src="@Url.Content("~/Images/450250/" + image)" />
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     </table>

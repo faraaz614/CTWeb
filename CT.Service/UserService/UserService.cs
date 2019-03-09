@@ -32,6 +32,8 @@ namespace CT.Service.UserService
                 param.Add("@RoleID", userEntity.RoleID);
                 param.Add("@UserName", userEntity.UserName);
                 param.Add("@Password", userEntity.Password);
+                param.Add("@Mobile", userEntity.Mobile);
+                param.Add("@Mobile2", userEntity.Mobile2);
                 param.Add("@ProfilePic", userEntity.ProfilePic);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
@@ -75,6 +77,8 @@ namespace CT.Service.UserService
                 param.Add("@RoleID", userEntity.RoleID);
                 param.Add("@UserName", userEntity.UserName);
                 param.Add("@Password", userEntity.Password);
+                param.Add("@Mobile", userEntity.Mobile);
+                param.Add("@Mobile2", userEntity.Mobile2);
                 param.Add("@IsActive", userEntity.IsActive);
                 param.Add("@ProfilePic", userEntity.ProfilePic);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
@@ -387,7 +391,7 @@ namespace CT.Service.UserService
                 param.Add("@UserID", vehicleEntity.UserID);
                 param.Add("@RoleID", vehicleEntity.RoleID);
                 param.Add("@VehicleID", vehicleEntity.VehicleID);
-                param.Add("@Action", 2);//(1 deactivate,2 close deal,3 delete)
+                param.Add("@Action", vehicleEntity.VechileStatus);
                 param.Add("@BidID", vehicleEntity.BidID);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);

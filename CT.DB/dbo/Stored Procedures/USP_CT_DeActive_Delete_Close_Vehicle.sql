@@ -22,9 +22,9 @@ BEGIN
 
 	IF(@Action = 1)
 	BEGIN
-		UPDATE CT_TRAN_Vehicle SET IsActive = 0 WHERE ID= @VehicleID
+		UPDATE CT_TRAN_Vehicle SET IsActive = CASE WHEN IsActive = 1 THEN 0 ELSE 1 END WHERE ID= @VehicleID
 		SET  @Status = 1;
-		SET @Message = 'Vehicle DeActivated successfully';
+		SET @Message = 'Vehicle Updated successfully';
 		END
 	ELSE IF(@Action = 2)
 	 BEGIN

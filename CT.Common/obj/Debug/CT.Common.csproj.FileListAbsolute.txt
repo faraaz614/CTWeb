@@ -9,3 +9,15 @@ D:\Project Rafeeq\cartimez web\CTWeb\CT.Common\obj\Debug\CT.Common.csproj.CoreCo
 D:\Project Rafeeq\cartimez web\CTWeb\CT.Common\obj\Debug\CT.Common.dll
 D:\Project Rafeeq\cartimez web\CTWeb\CT.Common\obj\Debug\CT.Common.pdb
 D:\Project Rafeeq\cartimez web\CTWeb\CT.Common\obj\Debug\CT.Common.csprojAssemblyReference.cache
+D:\Project Rafeeq\cartimez web\CTWeb\CT.Common\bin\Debug\System.Web.Mvc.dll
+D:\Project Rafeeq\cartimez web\CTWeb\CT.Common\bin\Debug\System.Web.WebPages.dll
+D:\Project Rafeeq\cartimez web\CTWeb\CT.Common\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Project Rafeeq\cartimez web\CTWeb\CT.Common\bin\Debug\System.Web.Razor.dll
+D:\Project Rafeeq\cartimez web\CTWeb\CT.Common\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Project Rafeeq\cartimez web\CTWeb\CT.Common\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Project Rafeeq\cartimez web\CTWeb\CT.Common\bin\Debug\System.Web.Mvc.xml
+D:\Project Rafeeq\cartimez web\CTWeb\CT.Common\bin\Debug\System.Web.WebPages.xml
+D:\Project Rafeeq\cartimez web\CTWeb\CT.Common\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Project Rafeeq\cartimez web\CTWeb\CT.Common\bin\Debug\System.Web.Razor.xml
+D:\Project Rafeeq\cartimez web\CTWeb\CT.Common\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Project Rafeeq\cartimez web\CTWeb\CT.Common\obj\Debug\CT.Common.csproj.CopyComplete

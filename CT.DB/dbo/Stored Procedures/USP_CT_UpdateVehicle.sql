@@ -12,6 +12,7 @@ CREATE PROCEDURE [dbo].[USP_CT_UpdateVehicle]
 @VehicleName nvarchar(150),
 @StockID nvarchar(50),
 @Description nvarchar(150) = null,
+@minutes int,
 @Status int out,
 @Message nvarchar(500) out
 )
@@ -24,7 +25,9 @@ BEGIN
 		If exists(SELECT * FROM CT_TRAN_Vehicle WHERE VehicleName = @VehicleName and StockID = @StockID and IsActive = 1)
 			begin
 				SET  @Status = 1;
-				Update CT_TRAN_Vehicle set Description = @Description,ModifiedBy = @UserID, 
+				Update CT_TRAN_Vehicle set Description = @Description,
+				IsBiddable = (case when GETDATE() < DATEADD(MINUTE,@minutes,GETDATE()) then 1 else 0 end),
+				BidTime = DATEADD(MINUTE,@minutes,GETDATE()),ModifiedBy = @UserID, 
 				ModifiedOn = GETDATE() where ID = @VehicleID;
 				SET @Message = dbo.UDF_CT_SuccessMessage('update') ;
 			end

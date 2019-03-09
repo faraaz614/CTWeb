@@ -524,7 +524,6 @@
                 });
             });
 
-            //Delete Dealer
             $(".dealerstatus").on("click", function () {
                 var id = $(this).data("dealerid");
                 $.ajax({
@@ -552,6 +551,26 @@
                 else {
                     $("#IsActive").val("True");
                 }
+            });
+
+            $(".vehiclestatus").on("click", function () {
+                var id = $(this).data("vehicleid");
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("DeActivateVehicleByID", "Vehicle")",
+                    data: { vechileID: id },
+                    success: function (data) {
+                        if (data == 1) {
+                            window.location.reload();
+                        }
+                        else {
+                            alert('Error Occurred. Please reload and try again.');
+                        }
+                    },
+                    error: function () {
+                        alert('Error Occurred. Please reload and try again.');
+                    }
+                });
             });
 
             //Document Details
