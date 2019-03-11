@@ -75,6 +75,8 @@ namespace CT.Common.Entities
         public bool IsThirdParty { get; set; }
         public string InsuranceExpiryDate { get; set; }
         public decimal BIDAmount { get; set; }
+        public DateTime? BidTime { get; set; }
+        public long? BidTimeMilliSecs { get; set; }
 
         public DocumentDetailEntity DocumentDetail { get; set; }
         public TechnicalDetailEntity TechnicalDetail { get; set; }

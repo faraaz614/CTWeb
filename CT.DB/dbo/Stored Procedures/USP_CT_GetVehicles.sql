@@ -29,7 +29,8 @@ BEGIN
 
 			set @SQLQuery = 'with cte as (select ROW_NUMBER() OVER(partition by CASE WHEN vi.VehicleID IS NOT NULL THEN vi.VehicleID ELSE v.ID END 
 							ORDER BY vb.CreatedOn desc) as VIVID,
-							v.ID,v.IsActive,v.VehicleName,v.ModifiedOn,v.StockID,v.Description,v.IsDealClosed,vi.ImageName,
+							v.ID,v.IsActive,v.VehicleName,v.ModifiedOn,v.StockID,v.Description,v.IsDealClosed,v.BidTime,
+							(CAST(Datediff(s, GETDATE(), v.BidTime) AS BIGINT)*1000) as BidTimeMilliSecs,vi.ImageName,
 							vd.Make,vd.Model,vd.Variant,vd.YearOfManufacturing,vd.Kilometers,vd.Transmission,vd.RegistrationNo,fl.Type,
 							dt.IsRCavailable,dt.Hypothication,dt.IsNOCavailable,dt.NoOfOwners,dt.NoOfKeys,dt.IsInsuranceAvailable,dt.IsComprehensive,
 							dt.IsThirdParty,dt.InsuranceExpiryDate,n.VehicleID as NotificationVID,vb.BIDAmount 
@@ -48,7 +49,7 @@ BEGIN
 				set @SQLQuery += ' and VehicleName like ''%' + @SearchText + '%''';
 			end
 			
-			set @CountQuery = REPLACE(@SQLQuery,'*','@Total = COUNT(*)')
+			set @CountQuery = REPLACE(@SQLQuery,' * ',' @Total = COUNT(*)')
 			EXECUTE sp_executesql @CountQuery, @Params = N'@Total INT OUTPUT', @Total = @Total OUTPUT
 
 			set @SQLQuery += ' ORDER BY ModifiedOn desc OFFSET '+ CONVERT(varchar(10), @Skip) +' ROWS FETCH NEXT '+ CONVERT(varchar(10), @Take) +' ROWS ONLY;';

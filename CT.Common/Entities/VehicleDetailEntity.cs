@@ -15,6 +15,7 @@ namespace CT.Common.Entities
         public string Variant { get; set; }
         public string YearOfManufacturing { get; set; }
         public int FuelTypeID { get; set; }
+        public string FuelType { get; set; }
         public long VehicleID { get; set; }
         public int? Kilometers { get; set; }
         public string Transmission { get; set; }

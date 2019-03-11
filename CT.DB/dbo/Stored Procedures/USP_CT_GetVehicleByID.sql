@@ -19,8 +19,10 @@ BEGIN
 	SET NOCOUNT ON;
 	BEGIN TRY 
 		SET  @Status = 1;
-		Select ID,VehicleName,StockID,Description,case when DATEDIFF(MINUTE,GETDATE(),BidTime) > 30 then 60 else 30 end as BidDurationID,IsActive,IsDealClosed from [CT_TRAN_Vehicle] where ID = @VehicleID and IsDelete = 0 and IsActive = 1;
-		Select * from CT_TRAN_VehicleDetail where VehicleID = @VehicleID
+		Select ID,VehicleName,StockID,Description,BidTime,case when DATEDIFF(MINUTE,GETDATE(),BidTime) > 30 then 60 else 30 end as BidDurationID,IsActive,IsDealClosed from [CT_TRAN_Vehicle] where ID = @VehicleID and IsDelete = 0 and IsActive = 1;
+		Select vd.*,f.Type as FuelType from CT_TRAN_VehicleDetail vd
+		join CT_SYS_FuelType f on vd.FuelTypeID = f.ID
+		where VehicleID = @VehicleID
 		Select * from CT_TRAN_VehicleImage where VehicleID = @VehicleID
 		Select * from CT_TRAN_DocumentDetail where VehicleID = @VehicleID
 		Select * from CT_TRAN_TechnicalDetails where VehicleID = @VehicleID

@@ -7,15 +7,6 @@ D:\CT_Admin\dayya\CT\CT.DB\obj\Debug\postdeploy.sql
 D:\CT_Admin\dayya\CT\CT.DB\obj\Debug\predeploy.sql
 D:\CT_Admin\dayya\CT\CT.DB\obj\Debug\CT.DB.dll
 D:\CT_Admin\dayya\CT\CT.DB\obj\Debug\CT.DB.pdb
-C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.DB\bin\Debug\CT.DB.dacpac
-C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.DB\bin\Debug\CT.DB.dll
-C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.DB\bin\Debug\CT.DB.pdb
-C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.DB\obj\Debug\Model.xml
-C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.DB\obj\Debug\refactor.xml
-C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.DB\obj\Debug\postdeploy.sql
-C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.DB\obj\Debug\predeploy.sql
-C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.DB\obj\Debug\CT.DB.dll
-C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.DB\obj\Debug\CT.DB.pdb
 D:\Project Rafeeq\cartimez web\CTWeb\CT.DB\bin\Debug\CT.DB.dacpac
 D:\Project Rafeeq\cartimez web\CTWeb\CT.DB\bin\Debug\CT.DB.dll
 D:\Project Rafeeq\cartimez web\CTWeb\CT.DB\bin\Debug\CT.DB.pdb
@@ -26,3 +17,12 @@ D:\Project Rafeeq\cartimez web\CTWeb\CT.DB\obj\Debug\predeploy.sql
 D:\Project Rafeeq\cartimez web\CTWeb\CT.DB\obj\Debug\CT.DB.dll
 D:\Project Rafeeq\cartimez web\CTWeb\CT.DB\obj\Debug\CT.DB.pdb
 D:\Project Rafeeq\cartimez web\CTWeb\CT.DB\obj\Debug\CT.DB.sqlprojAssemblyReference.cache
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.DB\bin\Debug\CT.DB.dacpac
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.DB\bin\Debug\CT.DB.dll
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.DB\bin\Debug\CT.DB.pdb
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.DB\obj\Debug\Model.xml
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.DB\obj\Debug\refactor.xml
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.DB\obj\Debug\postdeploy.sql
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.DB\obj\Debug\predeploy.sql
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.DB\obj\Debug\CT.DB.dll
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.DB\obj\Debug\CT.DB.pdb
