@@ -544,7 +544,7 @@
                 });
             });
 
-            $(".editdealerstatus").on("click", function () {
+            $(".editdealerstatus, .addcaractive").on("click", function () {
                 if ($("#IsActive").val() == "True") {
                     $("#IsActive").val("False");
                 }
@@ -572,7 +572,7 @@
                     }
                 });
             });
-
+            
             //Document Details
             $(".docdetail").on("click", function () {
                 var name = $(this).attr("name");

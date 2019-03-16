@@ -44,6 +44,11 @@ BEGIN
 							where v.IsDelete = 0) 
 							select * from cte where VIVID = 1 ';
 
+			if (@RoleID = 3)
+			begin
+				set @SQLQuery += ' and IsActive = 1 ';
+			end
+
 			if (@SearchText is not null and @SearchText != '')
 			begin
 				set @SQLQuery += ' and VehicleName like ''%' + @SearchText + '%''';

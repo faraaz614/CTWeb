@@ -91,10 +91,6 @@ namespace CT.APIService.Controllers
         {
             VehicleEntity model = new VehicleEntity { ID = ID, UserID = UserID, RoleID = RoleID };
             BaseVehicleEntity baseVehicleEntity = _VehicleService.GetVehicleByID(model);
-            if (baseVehicleEntity != null && baseVehicleEntity.VehicleEntity != null && baseVehicleEntity.VehicleEntity.VehicleBIDs != null)
-            {
-                baseVehicleEntity.VehicleEntity.VehicleBIDs = baseVehicleEntity.VehicleEntity.VehicleBIDs.Where(x => x.DealerID == UserID).ToList();
-            }
             return Ok(baseVehicleEntity);
         }
 

@@ -19,7 +19,17 @@ BEGIN
 	SET NOCOUNT ON;
 	BEGIN TRY 
 		SET  @Status = 1;
-		Select ID,VehicleName,StockID,Description,BidTime,case when DATEDIFF(MINUTE,GETDATE(),BidTime) > 30 then 60 else 30 end as BidDurationID,IsActive,IsDealClosed from [CT_TRAN_Vehicle] where ID = @VehicleID and IsDelete = 0 and IsActive = 1;
+		Declare @SQLQuery nvarchar(max);
+		set @SQLQuery = 'Select ID,VehicleName,StockID,Description,BidTime,(CAST(Datediff(s, GETDATE(), BidTime) AS BIGINT)*1000) as BidTimeMilliSecs,
+		case when DATEDIFF(MINUTE,GETDATE(),BidTime) > 30 then 60 else 30 end as BidDurationID,IsActive,IsDealClosed 
+		from [CT_TRAN_Vehicle] where ID = '+CONVERT(varchar(10), @VehicleID)+' and IsDelete = 0 ';
+
+		if(@RoleID = 3)
+		begin
+			set @SQLQuery += ' and IsActive = 1';
+		end
+		EXECUTE sp_executesql @SQLQuery
+		
 		Select vd.*,f.Type as FuelType from CT_TRAN_VehicleDetail vd
 		join CT_SYS_FuelType f on vd.FuelTypeID = f.ID
 		where VehicleID = @VehicleID
