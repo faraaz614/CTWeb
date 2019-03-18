@@ -20,32 +20,53 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 	BEGIN TRY 
-		Declare @SQLQuery nvarchar(1000);
-		Declare @CountQuery nvarchar(1000);
-		SET  @Status = 1;
-		SET  @Total = 0;
+		if exists(select UserName from CT_TRAN_User where ID = @UserID and RoleID = @RoleID) 
+		begin --if
+			Declare @SQLQuery nvarchar(max);
+			Declare @CountQuery nvarchar(max);
+			SET  @Status = 1;
+			SET  @Total = 0;
 
-		set @SQLQuery = 'Select a.* from 
-						(Select v.ID,v.VehicleName,v.StockID,v.Description,v.IsDealClosed,vi.ImageName,vd.Model,ROW_NUMBER() over(partition by v.id order by v.id) as rowno
-						from CT_TRAN_Vehicle v
-						left outer join CT_TRAN_VehicleDetail vd on v.ID = vd.VehicleID
-						left outer join CT_TRAN_VehicleImage vi on v.ID = vi.VehicleID
-						where v.IsActive = 1 and v.IsDelete = 0) a
-						join CT_TRAN_VehicleBID vb on a.ID = vb.VehicleID
-						where a.rowno = 1 and vb.DealerID = '+ CONVERT(varchar(10), @UserID);
+			select VehicleID,MAX(BIDAmount) as BIDAmount into #tempBIDS from CT_TRAN_VehicleBID
+			where DealerID = @UserID
+			group by VehicleID
 
-		if (@SearchText is not null and @SearchText != '')
+			set @SQLQuery = 'with cte as (select ROW_NUMBER() OVER(partition by CASE WHEN vi.VehicleID IS NOT NULL THEN vi.VehicleID ELSE v.ID END 
+							ORDER BY vb.CreatedOn desc) as VIVID,
+							v.ID,v.IsActive,v.VehicleName,v.ModifiedOn,v.StockID,v.Description,v.IsDealClosed,v.BidTime,
+							(CAST(Datediff(s, GETDATE(), v.BidTime) AS BIGINT)*1000) as BidTimeMilliSecs,vi.ImageName,
+							vd.Make,vd.Model,vd.Variant,vd.YearOfManufacturing,vd.Kilometers,vd.Transmission,vd.RegistrationNo,fl.Type,
+							dt.IsRCavailable,dt.Hypothication,dt.IsNOCavailable,dt.NoOfOwners,dt.NoOfKeys,dt.IsInsuranceAvailable,dt.IsComprehensive,
+							dt.IsThirdParty,dt.InsuranceExpiryDate,n.VehicleID as NotificationVID 
+							from CT_TRAN_Vehicle v 
+							left join CT_TRAN_VehicleDetail vd on v.ID = vd.VehicleID 
+							left join CT_TRAN_VehicleImage vi on v.ID = vi.VehicleID 
+							left outer join CT_TRAN_Notification n on v.ID = n.VehicleID 
+							left outer join CT_SYS_FuelType fl on vd.FuelTypeID = fl.ID 
+							left outer join CT_TRAN_DocumentDetail dt on v.ID = dt.VehicleID 
+							left outer join CT_TRAN_VehicleBID vb on v.ID = vb.VehicleID 
+							where v.IsDelete = 0) 
+							select * from cte join #tempBIDS on cte.ID = #tempBIDS.VehicleID where VIVID = 1 and IsActive = 1 ';
+
+			if (@SearchText is not null and @SearchText != '')
+			begin
+				set @SQLQuery += ' and VehicleName like ''%' + @SearchText + '%''';
+			end
+			
+			set @CountQuery = REPLACE(@SQLQuery,' * ',' @Total = COUNT(*)')
+			EXECUTE sp_executesql @CountQuery, @Params = N'@Total INT OUTPUT', @Total = @Total OUTPUT
+
+			set @SQLQuery += ' ORDER BY ModifiedOn desc OFFSET '+ CONVERT(varchar(10), @Skip) +' ROWS FETCH NEXT '+ CONVERT(varchar(10), @Take) +' ROWS ONLY;';
+			EXECUTE sp_executesql @SQLQuery
+			drop table #tempBIDS
+			set @Message = dbo.UDF_CT_SuccessMessage('')
+		end--if
+		else
 		begin
-			set @SQLQuery += ' and VehicleName like ''%' + @SearchText + '%''';
+			set @Status = 0;
+			SET  @Total = 0;
+			set @Message = dbo.UDF_CT_SuccessMessage('denied')
 		end
-
-		set @CountQuery = REPLACE(@SQLQuery,'a.*','@Total = COUNT(*)')
-		EXECUTE sp_executesql @CountQuery, @Params = N'@Total INT OUTPUT', @Total = @Total OUTPUT
-
-		set @SQLQuery += ' ORDER BY ID OFFSET '+ CONVERT(varchar(10), @Skip) +' ROWS FETCH NEXT '+ CONVERT(varchar(10), @Take) +' ROWS ONLY;';
-		EXECUTE sp_executesql @SQLQuery
-		
-		SET @Message = dbo.UDF_CT_SuccessMessage('');
 	END TRY	
 	BEGIN CATCH
 		SET  @Status = 0;  
