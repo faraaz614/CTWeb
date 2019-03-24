@@ -1,7 +1,9 @@
 ﻿using CT.Common.Common;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
+using System.Configuration;
 using System.Web.Mvc;
 
 namespace CT.Common.Entities
@@ -22,21 +24,17 @@ namespace CT.Common.Entities
     {
         public VehicleEntity()
         {
-            BidDurationList = new List<SelectListItem>
-            {
-                new SelectListItem { Text = "30 minutes", Value = "30", Selected = true },
-                new SelectListItem { Text = "60 minutes", Value = "60" }
-            };
             DocumentDetail = new DocumentDetailEntity();
             TechnicalDetail = new TechnicalDetailEntity();
             VehicleDetail = new VehicleDetailEntity();
             VehicleImage = new List<VehicleImageEntity>();
             VehicleBIDs = new List<VehicleBIDEntity>();
             FuelTypeList = new List<Combo>();
+            BidDurationList = GetBIDItems();
         }
 
         public long ID { get; set; }
-        [Required(ErrorMessage ="Car Name is required.")]
+        [Required(ErrorMessage = "Car Name is required.")]
         [StringLength(150)]
         [MinLength(6, ErrorMessage = "Car Name should be 6 characters")]
         public string VehicleName { get; set; }
@@ -84,5 +82,30 @@ namespace CT.Common.Entities
         public List<VehicleImageEntity> VehicleImage { get; set; }
         public List<VehicleBIDEntity> VehicleBIDs { get; set; }
         public List<Combo> FuelTypeList { get; set; }
+
+        public List<SelectListItem> GetBIDItems()
+        {
+            List<SelectListItem> BIDitems = new List<SelectListItem>();
+            try
+            {
+                var BIDs = ConfigurationManager.GetSection("BidDuration") as NameValueCollection;
+                if (BIDs.Count == 0)
+                {
+                    BIDitems.Add(new SelectListItem { Text = "30 minutes", Value = "30", Selected = true });
+                }
+                else
+                {
+                    foreach (var item in BIDs.AllKeys)
+                    {
+                        BIDitems.Add(new SelectListItem { Text = item, Value = BIDs[item], Selected = (Convert.ToInt32(BIDs[item]) == 30 ? true : false) });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                BIDitems.Add(new SelectListItem { Text = "30 minutes", Value = "30", Selected = true });
+            }
+            return BIDitems;
+        }
     }
 }

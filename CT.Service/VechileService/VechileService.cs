@@ -30,6 +30,7 @@ namespace CT.Service.VehicleService
                 param.Add("@StockID", VehicleEntity.StockID);
                 param.Add("@Description", VehicleEntity.Description);
                 param.Add("@minutes", VehicleEntity.BidDurationID);
+                param.Add("@IsActive", VehicleEntity.IsActive);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
                 entity.GenericErrorInfo = GetSingleItem<GenericErrorInfo>(CommandType.StoredProcedure, VehicleLiterals.SaveVehicle, param);
@@ -239,6 +240,7 @@ namespace CT.Service.VehicleService
                 param.Add("@UserID", VehicleEntity.UserID);
                 param.Add("@RoleID", VehicleEntity.RoleID);
                 param.Add("@SearchText", VehicleEntity.SearchText);
+                param.Add("@Sort", VehicleEntity.Sort);
                 param.Add("@Total", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
@@ -247,6 +249,7 @@ namespace CT.Service.VehicleService
                 entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
                 entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
                 entity.SearchText = VehicleEntity.SearchText;
+                entity.Sort = VehicleEntity.Sort;
                 entity.PageNo = VehicleEntity.PageNo;
                 entity.PageSize = VehicleEntity.PageSize;
                 entity.Action = VehicleEntity.Action;

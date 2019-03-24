@@ -41,7 +41,7 @@
                             {
                                 <tr>
                                     <td>
-                                        @dealer.ID
+                                        @((dealers.IndexOf(dealer) + 1) + ((Model.PageNo - 1) * Model.PageSize))
                                     </td>
                                     <td>
                                         @dealer.FirstName

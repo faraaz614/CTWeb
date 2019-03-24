@@ -28,16 +28,14 @@
                 <option value="50" @(Model.PageSize == 50 ? "selected" : string.Empty)>50</option>
             </select>
         </li>
-        @*<li class="page-item"><a class="page-link" href="#">First</a></li>*@
         @for (int i = 1; i <= total; i++)
         {
             <li class="page-item @(i == Model.PageNo ? "disabled" : string.Empty)">
-                <a class="page-link" href="@Url.Action(Model.Action, Model.Controller,new { SearchText = Model.SearchText, PageNo = i, PageSize = Model.PageSize })">
+                <a class="page-link" href="@Url.Action(Model.Action, Model.Controller,new { SearchText = Model.SearchText, PageNo = i, PageSize = Model.PageSize, Sort= Model.Sort })">
                     @i
                 </a>
             </li>
         }
-        @*<li class="page-item"><a class="page-link" href="#">Last</a></li>*@
     </ul>
 </nav>
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>

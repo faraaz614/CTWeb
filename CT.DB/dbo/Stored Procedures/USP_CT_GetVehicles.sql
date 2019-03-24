@@ -1,11 +1,12 @@
 ﻿-- =============================================
 --declare @st int,@msg nvarchar(100), @t int
---exec [USP_CT_GetVehicles] null,0,10, 1, 1, @t out, @st out, @msg out
+--exec [USP_CT_GetVehicles] null,null,0,10, 1, 1, @t out, @st out, @msg out
 --select @st st,@msg msg, @t take
 -- =============================================
 CREATE PROCEDURE [dbo].[USP_CT_GetVehicles]
 (
 @SearchText nvarchar(150) = NULL,
+@Sort nvarchar(50) = NULL,
 @Skip int,
 @Take int,
 @UserID bigint,
@@ -28,7 +29,7 @@ BEGIN
 			SET  @Total = 0;
 
 			set @SQLQuery = 'with cte as (select ROW_NUMBER() OVER(partition by CASE WHEN vi.VehicleID IS NOT NULL THEN vi.VehicleID ELSE v.ID END 
-							ORDER BY vb.CreatedOn desc) as VIVID,
+							ORDER BY vb.BIDAmount desc) as VIVID,
 							v.ID,v.IsActive,v.VehicleName,v.ModifiedOn,v.StockID,v.Description,v.IsDealClosed,v.BidTime,
 							(CAST(Datediff(s, GETDATE(), v.BidTime) AS BIGINT)*1000) as BidTimeMilliSecs,vi.ImageName,
 							vd.Make,vd.Model,vd.Variant,vd.YearOfManufacturing,vd.Kilometers,vd.Transmission,vd.RegistrationNo,fl.Type,
@@ -57,7 +58,39 @@ BEGIN
 			set @CountQuery = REPLACE(@SQLQuery,' * ',' @Total = COUNT(*)')
 			EXECUTE sp_executesql @CountQuery, @Params = N'@Total INT OUTPUT', @Total = @Total OUTPUT
 
-			set @SQLQuery += ' ORDER BY ModifiedOn desc OFFSET '+ CONVERT(varchar(10), @Skip) +' ROWS FETCH NEXT '+ CONVERT(varchar(10), @Take) +' ROWS ONLY;';
+			if (@Sort is not null and @Sort != '')
+			begin
+				if (@Sort = 'ModifiedOn')
+				begin
+					set @SQLQuery += ' ORDER BY ModifiedOn desc';	
+				end
+				else if (@Sort = 'CarName')
+				begin
+					set @SQLQuery += ' ORDER BY VehicleName desc';	
+				end
+				else if (@Sort = 'StockID')
+				begin
+					set @SQLQuery += ' ORDER BY StockID desc';	
+				end
+				else if (@Sort = 'Model')
+				begin
+					set @SQLQuery += ' ORDER BY Model desc';	
+				end
+				else if (@Sort = 'DealStatus')
+				begin
+					set @SQLQuery += ' ORDER BY IsDealClosed desc';	
+				end
+				else if (@Sort = 'Status')
+				begin
+					set @SQLQuery += ' ORDER BY IsActive desc';	
+				end
+			end
+			else
+			begin
+				set @SQLQuery += ' ORDER BY ModifiedOn desc';
+			end
+
+			set @SQLQuery += ' OFFSET '+ CONVERT(varchar(10), @Skip) +' ROWS FETCH NEXT '+ CONVERT(varchar(10), @Take) +' ROWS ONLY;';
 			EXECUTE sp_executesql @SQLQuery
 			set @Message = dbo.UDF_CT_SuccessMessage('')
 		end--if

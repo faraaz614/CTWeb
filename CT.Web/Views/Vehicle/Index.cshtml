@@ -1,7 +1,6 @@
 ﻿@model CT.Common.Entities.BaseVehicleEntity
 @{
-    ViewBag.Title = "Index";
-    @*<link rel="stylesheet" href="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/css/compiled-4.5.14.min.css?ver=4.5.14">*@
+    ViewBag.Title = "Manage Cars";
 }
 @Html.Partial("~/Views/Vehicle/_VehicleTabs.cshtml", Model)
 <div class="row">
@@ -20,19 +19,29 @@
                                     ID
                                 </th>
                                 <th>
-                                    Car Name
+                                    <a class="page-link" href="@Url.Action(Model.Action, Model.Controller,new { SearchText = Model.SearchText, PageNo = 1, PageSize = Model.PageSize, Sort= "CarName" })">
+                                        Car Name
+                                    </a>
                                 </th>
                                 <th>
-                                    StockID
+                                    <a class="page-link" href="@Url.Action(Model.Action, Model.Controller,new { SearchText = Model.SearchText, PageNo = 1, PageSize = Model.PageSize, Sort= "StockID" })">
+                                        StockID
+                                    </a>                                    
                                 </th>
                                 <th>
-                                    Model
+                                    <a class="page-link" href="@Url.Action(Model.Action, Model.Controller,new { SearchText = Model.SearchText, PageNo = 1, PageSize = Model.PageSize, Sort= "Model" })">
+                                        Model
+                                    </a>
                                 </th>
                                 <th>
-                                    Deal Status
+                                    <a class="page-link" href="@Url.Action(Model.Action, Model.Controller,new { SearchText = Model.SearchText, PageNo = 1, PageSize = Model.PageSize, Sort= "DealStatus" })">
+                                        Deal Status
+                                    </a>
                                 </th>
                                 <th>
-                                    Active/InActive
+                                    <a class="page-link" href="@Url.Action(Model.Action, Model.Controller,new { SearchText = Model.SearchText, PageNo = 1, PageSize = Model.PageSize, Sort= "Status" })">
+                                        Status
+                                    </a>
                                 </th>
                                 <th>
                                     Action
@@ -48,7 +57,7 @@
                                 string image = !String.IsNullOrWhiteSpace(vehicle.ImageName) ? vehicle.ImageName : "noimage.PNG";
                             <tr>
                                 <td>
-                                    @vehicle.ID
+                                    @((Model.ListVehicles.IndexOf(vehicle) + 1) + ((Model.PageNo - 1) * Model.PageSize))
                                 </td>
                                 <td>
                                     @vehicle.VehicleName
@@ -60,7 +69,6 @@
                                     @vehicle.Model
                                 </td>
                                 <td>
-                                    @*@Html.Raw(vehicle.IsDealClosed ? "Closed" : "<a href='#' data-carid='" + vehicle.ID + "' class='btn btn-unique btn-rounded btn-sm my-0 closedeal'>Close</a>")*@
                                     @(vehicle.IsDealClosed ? "Closed" : "Open")
                                 </td>
                                 <td>
@@ -87,40 +95,3 @@
         </div>
     </div>
 </div>
-
-@*<div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header card-header-primary">
-                    <h4 class="card-title ">Manage Cars</h4>
-                    <p class="card-category">Activate/Deactivate</p>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <div>
-        <div class="row">
-            @foreach (var Vehicle in Model.ListVehicles)
-            {
-                string image = !String.IsNullOrWhiteSpace(Vehicle.ImageName) ? Vehicle.ImageName : "noimage.PNG";
-                <div class="col-md-4">
-                    <a href="@Url.Action("AddVehicle", "Vehicle", new { vechileID = Vehicle.ID })">
-
-                        <div class="card mb-4 box-shadow">
-                            <img class="card-img-top" alt="" style="height:225px; width:100%; display:block;" src="@Url.Content("~/Images/450250/" + image)" data-holder-rendered="true">
-                            <div class="card-body">
-                                <text>@Vehicle.VehicleName</text>
-                                <text class="cars-closed">@(Vehicle.IsDealClosed ? "Deal Closed" : "")</text>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            }
-        </div>
-    </div>*@

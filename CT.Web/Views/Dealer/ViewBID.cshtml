@@ -1,4 +1,5 @@
 ﻿@model CT.Common.Entities.BaseVehicleBIDEntity
+@using CT.Web.Models
 @{
     ViewBag.Title = "BID";
     string style = Model.VehicleEntity.IsDealClosed ? "card-header-warning" : "card-header-primary";
@@ -7,7 +8,12 @@
 }
 <style>
     .topbuffer {
-    margin-top:10px;
+        margin-top: 10px;
+    }
+
+    .customtext {
+        padding: 8px;
+        line-height: 1.42857143;
     }
 </style>
 
@@ -69,22 +75,22 @@
         <div class="col-4">
             <div class="form-group">
                 <label for="form1">Car Name</label>
-                @Html.LabelFor(x => x.VehicleEntity.VehicleName, new { @class = "form-control" })
+                @Html.SpanFor(x => x.VehicleEntity.VehicleName, "", new { @class = "customtext" })
             </div>
         </div>
         <div class="col-4">
             <div class="form-group">
                 <label for="form1">Stock ID</label>
-                @Html.LabelFor(x => x.VehicleEntity.StockID, new { @class = "form-control" })
+                @Html.SpanFor(x => x.VehicleEntity.StockID, "", new { @class = "customtext" })
             </div>
         </div>
-        
+
     </div>
     <div class="row">
         <div class="col-12">
             <div class="form-group">
                 <label for="form1">Description</label>
-                @Html.LabelFor(x => x.VehicleEntity.Description, new { @class = "form-control" })
+                @Html.SpanFor(x => x.VehicleEntity.Description, "", new { @class = "customtext" })
             </div>
         </div>
     </div>
@@ -96,19 +102,19 @@
         <div class="col-4">
             <div class="form-group">
                 <label class="control-label" for="inlineFormMake">1.Make</label>
-                @Html.LabelFor(x => x.VehicleEntity.VehicleDetail.Make, new { @class = "form-control" })
+                @Html.SpanFor(x => x.VehicleEntity.VehicleDetail.Make, "", new { @class = "customtext" })
             </div>
         </div>
         <div class="col-4">
             <div class="form-group">
                 <label for="inlineFormModel">2.Model</label>
-                @Html.LabelFor(x => x.VehicleEntity.VehicleDetail.Model, new { @class = "form-control" })
+                @Html.SpanFor(x => x.VehicleEntity.VehicleDetail.Model, "", new { @class = "customtext" })
             </div>
         </div>
         <div class="col-4">
             <div class="form-group">
                 <label for="inlineFormVariant">3.Variant</label>
-                @Html.LabelFor(x => x.VehicleEntity.VehicleDetail.Variant, new { @class = "form-control" })
+                @Html.SpanFor(x => x.VehicleEntity.VehicleDetail.Variant, "", new { @class = "customtext" })
             </div>
         </div>
     </div>
@@ -116,19 +122,19 @@
         <div class="col-4">
             <div class="form-group">
                 <label for="inlineFormManufacturing">4. Year of Manufacturing</label>
-                @Html.LabelFor(x => x.VehicleEntity.VehicleDetail.YearOfManufacturing, new { @class = "form-control datepicker" })
+                @Html.SpanFor(x => x.VehicleEntity.VehicleDetail.YearOfManufacturing, "", new { @class = "customtext" })
             </div>
         </div>
         <div class="col-4">
             <div class="form-group">
                 <label for="inlineFormFuel">5.Fuel Type</label>
-                @Html.LabelFor(x => x.VehicleEntity.VehicleDetail.FuelTypeID, new { @class = "form-control datepicker" })
+                @Html.SpanFor(x => x.VehicleEntity.VehicleDetail.FuelType, "", new { @class = "customtext" })
             </div>
         </div>
         <div class="col-4">
             <div class="form-group">
                 <label for="inlineFormKilometers">6.Kilometers</label>
-                @Html.LabelFor(x => x.VehicleEntity.VehicleDetail.Kilometers, new { @class = "form-control" })
+                @Html.SpanFor(x => x.VehicleEntity.VehicleDetail.Kilometers, "", new { @class = "customtext" })
             </div>
         </div>
     </div>
@@ -136,115 +142,75 @@
         <div class="col-6">
             <div class="form-group">
                 <label for="inlineFormTransmission">7. Transmission</label>
-                @Html.LabelFor(x => x.VehicleEntity.VehicleDetail.Transmission, new { @class = "form-control" })
+                @Html.SpanFor(x => x.VehicleEntity.VehicleDetail.Transmission, "", new { @class = "customtext" })
             </div>
         </div>
         <div class="col-6">
             <div class="form-group">
                 <label for="inlineFormRegistration">8.Registration No.</label>
-                @Html.LabelFor(x => x.VehicleEntity.VehicleDetail.RegistrationNo, new { @class = "form-control" })
+                @Html.SpanFor(x => x.VehicleEntity.VehicleDetail.RegistrationNo, "", new { @class = "customtext" })
             </div>
         </div>
     </div>
 </div>
 
 <div class="card-body ui-widget-content topbuffer">
-    <h4><b>Document Details</b></h4>
-    <div class="row">
-        <div class="col-4">
-            <div class="form-group form-check-inline">
-                <label>1.RC availability</label>
+        <h4><b>Document Details</b></h4>
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group form-check-inline">
+                    <label>1.RC availability</label>
+                </div>
+                @Html.Span("", Model.VehicleEntity.DocumentDetail != null && Model.VehicleEntity.DocumentDetail.IsRCavailable ? "Yes" : "No", new { @class = "customtext" })
             </div>
-            <div class="form-check form-check-inline">
-                @Html.LabelFor(x => x.VehicleEntity.DocumentDetail.IsRCavailable, new { @class = "form-check-input" })
-                <label class="form-check-label" for="materialInline1">Yes</label>
+            <div class="col-4">
+                <div class="form-group form-check-inline">
+                    <label>2.Hypothication </label>
+                </div>
+                @Html.Span("", Model.VehicleEntity.DocumentDetail != null && Model.VehicleEntity.DocumentDetail.Hypothication ? "Yes" : "No", new { @class = "customtext" })
             </div>
-            /
-            <div class="form-check form-check-inline">
-                @Html.LabelFor(x => x.VehicleEntity.DocumentDetail.IsRCavailable, new { @class = "form-check-input" })
-                <label class="form-check-label" for="materialInline2">No</label>
-            </div>
-        </div>
-        <div class="col-4">
-            <div class="form-group form-check-inline">
-                <label>2.Hypothication </label>
-            </div>
-            <div class="form-check form-check-inline">
-                @Html.LabelFor(x => x.VehicleEntity.DocumentDetail.Hypothication, new { @class = "form-check-input" })
-                <label class="form-check-label" for="materialInline1">Yes</label>
-            </div>
-            /
-            <div class="form-check form-check-inline">
-                @Html.LabelFor(x => x.VehicleEntity.DocumentDetail.Hypothication, new { @class = "form-check-input" })
-                <label class="form-check-label" for="materialInline2">No</label>
+            <div class="col-4">
+                <div class="form-group form-check-inline">
+                    <label>3.NOC Available </label>
+                </div>
+                @Html.Span("", Model.VehicleEntity.DocumentDetail != null && Model.VehicleEntity.DocumentDetail.IsNOCavailable ? "Yes" : "No", new { @class = "customtext" })
             </div>
         </div>
-        <div class="col-4">
-            <div class="form-group form-check-inline">
-                <label>3.If Yes: </label>
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="owners">4.No. of owners</label>
+                    @Html.Span("", Convert.ToString(Model.VehicleEntity.DocumentDetail != null ? Model.VehicleEntity.DocumentDetail.NoOfOwners : 0), new { @class = "customtext" })
+                </div>
             </div>
-            <div class="form-check form-check-inline">
-                @Html.LabelFor(x => x.VehicleEntity.DocumentDetail.IsNOCavailable, new { @class = "form-check-input" })
-                <label class="form-check-label" for="materialInline1">NOC available</label>
-            </div>
-            /
-            <div class="form-check form-check-inline">
-                @Html.LabelFor(x => x.VehicleEntity.DocumentDetail.IsNOCavailable, new { @class = "form-check-input" })
-                <label class="form-check-label" for="materialInline2">NOC not available</label>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">
-            <div class="form-group">
-                <label for="owners">4.No. of owners</label>
-                @Html.LabelFor(x => x.VehicleEntity.DocumentDetail.NoOfOwners, new { @class = "form-control mb-2" })
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="Keys">5.No.of Keys</label>
+                    @Html.Span("", Convert.ToString(Model.VehicleEntity.DocumentDetail != null ? Model.VehicleEntity.DocumentDetail.NoOfKeys : 0), new { @class = "customtext" })
+                </div>
             </div>
         </div>
-        <div class="col-6">
-            <div class="form-group">
-                <label for="Keys">5.No.of Keys</label>
-                @Html.LabelFor(x => x.VehicleEntity.DocumentDetail.NoOfKeys, new { @class = "form-control mb-2" })
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group form-check-inline">
+                    <label>6.Insurance:</label>
+                </div>
+                @Html.Span("", Model.VehicleEntity.DocumentDetail != null && Model.VehicleEntity.DocumentDetail.IsInsuranceAvailable ? "Yes" : "No", new { @class = "customtext" })
+            </div>
+            <div class="col-4">
+                <div class="form-group form-check-inline">
+                    <label>Insurance :</label>
+                </div>
+                @Html.Span("", Model.VehicleEntity.DocumentDetail != null && Model.VehicleEntity.DocumentDetail.IsComprehensive ? "Comprehensive" : "Third Party", new { @class = "customtext" })
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="date-picker-example1">b. Expiry Date:</label>
+                    @Html.SpanFor(x => x.VehicleEntity.DocumentDetail.InsuranceExpiryDate, "", new { @class = "customtext" })
+                </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-4">
-            <div class="form-group form-check-inline">
-                <label>6.Insurance:</label>
-            </div>
-            <div class="form-check form-check-inline">
-                @Html.LabelFor(x => x.VehicleEntity.DocumentDetail.IsInsuranceAvailable, new { @class = "form-check-input" })
-                <label class="form-check-label" for="materialInline1">Yes</label>
-            </div>
-            /
-            <div class="form-check form-check-inline">
-                @Html.LabelFor(x => x.VehicleEntity.DocumentDetail.IsInsuranceAvailable, new { @class = "form-check-input" })
-                <label class="form-check-label" for="materialInline2">No</label>
-            </div>
-        </div>
-        <div class="col-4">
-            <div class="form-group form-check-inline">
-                <label>a. If Yes :</label>
-            </div>
-            <div class="form-check form-check-inline">
-                @Html.LabelFor(x => x.VehicleEntity.DocumentDetail.IsComprehensive, new { @class = "form-check-input" })
-                <label class="form-check-label" for="materialInline1">Comprehensive</label>
-            </div>
-            /
-            <div class="form-check form-check-inline">
-                @Html.LabelFor(x => x.VehicleEntity.DocumentDetail.IsThirdParty, new { @class = "form-check-input" })
-                <label class="form-check-label" for="materialInline2">Third Party </label>
-            </div>
-        </div>
-        <div class="col-4">
-            <div class="form-group">
-                <label for="date-picker-example1">b. Expiry Date:</label>
-                @Html.LabelFor(x => x.VehicleEntity.DocumentDetail.InsuranceExpiryDate, new { @class = "form-control datepicker" })
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="card-body ui-widget-content topbuffer">
     <h4><b>Technical Details</b></h4>
@@ -252,19 +218,19 @@
         <div class="col-4">
             <div class="form-group">
                 <label for="Engine">1.Engine</label>
-                @Html.LabelFor(x => x.VehicleEntity.TechnicalDetail.Engine, new { @class = "form-control mb-2" })
+                @Html.SpanFor(x => x.VehicleEntity.TechnicalDetail.Engine, "", new { @class = "customtext" })
             </div>
         </div>
         <div class="col-4">
             <div class="form-group">
                 <label for="Body">2.Body</label>
-                @Html.LabelFor(x => x.VehicleEntity.TechnicalDetail.Body, new { @class = "form-control mb-2" })
+                @Html.SpanFor(x => x.VehicleEntity.TechnicalDetail.Body, "", new { @class = "customtext" })
             </div>
         </div>
         <div class="col-4">
             <div class="form-group">
                 <label for="Steering">3.Suspension & Steering System</label>
-                @Html.LabelFor(x => x.VehicleEntity.TechnicalDetail.SuspensionSteeringSystem, new { @class = "form-control mb-2" })
+                @Html.SpanFor(x => x.VehicleEntity.TechnicalDetail.SuspensionSteeringSystem, "", new { @class = "customtext" })
             </div>
         </div>
     </div>
@@ -272,19 +238,19 @@
         <div class="col-4">
             <div class="form-group">
                 <label for="Transmission">4.Transmission</label>
-                @Html.LabelFor(x => x.VehicleEntity.TechnicalDetail.Transmission, new { @class = "form-control mb-2" })
+                @Html.SpanFor(x => x.VehicleEntity.TechnicalDetail.Transmission, "", new { @class = "customtext" })
             </div>
         </div>
         <div class="col-4">
             <div class="form-group">
                 <label for="Electrical">5.Electrical</label>
-                @Html.LabelFor(x => x.VehicleEntity.TechnicalDetail.Electrical, new { @class = "form-control mb-2" })
+                @Html.SpanFor(x => x.VehicleEntity.TechnicalDetail.Electrical, "", new { @class = "customtext" })
             </div>
         </div>
         <div class="col-4">
             <div class="form-group">
                 <label for="AC">6.AC </label>
-                @Html.LabelFor(x => x.VehicleEntity.TechnicalDetail.AirCondition, new { @class = "form-control mb-2" })
+                @Html.SpanFor(x => x.VehicleEntity.TechnicalDetail.AirCondition, "", new { @class = "customtext" })
             </div>
         </div>
     </div>
@@ -292,19 +258,19 @@
         <div class="col-4">
             <div class="form-group">
                 <label for="Brakes">7.Brakes</label>
-                @Html.LabelFor(x => x.VehicleEntity.TechnicalDetail.Brakes, new { @class = "form-control mb-2" })
+                @Html.SpanFor(x => x.VehicleEntity.TechnicalDetail.Brakes, "", new { @class = "customtext" })
             </div>
         </div>
         <div class="col-4">
             <div class="form-group">
                 <label for="Condition">8.Tyres Condition</label>
-                @Html.LabelFor(x => x.VehicleEntity.TechnicalDetail.TyresCondition, new { @class = "form-control mb-2" })
+                @Html.SpanFor(x => x.VehicleEntity.TechnicalDetail.TyresCondition, "", new { @class = "customtext" })
             </div>
         </div>
         <div class="col-4">
             <div class="form-group">
                 <label for="Information">9. Other Information (if any) </label>
-                @Html.LabelFor(x => x.VehicleEntity.TechnicalDetail.OtherInformation, new { @class = "form-control mb-2" })
+                @Html.SpanFor(x => x.VehicleEntity.TechnicalDetail.OtherInformation, "", new { @class = "customtext" })
             </div>
         </div>
     </div>

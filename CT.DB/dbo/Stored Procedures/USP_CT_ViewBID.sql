@@ -19,14 +19,16 @@ BEGIN
 	SET NOCOUNT ON;
 	BEGIN TRY 
 		SET  @Status = 1;
-		Select ID,VehicleName,StockID,Description,IsActive,IsDealClosed from [CT_TRAN_Vehicle] where ID = @VehicleID and IsDelete = 0 and IsActive = 1;
-		Select * from CT_TRAN_VehicleDetail where VehicleID = @VehicleID;
+		Select * from [CT_TRAN_Vehicle] where ID = @VehicleID and IsDelete = 0 and IsActive = 1;
+		Select *,f.Type as FuelType from CT_TRAN_VehicleDetail vd
+		join CT_SYS_FuelType f on vd.FuelTypeID = f.ID
+		where VehicleID = @VehicleID;
 		Select * from CT_TRAN_VehicleImage where VehicleID = @VehicleID;
 		Select * from CT_TRAN_DocumentDetail where VehicleID = @VehicleID;
 		Select * from CT_TRAN_TechnicalDetails where VehicleID = @VehicleID;
 		with cte as
 		(Select bid.ID,veh.VehicleName,veh.StockID,usr.UserName as DealerName,bid.BIDAmount,bid.CreatedOn,
-		ROW_NUMBER() over (partition by bid.DealerID order by bid.CreatedOn desc) as ron
+		ROW_NUMBER() over (partition by bid.DealerID order by bid.BIDAmount desc) as ron
 		from CT_TRAN_VehicleBID bid
 		join CT_TRAN_Vehicle veh on bid.VehicleID = veh.ID
 		join CT_TRAN_User usr on bid.DealerID = usr.ID

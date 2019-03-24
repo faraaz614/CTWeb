@@ -51,6 +51,14 @@ else if (@ReturnType = 'dealclosed')
 	begin
 	SET @Message='Deal is closed for this car';
 	end
+else if (@ReturnType = 'bidclosed')
+	begin
+	SET @Message='BID Closed';
+	end
+else if (@ReturnType = 'enterhigherbid')
+	begin
+	SET @Message='Your BID Amount should be higher than previous BID Amount';
+	end
 else
     begin
 	SET @Message='Operation Successfull';
