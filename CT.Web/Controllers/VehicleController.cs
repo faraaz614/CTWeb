@@ -2,6 +2,7 @@
 using CT.Common.Entities;
 using CT.Service.UserService;
 using CT.Service.VehicleService;
+using CT.Web.Models;
 using Newtonsoft.Json;
 using System;
 using System.Configuration;

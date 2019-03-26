@@ -1,9 +1,13 @@
 ﻿using CT.Common.Common;
 using CT.Common.Entities;
 using CT.Service.UserService;
+using CT.Web.Models;
 using Newtonsoft.Json;
 using System;
+using System.Configuration;
 using System.IO;
+using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -170,6 +174,9 @@ namespace CT.Web.Controllers
                     BidID = BidID
                 };
                 BaseVehicleBIDEntity baseVehicleBIDEntity = new UserService().CloseBID(vehicleBIDEntity);
+                BaseUserEntity baseUserEntity = new UserService().GetUserTokenByID(BidID);
+                if (!String.IsNullOrWhiteSpace(baseUserEntity.refreshedToken))
+                    new FBNotification().SendDealClosedNotification(baseUserEntity.refreshedToken);
             }
             return RedirectToAction("ViewBID", new { VehicleID = VehicleID });
         }

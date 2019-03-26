@@ -209,5 +209,13 @@ namespace CT.APIService.Controllers
 
             }
         }
+
+        [HttpGet]
+        public IHttpActionResult SaveRegistration(string refreshedToken, int UserID, int RoleID)
+        {
+            VehicleBIDEntity model = new VehicleBIDEntity { refreshedToken = refreshedToken, UserID = UserID, RoleID = RoleID };
+            BaseVehicleBIDEntity baseVehicleBIDEntity = _userService.SaveRegistration(model);
+            return Ok(baseVehicleBIDEntity);
+        }
     }
 }

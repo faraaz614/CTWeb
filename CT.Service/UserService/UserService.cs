@@ -358,7 +358,7 @@ namespace CT.Service.UserService
                 param.Add("@BIDAmount", vehicleEntity.BIDAmount);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
-                entity.GenericErrorInfo = GetSingleItem<GenericErrorInfo>(CommandType.StoredProcedure, UserLiterals.SaveBIDByUserID, param);
+                entity.VehicleEntity = GetSingleItem<VehicleEntity>(CommandType.StoredProcedure, UserLiterals.SaveBIDByUserID, param);
                 entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
                 entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
                 Log.Info("----Info SaveBIDByUserID method Exit----");
@@ -406,6 +406,69 @@ namespace CT.Service.UserService
                 entity.ResponseStatus.Status = 0;
                 entity.ResponseStatus.Message = ex.Message;
                 Log.Error("Error in CloseBID Method");
+                Log.Error("Error occured time : " + DateTime.UtcNow);
+                Log.Error("Error message : " + ex.Message);
+                Log.Error("Error StackTrace : " + ex.StackTrace);
+                return entity;
+            }
+        }
+
+        public BaseVehicleBIDEntity SaveRegistration(VehicleBIDEntity vehicleEntity)
+        {
+            BaseVehicleBIDEntity entity = new BaseVehicleBIDEntity();
+            try
+            {
+                Log.Info("----Info SaveRegistration method start----");
+                Log.Info("@UserID" + vehicleEntity.UserID);
+                Log.Info("@RoleID" + vehicleEntity.RoleID);
+                Log.Info("Store Proc Name : USP_CT_SaveBIDByUserID");
+                DynamicParameters param = new DynamicParameters();
+                param.Add("@UserID", vehicleEntity.UserID);
+                param.Add("@RoleID", vehicleEntity.RoleID);
+                param.Add("@refreshedToken", vehicleEntity.refreshedToken);
+                param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
+                entity.GenericErrorInfo = GetSingleItem<GenericErrorInfo>(CommandType.StoredProcedure, UserLiterals.SaveRegistration, param);
+                entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
+                entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
+                Log.Info("----Info SaveRegistration method Exit----");
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                entity.ResponseStatus.Status = 0;
+                entity.ResponseStatus.Message = ex.Message;
+                Log.Error("Error in SaveRegistration Method");
+                Log.Error("Error occured time : " + DateTime.UtcNow);
+                Log.Error("Error message : " + ex.Message);
+                Log.Error("Error StackTrace : " + ex.StackTrace);
+                return entity;
+            }
+        }
+
+        public BaseUserEntity GetUserTokenByID(long UserID)
+        {
+            BaseUserEntity entity = new BaseUserEntity();
+            try
+            {
+                Log.Info("----Info GetUserTokenByID method start----");
+                Log.Info("@UserID" + UserID);
+                Log.Info("Store Proc Name : USP_CT_GetUserByID");
+                DynamicParameters param = new DynamicParameters();
+                param.Add("@UserID", UserID);
+                param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
+                entity.refreshedToken = GetSingleItem<string>(CommandType.StoredProcedure, UserLiterals.GetUserTokenByID, param);
+                entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
+                entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
+                Log.Info("----Info GetUserTokenByID method Exit----");
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                entity.ResponseStatus.Status = 0;
+                entity.ResponseStatus.Message = ex.Message;
+                Log.Error("Error in GetUserTokenByID Method");
                 Log.Error("Error occured time : " + DateTime.UtcNow);
                 Log.Error("Error message : " + ex.Message);
                 Log.Error("Error StackTrace : " + ex.StackTrace);
