@@ -25,6 +25,20 @@ namespace CT.APIService.Controllers
             _VehicleService = new VehicleService();
         }
 
+        public IHttpActionResult GetVehicles(int UserID, int RoleID, string SearchText, int PageNo = 1)
+        {
+            VehicleEntity model = new VehicleEntity { UserID = UserID, RoleID = RoleID, SearchText = SearchText, PageNo = PageNo, PageSize = 10 };
+            var baseVehicleEntity = _VehicleService.GetVehicles(model);
+            return Ok(baseVehicleEntity);
+        }
+
+        public IHttpActionResult GetVehicleByID(int ID, int UserID, int RoleID)
+        {
+            VehicleEntity model = new VehicleEntity { ID = ID, UserID = UserID, RoleID = RoleID };
+            BaseVehicleEntity baseVehicleEntity = _VehicleService.GetVehicleByID(model);
+            return Ok(baseVehicleEntity);
+        }
+
         [HttpPost]
         public IHttpActionResult InsertUpdateVehicle()
         {
@@ -75,6 +89,8 @@ namespace CT.APIService.Controllers
             }
         }
 
+        //---------------------------------------------------------------------------------------------------------//
+
         public IHttpActionResult DeleteVehicleByID(int ID, int UserID, int RoleID)
         {
             return RunInSafe(() =>
@@ -85,20 +101,6 @@ namespace CT.APIService.Controllers
                 cTApiResponse.IsSuccess = true;
                 return Ok(cTApiResponse);
             });
-        }
-
-        public IHttpActionResult GetVehicleByID(int ID, int UserID, int RoleID)
-        {
-            VehicleEntity model = new VehicleEntity { ID = ID, UserID = UserID, RoleID = RoleID };
-            BaseVehicleEntity baseVehicleEntity = _VehicleService.GetVehicleByID(model);
-            return Ok(baseVehicleEntity);
-        }
-
-        public IHttpActionResult GetVehicles(int UserID, int RoleID, string SearchText, int PageNo = 1)
-        {
-            VehicleEntity model = new VehicleEntity { UserID = UserID, RoleID = RoleID, SearchText = SearchText, PageNo = PageNo, PageSize = 10 };
-            var baseVehicleEntity = _VehicleService.GetVehicles(model);
-            return Ok(baseVehicleEntity);
         }
 
         [HttpPost]
