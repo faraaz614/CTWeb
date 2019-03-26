@@ -18,5 +18,6 @@
         public const string Deactive_Delete_Close_Vehicle = "USP_CT_DeActive_Delete_Close_Vehicle";
         public const string SaveRegistration = "USP_CT_SaveRegistration";
         public const string GetUserTokenByID = "USP_CT_GetUserTokenByID";
+        public const string CloseDealByTimer = "USP_CT_CloseDealByTimer";
     }
 }

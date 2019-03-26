@@ -475,5 +475,32 @@ namespace CT.Service.UserService
                 return entity;
             }
         }
+
+        public BaseUserEntity CloseDealByTimer()
+        {
+            BaseUserEntity entity = new BaseUserEntity();
+            try
+            {
+                Log.Info("----Info CloseDealByTimer method start----");
+                DynamicParameters param = new DynamicParameters();
+                param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
+                entity.ListUsers = GetItems<UserEntity>(CommandType.StoredProcedure, UserLiterals.CloseDealByTimer, param).ToList();
+                entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
+                entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
+                Log.Info("----Info CloseDealByTimer method Exit----");
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                entity.ResponseStatus.Status = 0;
+                entity.ResponseStatus.Message = ex.Message;
+                Log.Error("Error in CloseDealByTimer Method");
+                Log.Error("Error occured time : " + DateTime.UtcNow);
+                Log.Error("Error message : " + ex.Message);
+                Log.Error("Error StackTrace : " + ex.StackTrace);
+                return entity;
+            }
+        }
     }
 }

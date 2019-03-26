@@ -53,7 +53,7 @@ namespace CT.Common.Common
         [DataType(DataType.PhoneNumber)]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Alternate Mobile is not valid")]
         public string Mobile2 { get; set; }
-
+        public string token { get; set; }
         public bool IsActive { get; set; }
         public long CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }

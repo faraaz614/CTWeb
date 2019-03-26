@@ -31,7 +31,7 @@ namespace CT.APIService.Controllers
 
         public IHttpActionResult GetDealers(int UserID, int RoleID, string SearchText, int PageNo = 1)
         {
-            UserEntity model = new UserEntity { UserID = UserID, RoleID = RoleID, SearchText = SearchText, PageNo = PageNo, PageSize = 10 };
+            UserEntity model = new UserEntity { UserID = UserID, RoleID = RoleID, SearchText = SearchText, PageNo = PageNo, PageSize = 10, Sort = "" };
             var data = _userService.GetDealers(model);
             return Ok(data);
         }
@@ -180,6 +180,21 @@ namespace CT.APIService.Controllers
             VehicleBIDEntity model = new VehicleBIDEntity { refreshedToken = refreshedToken, UserID = UserID, RoleID = RoleID };
             BaseVehicleBIDEntity baseVehicleBIDEntity = _userService.SaveRegistration(model);
             return Ok(baseVehicleBIDEntity);
+        }
+
+        [HttpGet]
+        public IHttpActionResult CloseDealByTimer()
+        {
+            BaseUserEntity baseUserEntity = _userService.CloseDealByTimer();
+            if (baseUserEntity.ResponseStatus.Status == 1)
+            {
+                Task.Factory.StartNew(() =>
+                {
+                    new FBNotification().SuccessDealClosed(baseUserEntity.ListUsers[0].token);
+                    new FBNotification().LostDealClosed(baseUserEntity.ListUsers[1].token);
+                });
+            }
+            return Ok(baseUserEntity);
         }
 
         //---------------------------------------------------------------------------------------------------------//

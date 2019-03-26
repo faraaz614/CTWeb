@@ -52,3 +52,5 @@ D:\Project Rafeeq\cartimez web\CTWeb\CT.Service\obj\Debug\CT.Service.csproj.Core
 D:\Project Rafeeq\cartimez web\CTWeb\CT.Service\obj\Debug\CT.Service.csproj.CopyComplete
 D:\Project Rafeeq\cartimez web\CTWeb\CT.Service\obj\Debug\CT.Service.dll
 D:\Project Rafeeq\cartimez web\CTWeb\CT.Service\obj\Debug\CT.Service.pdb
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\bin\Debug\Newtonsoft.Json.dll
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\bin\Debug\Newtonsoft.Json.xml

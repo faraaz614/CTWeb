@@ -14,3 +14,6 @@ D:\Project Rafeeq\cartimez web\CTWeb\CT.Common\obj\Debug\CT.Common.csproj.CopyCo
 D:\Project Rafeeq\cartimez web\CTWeb\CT.Common\obj\Debug\CT.Common.dll
 D:\Project Rafeeq\cartimez web\CTWeb\CT.Common\obj\Debug\CT.Common.pdb
 D:\Project Rafeeq\cartimez web\CTWeb\CT.Common\obj\Debug\CT.Common.csprojAssemblyReference.cache
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Common\bin\Debug\Newtonsoft.Json.dll
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Common\bin\Debug\Newtonsoft.Json.xml
+C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Common\obj\Debug\CT.Common.csprojResolveAssemblyReference.cache
