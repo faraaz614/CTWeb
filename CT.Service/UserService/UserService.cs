@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CT.Service.UserService
 {
@@ -212,7 +213,7 @@ namespace CT.Service.UserService
                 return entity;
             }
         }
-        
+
         public BaseVehicleBIDEntity GetBIDS(UserEntity userEntity)
         {
             BaseVehicleBIDEntity entity = new BaseVehicleBIDEntity();
@@ -376,29 +377,32 @@ namespace CT.Service.UserService
             }
         }
 
-        public BaseVehicleBIDEntity CloseBID(VehicleBIDEntity vehicleEntity)
+        public BaseUserEntity CloseBID(long BidID)
         {
-            BaseVehicleBIDEntity entity = new BaseVehicleBIDEntity();
+            BaseUserEntity entity = new BaseUserEntity();
             try
             {
                 Log.Info("----Info CloseBID method start----");
-                Log.Info("@UserID" + vehicleEntity.UserID);
-                Log.Info("@RoleID" + vehicleEntity.RoleID);
-                Log.Info("@VehicleID" + vehicleEntity.VehicleID);
-                Log.Info("@BIDAmount" + vehicleEntity.BIDAmount);
-                Log.Info("Store Proc Name : USP_CT_DeActive_Delete_Close_Vehicle");
+                Log.Info("@BidID" + BidID);
+                Log.Info("Store Proc Name : USP_CT_CloseBID");
                 DynamicParameters param = new DynamicParameters();
-                param.Add("@UserID", vehicleEntity.UserID);
-                param.Add("@RoleID", vehicleEntity.RoleID);
-                param.Add("@VehicleID", vehicleEntity.VehicleID);
-                param.Add("@Action", vehicleEntity.VechileStatus);
-                param.Add("@BidID", vehicleEntity.BidID);
+                param.Add("@BidID", BidID);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
-                entity.GenericErrorInfo = GetSingleItem<GenericErrorInfo>(CommandType.StoredProcedure, UserLiterals.Deactive_Delete_Close_Vehicle, param);
+                entity.ListUsers = GetItems<UserEntity>(CommandType.StoredProcedure, UserLiterals.CloseBID, param).ToList();
                 entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
                 entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
                 Log.Info("----Info CloseBID method Exit----");
+                if (entity.ResponseStatus.Status == 1)
+                {
+                    foreach (var user in entity.ListUsers)
+                    {
+                        Task.Factory.StartNew(() =>
+                        {
+                            new FBNotification().SendDealClosedNotification(user.token, user.IsActive);
+                        });
+                    }
+                }
                 return entity;
             }
             catch (Exception ex)
@@ -446,56 +450,37 @@ namespace CT.Service.UserService
             }
         }
 
-        public BaseUserEntity GetUserTokenByID(long UserID)
+        public BaseVehicleBIDEntity DeActivateVehicleByID(VehicleBIDEntity vehicleEntity)
         {
-            BaseUserEntity entity = new BaseUserEntity();
+            BaseVehicleBIDEntity entity = new BaseVehicleBIDEntity();
             try
             {
-                Log.Info("----Info GetUserTokenByID method start----");
-                Log.Info("@UserID" + UserID);
-                Log.Info("Store Proc Name : USP_CT_GetUserByID");
+                Log.Info("----Info DeActivateVehicleByID method start----");
+                Log.Info("@UserID" + vehicleEntity.UserID);
+                Log.Info("@RoleID" + vehicleEntity.RoleID);
+                Log.Info("@VehicleID" + vehicleEntity.VehicleID);
+                Log.Info("@BIDAmount" + vehicleEntity.BIDAmount);
+                Log.Info("Store Proc Name : USP_CT_DeActive_Delete_Close_Vehicle");
+                Log.Info("Store Proc Name : USP_CT_CloseBID");
                 DynamicParameters param = new DynamicParameters();
-                param.Add("@UserID", UserID);
+                param.Add("@UserID", vehicleEntity.UserID);
+                param.Add("@RoleID", vehicleEntity.RoleID);
+                param.Add("@VehicleID", vehicleEntity.VehicleID);
+                param.Add("@Action", vehicleEntity.VechileStatus);
+                param.Add("@BidID", vehicleEntity.BidID);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
-                entity.refreshedToken = GetSingleItem<string>(CommandType.StoredProcedure, UserLiterals.GetUserTokenByID, param);
+                entity.GenericErrorInfo = GetSingleItem<GenericErrorInfo>(CommandType.StoredProcedure, UserLiterals.Deactive_Delete_Close_Vehicle, param);
                 entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
                 entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
-                Log.Info("----Info GetUserTokenByID method Exit----");
+                Log.Info("----Info DeActivateVehicleByID method Exit----");
                 return entity;
             }
             catch (Exception ex)
             {
                 entity.ResponseStatus.Status = 0;
                 entity.ResponseStatus.Message = ex.Message;
-                Log.Error("Error in GetUserTokenByID Method");
-                Log.Error("Error occured time : " + DateTime.UtcNow);
-                Log.Error("Error message : " + ex.Message);
-                Log.Error("Error StackTrace : " + ex.StackTrace);
-                return entity;
-            }
-        }
-
-        public BaseUserEntity CloseDealByTimer()
-        {
-            BaseUserEntity entity = new BaseUserEntity();
-            try
-            {
-                Log.Info("----Info CloseDealByTimer method start----");
-                DynamicParameters param = new DynamicParameters();
-                param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
-                param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
-                entity.ListUsers = GetItems<UserEntity>(CommandType.StoredProcedure, UserLiterals.CloseDealByTimer, param).ToList();
-                entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
-                entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
-                Log.Info("----Info CloseDealByTimer method Exit----");
-                return entity;
-            }
-            catch (Exception ex)
-            {
-                entity.ResponseStatus.Status = 0;
-                entity.ResponseStatus.Message = ex.Message;
-                Log.Error("Error in CloseDealByTimer Method");
+                Log.Error("Error in DeActivateVehicleByID Method");
                 Log.Error("Error occured time : " + DateTime.UtcNow);
                 Log.Error("Error message : " + ex.Message);
                 Log.Error("Error StackTrace : " + ex.StackTrace);

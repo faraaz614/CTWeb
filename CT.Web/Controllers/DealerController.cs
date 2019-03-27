@@ -163,20 +163,9 @@ namespace CT.Web.Controllers
 
         public ActionResult CloseBID(long VehicleID, long BidID)
         {
-            if (VehicleID > 0)
+            if (BidID > 0)
             {
-                VehicleBIDEntity vehicleBIDEntity = new VehicleBIDEntity
-                {
-                    RoleID = User.RoleId,
-                    UserID = User.UserId,
-                    VehicleID = VehicleID,
-                    VechileStatus = (int)VehicleStatus.CloseDeal,
-                    BidID = BidID
-                };
-                BaseVehicleBIDEntity baseVehicleBIDEntity = new UserService().CloseBID(vehicleBIDEntity);
-                BaseUserEntity baseUserEntity = new UserService().GetUserTokenByID(BidID);
-                if (!String.IsNullOrWhiteSpace(baseUserEntity.refreshedToken))
-                    new FBNotification().SendDealClosedNotification(baseUserEntity.refreshedToken);
+                BaseUserEntity baseUserEntity = new UserService().CloseBID(BidID);
             }
             return RedirectToAction("ViewBID", new { VehicleID = VehicleID });
         }

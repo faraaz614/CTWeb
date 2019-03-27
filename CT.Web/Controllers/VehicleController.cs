@@ -81,7 +81,7 @@ namespace CT.Web.Controllers
                     VechileStatus = (int)VehicleStatus.DeActive,
                     VehicleID = vechileID
                 };
-                baseVehicleBIDEntity = new UserService().CloseBID(vehicleBIDEntity);
+                baseVehicleBIDEntity = new UserService().DeActivateVehicleByID(vehicleBIDEntity);
                 if (baseVehicleBIDEntity.ResponseStatus.Status == 1)
                     TempData[CT.Web.Common.CommonUtility.Success.ToString()] = baseVehicleBIDEntity.ResponseStatus.Message;
                 else

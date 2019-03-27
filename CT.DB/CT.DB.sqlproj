@@ -116,6 +116,6 @@
     <Build Include="Security\IIS APPPOOL_cartimez.sql" />
     <Build Include="dbo\Tables\CT_TRAN_UserToken.sql" />
     <Build Include="dbo\Stored Procedures\USP_CT_SaveRegistration.sql" />
-    <Build Include="dbo\Stored Procedures\USP_CT_GetUserTokenByID.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_CloseBID.sql" />
   </ItemGroup>
 </Project>

@@ -185,15 +185,7 @@ namespace CT.APIService.Controllers
         [HttpGet]
         public IHttpActionResult CloseDealByTimer()
         {
-            BaseUserEntity baseUserEntity = _userService.CloseDealByTimer();
-            if (baseUserEntity.ResponseStatus.Status == 1)
-            {
-                Task.Factory.StartNew(() =>
-                {
-                    new FBNotification().SuccessDealClosed(baseUserEntity.ListUsers[0].token);
-                    new FBNotification().LostDealClosed(baseUserEntity.ListUsers[1].token);
-                });
-            }
+            BaseUserEntity baseUserEntity = new UserService().CloseBID(0);
             return Ok(baseUserEntity);
         }
 
