@@ -35,7 +35,7 @@ BEGIN
 		begin
 			SET @Message = dbo.UDF_CT_SuccessMessage('dealclosed');	
 		end 
-		else if (@PreviousBidAmount > @BIDAmount)
+		else if (@PreviousBidAmount >= @BIDAmount)
 		begin
 			SET @Message = dbo.UDF_CT_SuccessMessage('enterhigherbid');			
 		end

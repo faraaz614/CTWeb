@@ -54,3 +54,4 @@ C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\obj\Debu
 C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\obj\Debug\CT.Service.csproj.CoreCompileInputs.cache
 C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\obj\Debug\CT.Service.dll
 C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.Service\obj\Debug\CT.Service.pdb
+D:\Project Rafeeq\cartimez web\CTWeb\CT.Service\bin\Debug\Newtonsoft.Json.dll

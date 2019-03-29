@@ -109,14 +109,14 @@ namespace CT.APIService.Controllers
             {
                 Task.Factory.StartNew(() =>
                 {
-                    BidNotification(VehicleID, BidAmount);
+                    BidNotification(VehicleID, BidAmount, baseVehicleBIDEntity.VehicleEntity.BidTimeMilliSecs);
                 });
             }
             return Ok(baseVehicleBIDEntity);
         }
 
         //to update current bid in android app
-        private static void BidNotification(int VehicleID, decimal BidAmount)
+        private static void BidNotification(int VehicleID, decimal BidAmount, long? BidTimeMilliSecs)
         {
             try
             {
@@ -144,7 +144,9 @@ namespace CT.APIService.Controllers
                     },
                     data = new
                     {
-                        list = VehicleID + "~" + BidAmount,
+                        VehicleID,
+                        BidAmount,
+                        BidTimeMilliSecs
                     },
                 };
                 string postbody = JsonConvert.SerializeObject(payload).ToString();
