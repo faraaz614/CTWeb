@@ -3,6 +3,8 @@
     ViewBag.Title = "AddVehicle";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var fuellist = Model.FuelTypeList.Select(x => new SelectListItem { Value = x.ID.ToString(), Text = x.Value }).ToList();
+    var hypo = Model.DocumentDetail != null ? Model.DocumentDetail.Hypothication ? "block" : "none" : "none";
+    var ins = Model.DocumentDetail != null ? Model.DocumentDetail.IsInsuranceAvailable ? "block" : "none" : "none";
 }
 
 <hr />
@@ -154,11 +156,11 @@
         using (Html.BeginForm("AddVehicleDocument", "Vehicle", FormMethod.Post))
         {
             @Html.HiddenFor(x => x.ID)
-            <input type="hidden" name="DocumentDetail.IsRCavailable" value="true" />
-            <input type="hidden" name="DocumentDetail.Hypothication" value="true" />
-            <input type="hidden" name="DocumentDetail.IsNOCavailable" value="true" />
-            <input type="hidden" name="DocumentDetail.IsInsuranceAvailable" value="true" />
-            <input type="hidden" name="DocumentDetail.IsComprehensive" value="true" />
+            <input type="hidden" name="DocumentDetail.IsRCavailable" value="@(Model.DocumentDetail != null ? Model.DocumentDetail.IsRCavailable ? "true" : "false" : "false")" />
+            <input type="hidden" name="DocumentDetail.Hypothication" value="@(Model.DocumentDetail != null ? Model.DocumentDetail.Hypothication ? "true" : "false" : "false")" />
+            <input type="hidden" name="DocumentDetail.IsNOCavailable" value="@(Model.DocumentDetail != null ? Model.DocumentDetail.IsNOCavailable ? "true" : "false" : "false")" />
+            <input type="hidden" name="DocumentDetail.IsInsuranceAvailable" value="@(Model.DocumentDetail != null ? Model.DocumentDetail.IsInsuranceAvailable ? "true" : "false" : "false")" />
+            <input type="hidden" name="DocumentDetail.IsComprehensive" value="@(Model.DocumentDetail != null ? Model.DocumentDetail.IsComprehensive ? "true" : "false" : "false")" />
             <div class="row">
                 <div class="card-body">
                     <div class="form-row align-items-center">
@@ -177,10 +179,10 @@
                             </div>
                         </div>
                         <div class="col-4">
-                            <div class="form-group">
+                            <div class="form-group hypothication">
                                 <label for="form1">2.Hypothication&nbsp;&nbsp;&nbsp;</label>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input docdetail" id="Hypothication1" value="true" name="Hypothication" @(Model.DocumentDetail != null ? Model.DocumentDetail != null ? Model.DocumentDetail.Hypothication ? "checked" : "" : "" : "")>
+                                    <input type="radio" class="custom-control-input docdetail" id="Hypothication1" value="true" name="Hypothication" @(Model.DocumentDetail != null ? Model.DocumentDetail.Hypothication ? "checked" : "" : "")>
                                     <label class="custom-control-label" for="Hypothication1">Yes</label>
                                 </div>
                                 /
@@ -191,7 +193,7 @@
                             </div>
                         </div>
                         <div class="col-4">
-                            <div class="form-group">
+                            <div class="form-group ifhypothication" style="display:@hypo">
                                 <label for="form1">3.If Yes:&nbsp;&nbsp;&nbsp;</label>
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" class="custom-control-input docdetail" id="IsNOCavailable1" value="true" name="IsNOCavailable" @(Model.DocumentDetail != null ? Model.DocumentDetail.IsNOCavailable ? "checked" : "" : "")>
@@ -221,7 +223,7 @@
                     </div>
                     <div class="form-row align-items-center">
                         <div class="col-4">
-                            <div class="form-group">
+                            <div class="form-group insurance">
                                 <label for="form1">6.Insurance:&nbsp;&nbsp;&nbsp;</label>
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" class="custom-control-input docdetail" id="IsInsuranceAvailable1" value="true" name="IsInsuranceAvailable" @(Model.DocumentDetail != null ? Model.DocumentDetail.IsInsuranceAvailable ? "checked" : "" : "")>
@@ -235,7 +237,7 @@
                             </div>
                         </div>
                         <div class="col-4">
-                            <div class="form-group">
+                            <div class="form-group ifinsurance" style="display:@ins">
                                 <label for="form1">a. If Yes :&nbsp;&nbsp;&nbsp;</label>
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" class="custom-control-input docdetail" id="IsComprehensive1" value="true" name="IsComprehensive" @(Model.DocumentDetail != null ? Model.DocumentDetail.IsComprehensive ? "checked" : "" : "")>
@@ -249,7 +251,7 @@
                             </div>
                         </div>
                         <div class="col-4">
-                            <div class="form-group">
+                            <div class="form-group ifinsurance" style="display:@ins">
                                 <label for="date-picker-example1">b. Expiry Date:</label>
                                 @Html.TextBoxFor(x => x.DocumentDetail.InsuranceExpiryDate, new { @class = "form-control" })
                             </div>

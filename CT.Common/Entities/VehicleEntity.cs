@@ -97,7 +97,7 @@ namespace CT.Common.Entities
                 {
                     foreach (var item in BIDs.AllKeys)
                     {
-                        BIDitems.Add(new SelectListItem { Text = item, Value = BIDs[item], Selected = (Convert.ToInt32(BIDs[item]) == 30 ? true : false) });
+                        BIDitems.Add(new SelectListItem { Text = item, Value = BIDs[item] });
                     }
                 }
             }

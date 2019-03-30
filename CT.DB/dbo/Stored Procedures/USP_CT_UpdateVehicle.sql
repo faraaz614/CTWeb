@@ -28,7 +28,7 @@ BEGIN
 				SET  @Status = 1;
 				Update CT_TRAN_Vehicle set VehicleName = @VehicleName,Description = @Description,
 				IsBiddable = (case when GETDATE() < DATEADD(MINUTE,@minutes,GETDATE()) then 1 else 0 end),
-				BidTime = DATEADD(MINUTE,@minutes,GETDATE()),ModifiedBy = @UserID, IsActive = @IsActive,
+				BidTime = DATEADD(MINUTE,@minutes,GETDATE()),BidDurationID = @minutes,ModifiedBy = @UserID, IsActive = @IsActive,
 				ModifiedOn = GETDATE() where ID = @VehicleID;
 				SET @Message = dbo.UDF_CT_SuccessMessage('update') ;
 			end

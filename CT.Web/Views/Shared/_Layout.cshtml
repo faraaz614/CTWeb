@@ -577,7 +577,42 @@
             $(".docdetail").on("click", function () {
                 var name = $(this).attr("name");
                 $('input[name="DocumentDetail.' + name + '"]').val($(this).val());
+                if (name === "Hypothication") {
+                    if ($(this).val() == "true") {
+                        $(".ifhypothication").css("display", "block");
+                    }
+                    else {
+                        $(".ifhypothication").css("display", "none");
+                    }
+                }
+                if (name === "IsInsuranceAvailable") {
+                    if ($(this).val() == "true") {
+                        $(".ifinsurance").css("display", "block");
+                    }
+                    else {
+                        $(".ifinsurance").css("display", "none");
+                    }
+                }
             });
+
+            //$(".hypothication input[name='Hypothication']").click(function () {
+            //    if ($('input:radio[name=Hypothication]:checked').val() == "true") {
+            //        $(".ifhypothication").css("display","block");
+            //    }
+            //    else {
+            //        $(".ifhypothication").css("display", "none");
+            //    }
+            //});
+
+            //$(".insurance input[name='IsInsuranceAvailable']").click(function () {
+            //    if ($('input:radio[name=IsInsuranceAvailable]:checked').val() == "true") {
+            //        $(".ifinsurance").css("display", "block");
+            //    }
+            //    else {
+            //        $(".ifinsurance").css("display", "none");
+            //    }
+            //});
+
         });
     </script>
 </body>

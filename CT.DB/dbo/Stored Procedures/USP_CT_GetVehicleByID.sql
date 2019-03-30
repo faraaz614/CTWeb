@@ -21,7 +21,7 @@ BEGIN
 		SET  @Status = 1;
 		Declare @SQLQuery nvarchar(max);
 		set @SQLQuery = 'Select ID,VehicleName,StockID,Description,BidTime,(CAST(Datediff(s, GETDATE(), BidTime) AS BIGINT)*1000) as BidTimeMilliSecs,
-		case when DATEDIFF(MINUTE,GETDATE(),BidTime) > 30 then 60 else 30 end as BidDurationID,IsActive,IsDealClosed 
+		BidDurationID,IsActive,IsDealClosed 
 		from [CT_TRAN_Vehicle] where ID = '+CONVERT(varchar(10), @VehicleID)+' and IsDelete = 0 ';
 
 		if(@RoleID = 3)

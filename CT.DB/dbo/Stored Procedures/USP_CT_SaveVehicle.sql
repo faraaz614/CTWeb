@@ -19,8 +19,8 @@ BEGIN
 		SET  @Status = 1;  
 		If not exists(SELECT * FROM CT_TRAN_Vehicle WHERE VehicleName = @VehicleName and StockID = @StockID and IsActive = 1)
 			begin
-				INSERT INTO CT_TRAN_Vehicle(VehicleName,StockID,Description,IsDealClosed,IsActive,IsDelete,IsBiddable,BidTime,CreatedOn,CreatedBy,ModifiedOn,ModifiedBy)
-				SELECT @VehicleName,@StockID,@Description,0,@IsActive,0,1,DATEADD(MINUTE,@minutes,GETDATE()),GETDATE(),@UserID,GETDATE(),@UserID;
+				INSERT INTO CT_TRAN_Vehicle(VehicleName,StockID,Description,IsDealClosed,IsActive,IsDelete,IsBiddable,BidTime,BidDurationID,CreatedOn,CreatedBy,ModifiedOn,ModifiedBy)
+				SELECT @VehicleName,@StockID,@Description,0,@IsActive,0,1,DATEADD(MINUTE,@minutes,GETDATE()),@minutes,GETDATE(),@UserID,GETDATE(),@UserID;
 				SET @Message = dbo.UDF_CT_SuccessMessage('insert') ;
 			end
 		else
