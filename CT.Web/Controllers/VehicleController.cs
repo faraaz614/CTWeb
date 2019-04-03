@@ -261,71 +261,23 @@ namespace CT.Web.Controllers
 
         public ActionResult SendNotification(long vehicleID, string body)
         {
-            string fcm_url = ConfigurationManager.AppSettings["fcm_url"];
-            string Authorization = ConfigurationManager.AppSettings["Authorization"];
-            string Sender = ConfigurationManager.AppSettings["Sender"];
-            string title = ConfigurationManager.AppSettings["NotificationTitle"];
-
-            WebRequest tRequest = WebRequest.Create(fcm_url);
-            tRequest.Method = "post";
-            //serverKey - Key from Firebase cloud messaging server  
-            tRequest.Headers.Add(string.Format("Authorization: key={0}", Authorization));
-            //Sender Id - From firebase project setting  
-            tRequest.Headers.Add(string.Format("Sender: id={0}", Sender));
-            tRequest.ContentType = "application/json";
-            var payload = new
+            int result = new FBNotification().SendDealClosedNotification("/topics/cartimez", body, false);
+            if (result == 1)
             {
-                to = "/topics/cartimez", // or generated token
-                priority = "high",
-                content_available = true,
-                notification = new
+                NotificationEntity notificationEntity = new NotificationEntity
                 {
-                    body = body,
-                    title = title,
-                    badge = 1
-                },
-                data = new
-                {
-                    list = User.Identity.Name,
-                },
-            };
-            string postbody = JsonConvert.SerializeObject(payload).ToString();
-            Byte[] byteArray = Encoding.UTF8.GetBytes(postbody);
-            tRequest.ContentLength = byteArray.Length;
-            using (Stream dataStream = tRequest.GetRequestStream())
-            {
-                dataStream.Write(byteArray, 0, byteArray.Length);
-                using (WebResponse tResponse = tRequest.GetResponse())
-                {
-                    using (Stream dataStreamResponse = tResponse.GetResponseStream())
-                    {
-                        if (dataStreamResponse != null)
-                        {
-                            using (StreamReader tReader = new StreamReader(dataStreamResponse))
-                            {
-                                String sResponseFromServer = tReader.ReadToEnd();
-                                if (sResponseFromServer.Contains("message_id"))
-                                {
-                                    NotificationEntity notificationEntity = new NotificationEntity
-                                    {
-                                        UserID = User.UserId,
-                                        RoleID = User.RoleId,
-                                        VehicleID = vehicleID,
-                                        Body = body,
-                                        Title = title
-                                    };
-                                    BaseEntity baseEntity = new VehicleService().AddNotification(notificationEntity);
-                                    TempData[CT.Web.Common.CommonUtility.Success.ToString()] = "Notifications sent.";
-                                }
-                                else
-                                {
-                                    TempData[CT.Web.Common.CommonUtility.Error.ToString()] = "Error Occurred.";
-                                }
-                            }
-                        }
-                    }
-                }
+                    UserID = User.UserId,
+                    RoleID = User.RoleId,
+                    VehicleID = vehicleID,
+                    Body = body,
+                    Title = ConfigurationManager.AppSettings["NotificationTitle"]
+                };
+                BaseEntity baseEntity = new VehicleService().AddNotification(notificationEntity);
+                TempData[CT.Web.Common.CommonUtility.Success.ToString()] = "Notifications sent.";
             }
+            else
+                TempData[CT.Web.Common.CommonUtility.Error.ToString()] = "Error Occurred.";
+
             return RedirectToAction("Index");
         }
     }

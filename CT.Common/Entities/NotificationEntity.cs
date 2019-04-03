@@ -13,6 +13,7 @@ namespace CT.Common.Entities
         public long VehicleID { get; set; }
         public string Body { get; set; }
         public string Title { get; set; }
+        public long NotificationTo { get; set; }
         public long CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
     }

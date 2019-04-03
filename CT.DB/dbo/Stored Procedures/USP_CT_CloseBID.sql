@@ -1,7 +1,7 @@
 ﻿--declare @st int,@msg nvarchar(100)
 --exec USP_CT_CloseBID 0,@st out,@msg out
 --select @st st,@msg msg
-CREATE PROCEDURE USP_CT_CloseBID
+CREATE PROCEDURE [dbo].[USP_CT_CloseBID]
 (
 @BidID bigint,
 @Status int out,
@@ -33,7 +33,7 @@ BEGIN
 		end
 		else
 		begin
-			create table #tempBIDClose (ID int, token varchar, IsActive bit)
+			create table #tempBIDClose (ID int, token varchar(max), VehicleID bigint, IsActive bit)
 			select * into #tempVehicle 
 			from CT_TRAN_Vehicle 
 			where IsActive = 1 and IsDelete = 0 and IsDealClosed = 0 and GETDATE() > BidTime
@@ -49,15 +49,15 @@ BEGIN
 				select top 1 @BidID = ID, @VehicleID = VehicleID, @DealerID = DealerID 
 				from CT_TRAN_VehicleBID 
 				where VehicleID = @VehicleID order by BIDAmount desc
-				if (select IsDealClosed from CT_TRAN_Vehicle where ID = @VehicleID) = 0
+				if @BidID > 0 and @DealerID > 0 and ((select IsDealClosed from CT_TRAN_Vehicle where ID = @VehicleID) = 0)
 				begin
 					UPDATE CT_TRAN_Vehicle SET IsDealClosed = 1, BidID = @BidID, ModifiedOn = GETDATE() WHERE ID= @VehicleID;
-					insert into #tempBIDClose (ID, token, IsActive) 
-					select u.UserID, u.Token, (case when bd.DealerID = @DealerID then 1 else 0 end) 
+					insert into #tempBIDClose (ID, token, VehicleID, IsActive) 
+					select u.UserID, u.Token, bd.VehicleID, (case when bd.DealerID = @DealerID then 1 else 0 end) 
 					from CT_TRAN_VehicleBID bd 
 					left outer join CT_TRAN_UserToken u on bd.DealerID = u.UserID
 					where bd.VehicleID = @VehicleID 
-					group by u.UserID,u.Token,bd.DealerID;
+					group by u.UserID,u.Token,bd.VehicleID,bd.DealerID;
 				end
 			FETCH NEXT FROM db_cursor INTO @VehicleID 
 			END 

@@ -5,6 +5,7 @@ using CT.Service.Repository;
 using Dapper;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
@@ -393,14 +394,33 @@ namespace CT.Service.UserService
                 entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
                 entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
                 Log.Info("----Info CloseBID method Exit----");
-                if (entity.ResponseStatus.Status == 1)
+                if (entity.ResponseStatus.Status == 1 && entity.ListUsers.Count > 0)
                 {
                     foreach (var user in entity.ListUsers)
                     {
-                        Task.Factory.StartNew(() =>
+                        try
                         {
-                            new FBNotification().SendDealClosedNotification(user.token, user.IsActive);
-                        });
+                            if (!String.IsNullOrWhiteSpace(user.token))
+                            {
+                                int result = new FBNotification().SendDealClosedNotification(user.token, string.Empty, user.IsActive);
+                                if (result == 1)
+                                {
+                                    NotificationEntity notificationEntity = new NotificationEntity
+                                    {
+                                        UserID = 1,
+                                        RoleID = 1,
+                                        VehicleID = user.VehicleID,
+                                        NotificationTo = user.ID,
+                                        Body = user.IsActive ? ConfigurationManager.AppSettings["DealClosedWon"] : ConfigurationManager.AppSettings["DealClosedLost"],
+                                        Title = ConfigurationManager.AppSettings["DealTitle"]
+                                    };
+                                    BaseEntity baseEntity = new VehicleService.VehicleService().AddNotification(notificationEntity);
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                        }
                     }
                 }
                 return entity;

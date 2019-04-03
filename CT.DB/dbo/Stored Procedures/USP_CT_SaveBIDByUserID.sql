@@ -50,7 +50,7 @@ BEGIN
 			SET @Message = dbo.UDF_CT_SuccessMessage('insert');	
 			if (@BidTime < 120)
 			begin
-				update CT_TRAN_Vehicle set BidTime = DATEADD(SECOND,120,GETDATE()) where ID = @VehicleID
+				update CT_TRAN_Vehicle set BidTime = DATEADD(SECOND,120,BidTime) where ID = @VehicleID
 			end
 
 			Select ID,VehicleName,StockID,Description,BidTime,(CAST(Datediff(s, GETDATE(), BidTime) AS BIGINT)*1000) as BidTimeMilliSecs,

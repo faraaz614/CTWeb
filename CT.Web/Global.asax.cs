@@ -1,9 +1,11 @@
-﻿using CT.Web.Common;
+﻿using CT.Service.UserService;
+using CT.Web.Common;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Timers;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -14,12 +16,27 @@ namespace CT.Web
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+        static Timer timer = null;
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            if (timer == null)
+            {
+                timer = new Timer();
+                timer.Interval = 300000; // Every 5 min
+                timer.Elapsed += new ElapsedEventHandler(CloseDealByTimer);
+                timer.Start();
+            }
+        }
+
+        private void CloseDealByTimer(object sender, ElapsedEventArgs e)
+        {
+            new UserService().CloseBID(0);
         }
 
         protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)

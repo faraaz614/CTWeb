@@ -527,6 +527,7 @@ namespace CT.Service.VehicleService
                 param.Add("@UserID", notificationEntity.UserID);
                 param.Add("@RoleID", notificationEntity.RoleID);
                 param.Add("@VehicleID", notificationEntity.VehicleID);
+                param.Add("@NotificationTo", notificationEntity.NotificationTo);
                 param.Add("@Body", notificationEntity.Body);
                 param.Add("@Title", notificationEntity.Title);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
