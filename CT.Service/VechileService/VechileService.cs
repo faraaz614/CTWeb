@@ -241,6 +241,7 @@ namespace CT.Service.VehicleService
                 param.Add("@RoleID", VehicleEntity.RoleID);
                 param.Add("@SearchText", VehicleEntity.SearchText);
                 param.Add("@Sort", VehicleEntity.Sort);
+                param.Add("@SortBy", VehicleEntity.SortBy);
                 param.Add("@Total", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
@@ -250,6 +251,7 @@ namespace CT.Service.VehicleService
                 entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
                 entity.SearchText = VehicleEntity.SearchText;
                 entity.Sort = VehicleEntity.Sort;
+                entity.SortBy = VehicleEntity.SortBy;
                 entity.PageNo = VehicleEntity.PageNo;
                 entity.PageSize = VehicleEntity.PageSize;
                 entity.Action = VehicleEntity.Action;

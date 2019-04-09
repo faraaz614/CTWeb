@@ -31,7 +31,7 @@
         @for (int i = 1; i <= total; i++)
         {
             <li class="page-item @(i == Model.PageNo ? "disabled" : string.Empty)">
-                <a class="page-link" href="@Url.Action(Model.Action, Model.Controller,new { SearchText = Model.SearchText, PageNo = i, PageSize = Model.PageSize, Sort= Model.Sort })">
+                <a class="page-link" href="@Url.Action(Model.Action, Model.Controller,new { SearchText = Model.SearchText, PageNo = i, PageSize = Model.PageSize, Sort= Model.Sort, SortBy = Model.SortBy })">
                     @i
                 </a>
             </li>

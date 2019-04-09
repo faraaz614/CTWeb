@@ -7,6 +7,7 @@ CREATE PROCEDURE [dbo].[USP_CT_GetVehicles]
 (
 @SearchText nvarchar(150) = NULL,
 @Sort nvarchar(50) = NULL,
+@SortBy nvarchar(50) = NULL,
 @Skip int,
 @Take int,
 @UserID bigint,
@@ -34,7 +35,7 @@ BEGIN
 							(CAST(Datediff(s, GETDATE(), v.BidTime) AS BIGINT)*1000) as BidTimeMilliSecs,vi.ImageName,
 							vd.Make,vd.Model,vd.Variant,vd.YearOfManufacturing,vd.Kilometers,vd.Transmission,vd.RegistrationNo,fl.Type,
 							dt.IsRCavailable,dt.Hypothication,dt.IsNOCavailable,dt.NoOfOwners,dt.NoOfKeys,dt.IsInsuranceAvailable,dt.IsComprehensive,
-							dt.IsThirdParty,dt.InsuranceExpiryDate,n.VehicleID as NotificationVID,vb.BIDAmount 
+							dt.IsThirdParty,dt.InsuranceExpiryDate,n.VehicleID as NotificationVID,vb.BIDAmount,v.CreatedOn 
 							from CT_TRAN_Vehicle v 
 							left join CT_TRAN_VehicleDetail vd on v.ID = vd.VehicleID 
 							left join CT_TRAN_VehicleImage vi on v.ID = vi.VehicleID 
@@ -62,32 +63,41 @@ BEGIN
 			begin
 				if (@Sort = 'ModifiedOn')
 				begin
-					set @SQLQuery += ' ORDER BY ModifiedOn desc';	
+					set @SQLQuery += ' ORDER BY ModifiedOn';	
 				end
 				else if (@Sort = 'CarName')
 				begin
-					set @SQLQuery += ' ORDER BY VehicleName desc';	
+					set @SQLQuery += ' ORDER BY VehicleName';	
 				end
 				else if (@Sort = 'StockID')
 				begin
-					set @SQLQuery += ' ORDER BY StockID desc';	
+					set @SQLQuery += ' ORDER BY StockID';	
 				end
 				else if (@Sort = 'Model')
 				begin
-					set @SQLQuery += ' ORDER BY Model desc';	
+					set @SQLQuery += ' ORDER BY Model';	
 				end
 				else if (@Sort = 'DealStatus')
 				begin
-					set @SQLQuery += ' ORDER BY IsDealClosed desc';	
+					set @SQLQuery += ' ORDER BY IsDealClosed';	
 				end
 				else if (@Sort = 'Status')
 				begin
-					set @SQLQuery += ' ORDER BY IsActive desc';	
+					set @SQLQuery += ' ORDER BY IsActive';	
+				end
+				else if (@Sort = 'Date')
+				begin
+					set @SQLQuery += ' ORDER BY CreatedOn';	
 				end
 			end
 			else
 			begin
-				set @SQLQuery += ' ORDER BY ModifiedOn desc';
+				set @SQLQuery += ' ORDER BY ModifiedOn';
+			end
+
+			if (@SortBy is not null and @SortBy != '' and @SortBy = 'd')
+			begin
+				set @SQLQuery += ' desc';
 			end
 
 			set @SQLQuery += ' OFFSET '+ CONVERT(varchar(10), @Skip) +' ROWS FETCH NEXT '+ CONVERT(varchar(10), @Take) +' ROWS ONLY;';

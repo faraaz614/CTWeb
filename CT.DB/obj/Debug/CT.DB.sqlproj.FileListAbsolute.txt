@@ -19,7 +19,6 @@ C:\Users\RFI\Downloads\haf\Project Rafeeq\cartimez web\CTWeb\CT.DB\obj\Debug\CT.
 D:\Project Rafeeq\cartimez web\CTWeb\CT.DB\bin\Debug\CT.DB.dacpac
 D:\Project Rafeeq\cartimez web\CTWeb\CT.DB\bin\Debug\CT.DB.dll
 D:\Project Rafeeq\cartimez web\CTWeb\CT.DB\bin\Debug\CT.DB.pdb
-D:\Project Rafeeq\cartimez web\CTWeb\CT.DB\obj\Debug\CT.DB.sqlprojAssemblyReference.cache
 D:\Project Rafeeq\cartimez web\CTWeb\CT.DB\obj\Debug\Model.xml
 D:\Project Rafeeq\cartimez web\CTWeb\CT.DB\obj\Debug\refactor.xml
 D:\Project Rafeeq\cartimez web\CTWeb\CT.DB\obj\Debug\postdeploy.sql

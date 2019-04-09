@@ -1,6 +1,7 @@
 ﻿@model CT.Common.Entities.BaseVehicleEntity
 @{
     ViewBag.Title = "Manage Cars";
+    string SortBy = Model.SortBy == "d" ? "a" : "d";
 }
 @Html.Partial("~/Views/Vehicle/_VehicleTabs.cshtml", Model)
 <div class="row">
@@ -16,30 +17,32 @@
                         <thead class=" text-primary">
                             <tr>
                                 <th>
-                                    ID
+                                    <a class="page-link" href="@Url.Action(Model.Action, Model.Controller,new { SearchText = Model.SearchText, PageNo = 1, PageSize = Model.PageSize, Sort= "Date", SortBy = SortBy })">
+                                        Date
+                                    </a>
                                 </th>
                                 <th>
-                                    <a class="page-link" href="@Url.Action(Model.Action, Model.Controller,new { SearchText = Model.SearchText, PageNo = 1, PageSize = Model.PageSize, Sort= "CarName" })">
+                                    <a class="page-link" href="@Url.Action(Model.Action, Model.Controller,new { SearchText = Model.SearchText, PageNo = 1, PageSize = Model.PageSize, Sort= "CarName", SortBy = SortBy })">
                                         Car Name
                                     </a>
                                 </th>
                                 <th>
-                                    <a class="page-link" href="@Url.Action(Model.Action, Model.Controller,new { SearchText = Model.SearchText, PageNo = 1, PageSize = Model.PageSize, Sort= "StockID" })">
+                                    <a class="page-link" href="@Url.Action(Model.Action, Model.Controller,new { SearchText = Model.SearchText, PageNo = 1, PageSize = Model.PageSize, Sort= "StockID", SortBy = SortBy })">
                                         StockID
                                     </a>                                    
                                 </th>
                                 <th>
-                                    <a class="page-link" href="@Url.Action(Model.Action, Model.Controller,new { SearchText = Model.SearchText, PageNo = 1, PageSize = Model.PageSize, Sort= "Model" })">
+                                    <a class="page-link" href="@Url.Action(Model.Action, Model.Controller,new { SearchText = Model.SearchText, PageNo = 1, PageSize = Model.PageSize, Sort= "Model", SortBy = SortBy })">
                                         Model
                                     </a>
                                 </th>
                                 <th>
-                                    <a class="page-link" href="@Url.Action(Model.Action, Model.Controller,new { SearchText = Model.SearchText, PageNo = 1, PageSize = Model.PageSize, Sort= "DealStatus" })">
+                                    <a class="page-link" href="@Url.Action(Model.Action, Model.Controller,new { SearchText = Model.SearchText, PageNo = 1, PageSize = Model.PageSize, Sort= "DealStatus", SortBy = SortBy })">
                                         Deal Status
                                     </a>
                                 </th>
                                 <th>
-                                    <a class="page-link" href="@Url.Action(Model.Action, Model.Controller,new { SearchText = Model.SearchText, PageNo = 1, PageSize = Model.PageSize, Sort= "Status" })">
+                                    <a class="page-link" href="@Url.Action(Model.Action, Model.Controller,new { SearchText = Model.SearchText, PageNo = 1, PageSize = Model.PageSize, Sort= "Status", SortBy = SortBy })">
                                         Status
                                     </a>
                                 </th>
@@ -57,7 +60,7 @@
                                 string image = !String.IsNullOrWhiteSpace(vehicle.ImageName) ? vehicle.ImageName : "noimage.PNG";
                             <tr>
                                 <td>
-                                    @((Model.ListVehicles.IndexOf(vehicle) + 1) + ((Model.PageNo - 1) * Model.PageSize))
+                                    @vehicle.CreatedOn
                                 </td>
                                 <td>
                                     @vehicle.VehicleName

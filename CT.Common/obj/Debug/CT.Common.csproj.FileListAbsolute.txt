@@ -12,7 +12,6 @@ D:\Project Rafeeq\cartimez web\CTWeb\CT.Common\bin\Debug\CT.Common.pdb
 D:\Project Rafeeq\cartimez web\CTWeb\CT.Common\bin\Debug\Newtonsoft.Json.dll
 D:\Project Rafeeq\cartimez web\CTWeb\CT.Common\bin\Debug\System.Web.Mvc.dll
 D:\Project Rafeeq\cartimez web\CTWeb\CT.Common\bin\Debug\System.Web.Mvc.xml
-D:\Project Rafeeq\cartimez web\CTWeb\CT.Common\obj\Debug\CT.Common.csprojAssemblyReference.cache
 D:\Project Rafeeq\cartimez web\CTWeb\CT.Common\obj\Debug\CT.Common.csproj.CoreCompileInputs.cache
 D:\Project Rafeeq\cartimez web\CTWeb\CT.Common\obj\Debug\CT.Common.csproj.CopyComplete
 D:\Project Rafeeq\cartimez web\CTWeb\CT.Common\obj\Debug\CT.Common.dll

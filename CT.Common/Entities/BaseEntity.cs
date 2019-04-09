@@ -14,6 +14,7 @@
         public string SearchText { get; set; }
         public string refreshedToken { get; set; }
         public string Sort { get; set; }
+        public string SortBy { get; set; }
         public int PageNo { get; set; }
         public int PageSize { get; set; }
         public int PageTotal { get; set; }

@@ -18,7 +18,7 @@ namespace CT.Web.Controllers
 {
     public class VehicleController : BaseController
     {
-        public ActionResult Index(string SearchText, int PageNo = 1, int PageSize = 10, string Sort = null)
+        public ActionResult Index(string SearchText, int PageNo = 1, int PageSize = 10, string Sort = null, string SortBy = null)
         {
             VehicleEntity vehicleEntity = new VehicleEntity
             {
@@ -30,6 +30,7 @@ namespace CT.Web.Controllers
                 PageSize = PageSize,
                 SearchText = SearchText,
                 Sort = !String.IsNullOrWhiteSpace(Sort) ? Sort : "ModifiedOn",
+                SortBy = !String.IsNullOrWhiteSpace(SortBy) ? SortBy : "d",
             };
             BaseVehicleEntity list = new VehicleService().GetVehicles(vehicleEntity);
             return View(list);
