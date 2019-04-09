@@ -1,6 +1,6 @@
 ﻿-- =============================================
 --declare @st int,@msg nvarchar(100), @t int
---exec [USP_CT_GetVehicles] null,null,0,10, 1, 1, @t out, @st out, @msg out
+--exec [USP_CT_GetVehicles] null,null,null,0,10, 1, 1, @t out, @st out, @msg out
 --select @st st,@msg msg, @t take
 -- =============================================
 CREATE PROCEDURE [dbo].[USP_CT_GetVehicles]

@@ -40,6 +40,15 @@
                     <label for="form1">Bid Duration</label>
                     @Html.DropDownListFor(x => x.BidDurationID, Model.BidDurationList, new { @class = "form-control" })
                 </div>
+                @if (Model.IsDealClosed)
+                {
+                    <div class="form-group">
+                        <label for="form1">Deal Status</label>
+                        <input type="hidden" name="IsDealClosed" id="IsDealClosed" value="@(Model.IsDealClosed ? "True" : "False")" />
+                        <input type="checkbox" id="IsDealClosed-@Model.ID" name="IsDealClosedstatus" data-vehicleid="@Model.ID" class="switch-input updateisdealclosed" @(!Model.IsDealClosed ? "checked" : string.Empty)>
+                        <label for="IsDealClosed-@Model.ID" class="switch-label"><span class="toggle--on">Open</span><span class="toggle--off">Close</span></label>
+                    </div>
+                }
                 <div class="form-group">
                     <label for="form1">IsActive</label>
                     <input type="hidden" name="IsActive" id="IsActive" value="@(Model.IsActive ? "True" : "False")" />

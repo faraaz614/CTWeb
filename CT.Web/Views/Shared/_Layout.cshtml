@@ -553,6 +553,15 @@
                 }
             });
 
+            $(".updateisdealclosed").on("click", function () {
+                if ($("#IsDealClosed").val() == "True") {
+                    $("#IsDealClosed").val("False");
+                }
+                else {
+                    $("#IsDealClosed").val("True");
+                }
+            });
+
             $(".vehiclestatus").on("click", function () {
                 var id = $(this).data("vehicleid");
                 $.ajax({

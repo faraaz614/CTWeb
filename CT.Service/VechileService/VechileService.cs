@@ -70,6 +70,7 @@ namespace CT.Service.VehicleService
                 param.Add("@VehicleName", VehicleEntity.VehicleName);
                 param.Add("@StockID", VehicleEntity.StockID);
                 param.Add("@Description", VehicleEntity.Description);
+                param.Add("@IsDealClosed", VehicleEntity.IsDealClosed);
                 param.Add("@minutes", VehicleEntity.BidDurationID);
                 param.Add("@IsActive", VehicleEntity.IsActive);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
