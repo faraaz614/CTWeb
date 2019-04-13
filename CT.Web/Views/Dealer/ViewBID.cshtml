@@ -33,6 +33,9 @@
                                     Dealer Name
                                 </th>
                                 <th>
+                                    Mobile
+                                </th>
+                                <th>
                                     BID Amount
                                 </th>
                                 @if (!Model.VehicleEntity.IsDealClosed)
@@ -46,20 +49,23 @@
                         <tbody>
                             @foreach (var bid in Model.ListBids)
                             {
-                                <tr>
+                            <tr>
+                                <td>
+                                    @(bid.FirstName + " " + bid.LastName)
+                                </td>
+                                <td>
+                                    @bid.Mobile
+                                </td>
+                                <td>
+                                    @bid.BIDAmount
+                                </td>
+                                @if (!Model.VehicleEntity.IsDealClosed)
+                                {
                                     <td>
-                                        @bid.DealerName
+                                        <a href="@Url.Action("CloseBID","Dealer",new { VehicleID = Model.VehicleEntity.ID, BidID = bid.ID })" class="btn btn-success btn-rounded btn-sm my-0">Close</a>
                                     </td>
-                                    <td>
-                                        @bid.BIDAmount
-                                    </td>
-                                    @if (!Model.VehicleEntity.IsDealClosed)
-                                    {
-                                        <td>
-                                            <a href="@Url.Action("CloseBID","Dealer",new { VehicleID = Model.VehicleEntity.ID, BidID = bid.ID })" class="btn btn-success btn-rounded btn-sm my-0">Close</a>
-                                        </td>
-                                    }
-                                </tr>
+                                }
+                            </tr>
                             }
                         </tbody>
                     </table>

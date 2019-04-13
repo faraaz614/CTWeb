@@ -1,7 +1,7 @@
 ﻿-- =============================================
--- Author:		<Author,,Name>
--- Create date: <Create Date,,>
--- Description:	<Description,,>
+--declare @st int,@msg nvarchar(100)
+--exec [USP_CT_GetBids] 1, 1, @st out, @msg out
+--select @st st,@msg msg
 -- =============================================
 CREATE PROCEDURE [dbo].[USP_CT_GetBids]
 (
@@ -22,8 +22,9 @@ BEGIN
 			Select bid.VehicleID,veh.VehicleName,veh.StockID,MAX(bid.BIDAmount) as BIDAmount,veh.IsDealClosed
 			from CT_TRAN_VehicleBID bid 
 			join CT_TRAN_Vehicle veh on bid.VehicleID = veh.ID
-			where veh.IsDelete = 0 and veh.IsActive = 1
-			group by bid.VehicleID,veh.VehicleName,veh.StockID,veh.IsDealClosed;
+			where veh.IsDelete = 0 and veh.IsActive = 1 and bid.IsActive = 1 
+			group by bid.VehicleID,veh.VehicleName,veh.StockID,veh.IsDealClosed 
+			order by IsDealClosed;
 			set @Message = dbo.UDF_CT_SuccessMessage('')
 		end--if
 		else

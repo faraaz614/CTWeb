@@ -27,13 +27,13 @@ BEGIN
 		Select * from CT_TRAN_DocumentDetail where VehicleID = @VehicleID;
 		Select * from CT_TRAN_TechnicalDetails where VehicleID = @VehicleID;
 		with cte as
-		(Select bid.ID,veh.VehicleName,veh.StockID,usr.UserName as DealerName,bid.BIDAmount,bid.CreatedOn,
+		(Select bid.ID,veh.VehicleName,veh.StockID,usr.FirstName,usr.LastName,usr.Mobile,bid.BIDAmount,bid.CreatedOn,
 		ROW_NUMBER() over (partition by bid.DealerID order by bid.BIDAmount desc) as ron
 		from CT_TRAN_VehicleBID bid
 		join CT_TRAN_Vehicle veh on bid.VehicleID = veh.ID
 		join CT_TRAN_User usr on bid.DealerID = usr.ID
-		where VehicleID = @VehicleID and usr.IsActive = 1) 
-		select ID,VehicleName,StockID,DealerName,BIDAmount from cte
+		where VehicleID = @VehicleID and usr.IsActive = 1 and bid.IsActive = 1) 
+		select ID,VehicleName,StockID,FirstName,LastName,Mobile,BIDAmount from cte
 		where ron = 1;
 		SET @Message = dbo.UDF_CT_SuccessMessage('') ;
 	END TRY	

@@ -3,7 +3,7 @@
 -- Create date: <21-dec-2018>
 -- Description:	<Save Vehicle BID>
 -- =============================================
-create PROCEDURE USP_CT_Save_VehicleBID
+CREATE PROCEDURE [dbo].[USP_CT_Save_VehicleBID]
 (
 @UserID bigint,
 @RoleID int,
@@ -26,12 +26,14 @@ INSERT INTO CT_TRAN_VehicleBID
            ,[BIDAmount]
            ,[Description]
            ,[DealerID]
+		   ,[IsActive]
            ,[CreatedOn])
      VALUES
            (@VehicleID
            ,@BIDAmount
            ,@Description
            ,@DealerID
+		   ,1
            ,GETDATE())
 
 	SET  @Status = 1;  

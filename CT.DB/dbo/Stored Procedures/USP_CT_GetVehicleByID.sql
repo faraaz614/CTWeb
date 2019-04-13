@@ -36,7 +36,7 @@ BEGIN
 		Select * from CT_TRAN_VehicleImage where VehicleID = @VehicleID
 		Select * from CT_TRAN_DocumentDetail where VehicleID = @VehicleID
 		Select * from CT_TRAN_TechnicalDetails where VehicleID = @VehicleID
-		SELECT VehicleID,DealerID,Description,BIDAmount FROM CT_TRAN_VehicleBID where VehicleID = @VehicleID
+		SELECT VehicleID,DealerID,Description,BIDAmount FROM CT_TRAN_VehicleBID where VehicleID = @VehicleID and IsActive = 1
 		SET @Message = dbo.UDF_CT_SuccessMessage('') ;
 	END TRY	
 	BEGIN CATCH

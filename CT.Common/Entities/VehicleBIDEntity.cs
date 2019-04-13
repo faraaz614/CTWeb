@@ -32,6 +32,9 @@ namespace CT.Common.Entities
         public string DealerName { get; set; }
         public bool IsDealClosed { get; set; }
         public long BidID { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Mobile { get; set; }
         public int VechileStatus { get; set; } //(1 deactivate,2 close deal,3 delete)
         public DateTime CreatedOn { get; set; }
         public DateTime ModifiedOn { get; set; }

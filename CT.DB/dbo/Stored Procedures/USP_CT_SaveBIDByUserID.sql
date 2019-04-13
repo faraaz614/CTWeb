@@ -26,9 +26,9 @@ BEGIN
 		Select @IsDealClosed = IsDealClosed, @BidTime = DATEDIFF(SECOND,GETDATE(), BidTime) from CT_TRAN_Vehicle 
 		where ID = @VehicleID and IsActive = 1 and IsDelete = 0;
 
-		if ((select COUNT(*) from CT_TRAN_VehicleBID where VehicleID = @VehicleID) > 0)
+		if ((select COUNT(*) from CT_TRAN_VehicleBID where VehicleID = @VehicleID and IsActive = 1) > 0)
 		begin
-			select @PreviousBidAmount = MAX(BIDAmount) from CT_TRAN_VehicleBID where VehicleID = @VehicleID;
+			select @PreviousBidAmount = MAX(BIDAmount) from CT_TRAN_VehicleBID where VehicleID = @VehicleID and IsActive = 1;
 		end
 
 		if (@IsDealClosed = 1)
@@ -45,8 +45,8 @@ BEGIN
 		end 
 		else if (@IsDealClosed = 0 and @PreviousBidAmount < @BIDAmount and @BidTime > -5)
 		begin
-			INSERT INTO CT_TRAN_VehicleBID (VehicleID,BIDAmount,DealerID,Description,CreatedOn,ModifiedOn)
-			SELECT @VehicleID,@BIDAmount,@UserID,null,GETDATE(),GETDATE();
+			INSERT INTO CT_TRAN_VehicleBID (VehicleID,BIDAmount,DealerID,Description,IsActive,CreatedOn,ModifiedOn)
+			SELECT @VehicleID,@BIDAmount,@UserID,null,1,GETDATE(),GETDATE();
 			SET @Message = dbo.UDF_CT_SuccessMessage('insert');	
 			if (@BidTime < 120)
 			begin

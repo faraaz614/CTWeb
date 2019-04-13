@@ -3,7 +3,7 @@
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE USP_CT_SaveBid
+CREATE PROCEDURE [dbo].[USP_CT_SaveBid]
 (
 @UserID bigint,
 @RoleID int,
@@ -22,8 +22,8 @@ BEGIN
 		SET  @Status = 1;  
 		If not exists(SELECT * FROM CT_TRAN_VehicleBID WHERE VehicleID = @VehicleID and DealerID = @UserID)
 			begin
-				INSERT INTO CT_TRAN_VehicleBID (VehicleID,BIDAmount,Description,DealerID,CreatedOn,ModifiedOn)
-				SELECT @VehicleID,@BIDAmount,@Description,@UserID,GETDATE(),GETDATE();
+				INSERT INTO CT_TRAN_VehicleBID (VehicleID,BIDAmount,Description,DealerID,IsActive,CreatedOn,ModifiedOn)
+				SELECT @VehicleID,@BIDAmount,@Description,@UserID,1,GETDATE(),GETDATE();
 				SET @Message = dbo.UDF_CT_SuccessMessage('insert') ;
 			end
 		else

@@ -42,7 +42,7 @@ BEGIN
 							left outer join CT_TRAN_Notification n on v.ID = n.VehicleID 
 							left outer join CT_SYS_FuelType fl on vd.FuelTypeID = fl.ID 
 							left outer join CT_TRAN_DocumentDetail dt on v.ID = dt.VehicleID 
-							left outer join CT_TRAN_VehicleBID vb on v.ID = vb.VehicleID 
+							left outer join CT_TRAN_VehicleBID vb on v.ID = vb.VehicleID and vb.IsActive = 1 
 							where v.IsDelete = 0) 
 							select * from cte where VIVID = 1 ';
 

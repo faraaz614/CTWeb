@@ -19,14 +19,14 @@ BEGIN
 
 		if (@BidID > 0)
 		begin
-			select @VehicleID = VehicleID, @DealerID = DealerID from CT_TRAN_VehicleBID where ID = @BidID;
+			select @VehicleID = VehicleID, @DealerID = DealerID from CT_TRAN_VehicleBID where ID = @BidID and IsActive = 1;
 			if (select IsDealClosed from CT_TRAN_Vehicle where ID = @VehicleID) = 0
 			begin
 				UPDATE CT_TRAN_Vehicle SET IsDealClosed = 1, BidID = @BidID, ModifiedOn = GETDATE() WHERE ID= @VehicleID;
 				select u.UserID, u.Token as token, (case when bd.DealerID = @DealerID then 1 else 0 end) as IsActive 
 				from CT_TRAN_VehicleBID bd 
 				left outer join CT_TRAN_UserToken u on bd.DealerID = u.UserID
-				where bd.VehicleID = @VehicleID 
+				where bd.VehicleID = @VehicleID and bd.IsActive = 1 
 				group by u.UserID,u.Token,bd.DealerID;
 			end
 			SET @Message = 'Vehicle Deal closed successfully';
@@ -56,7 +56,7 @@ BEGIN
 					select u.UserID, u.Token, bd.VehicleID, (case when bd.DealerID = @DealerID then 1 else 0 end) 
 					from CT_TRAN_VehicleBID bd 
 					left outer join CT_TRAN_UserToken u on bd.DealerID = u.UserID
-					where bd.VehicleID = @VehicleID 
+					where bd.VehicleID = @VehicleID and bd.IsActive = 1 
 					group by u.UserID,u.Token,bd.VehicleID,bd.DealerID;
 				end
 			FETCH NEXT FROM db_cursor INTO @VehicleID 

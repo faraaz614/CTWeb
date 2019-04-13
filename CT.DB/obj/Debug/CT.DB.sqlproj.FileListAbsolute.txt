@@ -25,4 +25,3 @@ D:\Project Rafeeq\cartimez web\CTWeb\CT.DB\obj\Debug\postdeploy.sql
 D:\Project Rafeeq\cartimez web\CTWeb\CT.DB\obj\Debug\predeploy.sql
 D:\Project Rafeeq\cartimez web\CTWeb\CT.DB\obj\Debug\CT.DB.dll
 D:\Project Rafeeq\cartimez web\CTWeb\CT.DB\obj\Debug\CT.DB.pdb
-D:\Project Rafeeq\cartimez web\CTWeb\CT.DB\obj\Debug\CT.DB.sqlprojAssemblyReference.cache

@@ -28,7 +28,7 @@ BEGIN
 			SET  @Total = 0;
 
 			select VehicleID,MAX(BIDAmount) as BIDAmount into #tempBIDS from CT_TRAN_VehicleBID
-			where DealerID = @UserID
+			where DealerID = @UserID and IsActive = 1
 			group by VehicleID
 
 			set @SQLQuery = 'with cte as (select ROW_NUMBER() OVER(partition by CASE WHEN vi.VehicleID IS NOT NULL THEN vi.VehicleID ELSE v.ID END 

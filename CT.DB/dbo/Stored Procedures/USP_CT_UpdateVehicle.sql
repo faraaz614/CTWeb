@@ -34,7 +34,8 @@ BEGIN
 
 				if(@IsDealClosed = 0)
 				begin
-					Update CT_TRAN_Vehicle set IsDealClosed = 0, BidID = NULL where ID = @VehicleID;
+					Update CT_TRAN_Vehicle set IsDealClosed = 0, BidID = NULL, ModifiedOn = GETDATE() where ID = @VehicleID;
+					Update CT_TRAN_VehicleBID set IsActive = 0, ModifiedOn = GETDATE() where VehicleID = @VehicleID;
 				end
 				SET @Message = dbo.UDF_CT_SuccessMessage('update') ;
 			end
