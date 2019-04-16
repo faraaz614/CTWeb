@@ -18,5 +18,6 @@
         public const string Deactive_Delete_Close_Vehicle = "USP_CT_DeActive_Delete_Close_Vehicle";
         public const string SaveRegistration = "USP_CT_SaveRegistration";
         public const string CloseBID = "USP_CT_CloseBID";
+        public const string DashBoard = "USP_CT_DashBoard";
     }
 }

@@ -56,6 +56,7 @@
     <Compile Include="Common\FBNotification.cs" />
     <Compile Include="Common\VehicleStatus.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
+    <Compile Include="Entities\DashEntity.cs" />
     <Compile Include="Entities\DocumentDetailEntity.cs" />
     <Compile Include="Entities\FuelTypeEntity.cs" />
     <Compile Include="Entities\GenericErrorInfo.cs" />

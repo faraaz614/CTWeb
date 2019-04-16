@@ -507,5 +507,37 @@ namespace CT.Service.UserService
                 return entity;
             }
         }
+
+        public DashEntity DashBoard(UserEntity userEntity)
+        {
+            DashEntity entity = new DashEntity();
+            try
+            {
+                Log.Info("----Info DashBoard method start----");
+                Log.Info("@UserID" + userEntity.UserID);
+                Log.Info("@RoleID" + userEntity.RoleID);
+                Log.Info("Store Proc Name : USP_CT_DashBoard");
+                DynamicParameters param = new DynamicParameters();
+                param.Add("@UserID", userEntity.UserID);
+                param.Add("@RoleID", userEntity.RoleID);
+                param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
+                entity.dashEntities = GetItems<DashEntity>(CommandType.StoredProcedure, UserLiterals.DashBoard, param).ToList();
+                entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
+                entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
+                Log.Info("----Info DashBoard method Exit----");
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                entity.ResponseStatus.Status = 0;
+                entity.ResponseStatus.Message = ex.Message;
+                Log.Error("Error in DashBoard Method");
+                Log.Error("Error occured time : " + DateTime.UtcNow);
+                Log.Error("Error message : " + ex.Message);
+                Log.Error("Error StackTrace : " + ex.StackTrace);
+                return entity;
+            }
+        }
     }
 }

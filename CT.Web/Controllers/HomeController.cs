@@ -1,4 +1,6 @@
 ﻿using CT.Common.Common;
+using CT.Common.Entities;
+using CT.Service.UserService;
 using CT.Web.Common;
 using Newtonsoft.Json;
 using System;
@@ -15,19 +17,11 @@ namespace CT.Web.Controllers
 {
     public class HomeController : BaseController
     {
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            bool status = true;//db data
-            string message = "";//db data
-            if (status)
-            {
-                TempData[CommonUtility.Success.ToString()] = message;
-            }
-            else
-            {
-                TempData[CommonUtility.Error.ToString()] = message;
-            }
-            return View();
+            DashEntity model = new DashEntity();
+            model = new UserService().DashBoard(new UserEntity { UserID = User.UserId, RoleID = User.RoleId });
+            return View(model);
         }
 
         public ActionResult About()
