@@ -117,5 +117,6 @@
     <Build Include="dbo\Tables\CT_TRAN_UserToken.sql" />
     <Build Include="dbo\Stored Procedures\USP_CT_SaveRegistration.sql" />
     <Build Include="dbo\Stored Procedures\USP_CT_CloseBID.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_DashBoard.sql" />
   </ItemGroup>
 </Project>
