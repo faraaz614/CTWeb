@@ -12,6 +12,12 @@ namespace CT.Common.Entities
         public DashEntity()
         {
             dashEntities = new List<DashEntity>();
+            Combo = new List<Combo>
+            {
+                new Combo { ID = 1, Value = "Today" },
+                new Combo { ID = 2, Value = "Previous Week" },
+                new Combo { ID = 3, Value = "Previous Month" },
+            };
         }
 
         public string c1 { get; set; }
@@ -20,7 +26,10 @@ namespace CT.Common.Entities
         public string c4 { get; set; }
         public string c5 { get; set; }
         public string rowtype { get; set; }
+        public int Type { get; set; }
 
         public List<DashEntity> dashEntities { get; set; }
+
+        public List<Combo> Combo { get; set; }
     }
 }

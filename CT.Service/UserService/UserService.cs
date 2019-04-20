@@ -520,11 +520,14 @@ namespace CT.Service.UserService
                 DynamicParameters param = new DynamicParameters();
                 param.Add("@UserID", userEntity.UserID);
                 param.Add("@RoleID", userEntity.RoleID);
+                param.Add("@type", userEntity.Type);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
                 entity.dashEntities = GetItems<DashEntity>(CommandType.StoredProcedure, UserLiterals.DashBoard, param).ToList();
                 entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
                 entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
+                entity.Type = userEntity.Type;
+                entity.Combo.ForEach(x => { x.IsSelected = x.ID == userEntity.Type ? true : false; });
                 Log.Info("----Info DashBoard method Exit----");
                 return entity;
             }

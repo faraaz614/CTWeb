@@ -92,13 +92,15 @@ BEGIN
 			end
 			else
 			begin
-				set @SQLQuery += ' ORDER BY ModifiedOn';
+				set @SQLQuery += ' ORDER BY ModifiedOn desc';
 			end
 
 			if (@SortBy is not null and @SortBy != '' and @SortBy = 'd')
 			begin
 				set @SQLQuery += ' desc';
 			end
+
+			set @SQLQuery = REPLACE(@SQLQuery, ' desc desc', ' desc');
 
 			set @SQLQuery += ' OFFSET '+ CONVERT(varchar(10), @Skip) +' ROWS FETCH NEXT '+ CONVERT(varchar(10), @Take) +' ROWS ONLY;';
 			EXECUTE sp_executesql @SQLQuery

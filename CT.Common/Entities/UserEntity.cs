@@ -56,6 +56,7 @@ namespace CT.Common.Common
         public string token { get; set; }
         public bool IsActive { get; set; }
         public long VehicleID { get; set; }
+        public int Type { get; set; }
         public long CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
 
