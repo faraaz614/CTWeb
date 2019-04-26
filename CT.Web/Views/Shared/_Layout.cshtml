@@ -380,6 +380,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script>
         $(document).ready(function () {
             $("#btnShowPopup").hide();
@@ -524,6 +525,7 @@
                 });
             });
 
+            //change dealer status from grid
             $(".dealerstatus").on("click", function () {
                 var id = $(this).data("dealerid");
                 $.ajax({
@@ -544,6 +546,7 @@
                 });
             });
 
+            //  add/edit form for dealer/car
             $(".editdealerstatus, .addcaractive").on("click", function () {
                 if ($("#IsActive").val() == "True") {
                     $("#IsActive").val("False");
@@ -553,6 +556,7 @@
                 }
             });
 
+            //  add/edit form for car
             $(".updateisdealclosed").on("click", function () {
                 if ($("#IsDealClosed").val() == "True") {
                     $("#IsDealClosed").val("False");
@@ -562,6 +566,7 @@
                 }
             });
 
+            //car status from grid
             $(".vehiclestatus").on("click", function () {
                 var id = $(this).data("vehicleid");
                 $.ajax({
@@ -604,10 +609,10 @@
                 }
             });
 
-            $(".dashdrop").on("change", function () {
-                var type = $(this).val();
-                window.location = "/Home/Index?type="+type;
-            });
+            //dashboard deals
+            $("#startdate, #enddate").datepicker().datepicker("setDate", new Date());
+            $("#dashdealsform").submit();
+
         });
     </script>
 </body>

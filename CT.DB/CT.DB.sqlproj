@@ -118,5 +118,6 @@
     <Build Include="dbo\Stored Procedures\USP_CT_SaveRegistration.sql" />
     <Build Include="dbo\Stored Procedures\USP_CT_CloseBID.sql" />
     <Build Include="dbo\Stored Procedures\USP_CT_DashBoard.sql" />
+    <Build Include="dbo\Stored Procedures\USP_CT_DashDeals.sql" />
   </ItemGroup>
 </Project>

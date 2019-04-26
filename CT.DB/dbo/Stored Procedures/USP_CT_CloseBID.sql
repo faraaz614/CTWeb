@@ -46,6 +46,8 @@ BEGIN
 
 			WHILE @@FETCH_STATUS = 0  
 			BEGIN  
+				set @BidID = 0;
+				set @DealerID = 0;
 				select top 1 @BidID = ID, @VehicleID = VehicleID, @DealerID = DealerID 
 				from CT_TRAN_VehicleBID 
 				where VehicleID = @VehicleID order by BIDAmount desc

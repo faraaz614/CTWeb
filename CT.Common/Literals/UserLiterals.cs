@@ -19,5 +19,6 @@
         public const string SaveRegistration = "USP_CT_SaveRegistration";
         public const string CloseBID = "USP_CT_CloseBID";
         public const string DashBoard = "USP_CT_DashBoard";
+        public const string DashDeals = "USP_CT_DashDeals";
     }
 }

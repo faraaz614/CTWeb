@@ -19,14 +19,14 @@ BEGIN
 		if exists(select UserName from CT_TRAN_User where ID = @UserID and RoleID = @RoleID) and (@RoleID = 1)
 		begin --if
 			SET  @Status = 1;
-			Select bid.VehicleID,veh.VehicleName,veh.StockID,MAX(bid.BIDAmount) as BIDAmount,veh.IsDealClosed
-			from CT_TRAN_VehicleBID bid 
-			join CT_TRAN_Vehicle veh on bid.VehicleID = veh.ID
-			where veh.IsDelete = 0 and veh.IsActive = 1 and bid.IsActive = 1 
-			group by bid.VehicleID,veh.VehicleName,veh.StockID,veh.IsDealClosed 
+			Select veh.ID as VehicleID,veh.VehicleName,veh.StockID,veh.IsDealClosed,MAX(bid.BIDAmount) as BIDAmount
+			from CT_TRAN_Vehicle veh 
+			left outer join CT_TRAN_VehicleBID bid on bid.VehicleID = veh.ID
+			where veh.IsDelete = 0 and veh.IsActive = 1 
+			group by veh.ID,veh.VehicleName,veh.StockID,veh.IsDealClosed 
 			order by IsDealClosed;
 			set @Message = dbo.UDF_CT_SuccessMessage('')
-		end--if
+		end --if
 		else
 		begin
 			set @Status = 0;

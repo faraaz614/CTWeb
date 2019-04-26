@@ -19,16 +19,14 @@ namespace CT.Web.Controllers
 {
     public class HomeController : BaseController
     {
-        public ActionResult Index(int type = 0)
+        public ActionResult Index()
         {
             DashEntity model = new DashEntity();
             model = new UserService().DashBoard(new UserEntity
             {
                 UserID = User.UserId,
                 RoleID = User.RoleId,
-                Type = type == 0 ? CommonLiterals.DashBoard_Month : type,
             });
-            ViewBag.listItems = model.Combo.Select(x => new SelectListItem { Text = x.Value, Value = x.ID.ToString(), Selected = x.IsSelected }).ToList();
             return View(model);
         }
 
@@ -42,6 +40,13 @@ namespace CT.Web.Controllers
         {
             ViewBag.Message = "Your contact page.";
             return View();
+        }
+
+        public ActionResult DashDeals(string startdate, string enddate)
+        {
+            DashEntity model = new DashEntity();
+            model = new UserService().DashDeals(new UserEntity { startdate = startdate, enddate = enddate });
+            return PartialView("_deals", model);
         }
     }
 }

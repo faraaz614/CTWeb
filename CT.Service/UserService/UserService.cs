@@ -520,14 +520,45 @@ namespace CT.Service.UserService
                 DynamicParameters param = new DynamicParameters();
                 param.Add("@UserID", userEntity.UserID);
                 param.Add("@RoleID", userEntity.RoleID);
-                param.Add("@type", userEntity.Type);
                 param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
                 param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
                 entity.dashEntities = GetItems<DashEntity>(CommandType.StoredProcedure, UserLiterals.DashBoard, param).ToList();
                 entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
                 entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
-                entity.Type = userEntity.Type;
-                entity.Combo.ForEach(x => { x.IsSelected = x.ID == userEntity.Type ? true : false; });
+                Log.Info("----Info DashBoard method Exit----");
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                entity.ResponseStatus.Status = 0;
+                entity.ResponseStatus.Message = ex.Message;
+                Log.Error("Error in DashBoard Method");
+                Log.Error("Error occured time : " + DateTime.UtcNow);
+                Log.Error("Error message : " + ex.Message);
+                Log.Error("Error StackTrace : " + ex.StackTrace);
+                return entity;
+            }
+        }
+
+        public DashEntity DashDeals(UserEntity userEntity)
+        {
+            DashEntity entity = new DashEntity();
+            try
+            {
+                Log.Info("----Info DashBoard method start----");
+                Log.Info("@UserID" + userEntity.UserID);
+                Log.Info("@RoleID" + userEntity.RoleID);
+                Log.Info("Store Proc Name : USP_CT_DashBoard");
+                DynamicParameters param = new DynamicParameters();
+                param.Add("@UserID", userEntity.UserID);
+                param.Add("@RoleID", userEntity.RoleID);
+                param.Add("@StartDate", userEntity.startdate);
+                param.Add("@EndDate", userEntity.enddate);
+                param.Add("@Status", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                param.Add("@Message", dbType: DbType.String, direction: ParameterDirection.Output, size: 500);
+                entity.dashEntities = GetItems<DashEntity>(CommandType.StoredProcedure, UserLiterals.DashDeals, param).ToList();
+                entity.ResponseStatus.Status = param.Get<dynamic>("@Status");
+                entity.ResponseStatus.Message = param.Get<dynamic>("@Message");
                 Log.Info("----Info DashBoard method Exit----");
                 return entity;
             }
